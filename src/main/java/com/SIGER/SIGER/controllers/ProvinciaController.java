@@ -57,7 +57,7 @@ public class ProvinciaController extends BaseControllerImpl<Provincia, Provincia
 	public ResponseEntity<?> save(Provincia entity) {
 		if(StringUtils.isBlank(entity.getDenominacion()))
 			return new ResponseEntity(new Mensaje("La denominacion es obligatoria"), HttpStatus.BAD_REQUEST);
-		if(entity.getCodigo()<0)
+		if(entity.getCodigo().length() < 0)
 			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
 		try {
@@ -81,7 +81,7 @@ public class ProvinciaController extends BaseControllerImpl<Provincia, Provincia
 		}
 		if(StringUtils.isBlank(entity.getDenominacion()))
 			return new ResponseEntity(new Mensaje("La denominacion es obligatoria"), HttpStatus.BAD_REQUEST);
-		if(entity.getCodigo()<0)
+		if(entity.getCodigo().length() < 0)
 			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
 		try {
