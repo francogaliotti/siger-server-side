@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.SIGER.SIGER.entities.EstadoLicencia;
 import com.SIGER.SIGER.services.EstadoLicenciaServiceImpl;
@@ -24,9 +22,15 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	EstadoLicenciaServiceImpl estadoLicenciaServiceImpl;
 
 	@Override
+	@GetMapping("/list")
 	public ResponseEntity<?> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<EstadoLicencia>list = null;
+		try{
+			list = estadoLicenciaServiceImpl.FindAll();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity(list, HttpStatus.OK);
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@GetMapping("/detail/{id}")
 	public ResponseEntity<?> getOne(Long id) {
 		try {
 			if(estadoLicenciaServiceImpl.FindById(id).equals(false))
@@ -59,6 +64,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoLicencia estadoLicencia) {
 		try{
 			estadoLicencia = estadoLicenciaServiceImpl.Save(estadoLicencia);
@@ -69,6 +75,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, EstadoLicencia estadoLicencia) {
 		try {
 			if(estadoLicenciaServiceImpl.FindById(id).equals(false))
@@ -92,6 +99,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
 		try {
 			if(estadoLicenciaServiceImpl.FindById(id).equals(false))
