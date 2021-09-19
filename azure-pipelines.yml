@@ -20,3 +20,10 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: AzureMysqlDeployment@1
+  inputs:
+    ConnectedServiceName: Suscripción de Visual Studio Enterprise - MPN
+    ServerName: dpv-siger.mysql.database.azure.com
+    #DatabaseName: # Optional
+    SqlUsername: sqladmin@dpv-siger
+    SqlPassword: nR2#uFE@Y9nO
