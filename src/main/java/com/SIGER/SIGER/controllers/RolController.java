@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.dto.Mensaje;
+import com.SIGER.SIGER.presentation.dto.Mensaje;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

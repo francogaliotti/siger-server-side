@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.dto;
+package com.SIGER.SIGER.presentation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class Mensaje {
+public class EstadoBoletaDTO {
 	
-	private String mensaje;
+	private int codEstadoBoleta;
+	
+	private String nombreEstadoBoleta;
 
 }
