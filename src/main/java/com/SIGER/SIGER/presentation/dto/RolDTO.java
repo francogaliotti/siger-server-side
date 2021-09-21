@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.dto;
+package com.SIGER.SIGER.presentation.dto;
 
 
 import com.SIGER.SIGER.entities.Permiso;

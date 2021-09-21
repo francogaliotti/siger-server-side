@@ -1,10 +1,8 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.dto.Mensaje;
+import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.entities.Permiso;
-import com.SIGER.SIGER.entities.Rol;
 import com.SIGER.SIGER.services.PermisoServiceImpl;
-import com.SIGER.SIGER.services.RolServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
