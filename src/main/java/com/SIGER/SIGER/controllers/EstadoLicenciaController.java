@@ -66,6 +66,12 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	@Override
 	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoLicencia estadoLicencia) {
+		if(StringUtils.isBlank(estadoLicencia.getNombreEstadoLicencia()))
+			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+		if(estadoLicencia.getCodEstadoLicencia().length()<0)
+			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+		if(estadoLicenciaServiceImpl.existsByNombreEstadoLicencia(estadoLicencia.getNombreEstadoLicencia()))
+			return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
 		try{
 			estadoLicencia = estadoLicenciaServiceImpl.Save(estadoLicencia);
 		}catch(Exception e){
