@@ -40,6 +40,7 @@ public class Usuario extends BaseEntity{
 	private boolean requiereAutorizacion;
 
 	private boolean recordarme;
+
 	//Relation
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

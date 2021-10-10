@@ -80,8 +80,16 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 	@Override
 	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoBoleta estadoBoleta) {
+		if(StringUtils.isBlank(estadoBoleta.getNombreEstadoBoleta()))
+			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+		if(estadoBoleta.getCodEstadoBoleta().length()<0)
+			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+		if(estadoboletaServiceImpl.existsByNombreEstadoBoleta(estadoBoleta.getNombreEstadoBoleta()))
+			return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
+		EstadoBoleta estadoBoletaNew = EstadoBoleta.builder().codEstadoBoleta(estadoBoleta.getCodEstadoBoleta()).
+				nombreEstadoBoleta(estadoBoleta.getNombreEstadoBoleta()).build();
 		try {
-			estadoBoleta = estadoboletaServiceImpl.Save(estadoBoleta);
+			estadoboletaServiceImpl.Save(estadoBoletaNew);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
