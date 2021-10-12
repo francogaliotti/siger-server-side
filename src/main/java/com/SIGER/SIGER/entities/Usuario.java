@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.entities;
+/*package com.SIGER.SIGER.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,4 +49,4 @@ public class Usuario extends BaseEntity{
 			inverseJoinColumns = @JoinColumn(name = "rol_id"))
 	private List<Rol> roles = new ArrayList<Rol>();
 
-}
+}*/

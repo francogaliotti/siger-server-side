@@ -1,6 +1,5 @@
 package com.SIGER.SIGER.repositories;
 
-import com.SIGER.SIGER.entities.Rol;
 import org.springframework.stereotype.Repository;
 
 import com.SIGER.SIGER.entities.Viatico;

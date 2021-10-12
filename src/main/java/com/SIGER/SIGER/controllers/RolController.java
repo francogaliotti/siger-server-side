@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.controllers;
+/*package com.SIGER.SIGER.controllers;
 
 import com.SIGER.SIGER.presentation.dto.Mensaje;
 import org.apache.commons.lang3.StringUtils;
@@ -108,4 +108,4 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 		return new ResponseEntity(new Mensaje("Rol eliminado"), HttpStatus.OK);
 	}
 
-}
+}*/

@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.entities;
+/*package com.SIGER.SIGER.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,10 +30,10 @@ public class Rol extends BaseEntity{
 	
 	//Relation
 	
-	@ManyToMany(cascade = {/*CascadeType.PERSIST,*/ CascadeType.MERGE})
+	@ManyToMany(cascade = {/*CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "rol_permiso", 
 	joinColumns = @JoinColumn(name = "rol_id"),
 	inverseJoinColumns = @JoinColumn(name = "permiso_id"))
 	private List<Permiso> permisos = new ArrayList<Permiso>();
 
-}
+}*/

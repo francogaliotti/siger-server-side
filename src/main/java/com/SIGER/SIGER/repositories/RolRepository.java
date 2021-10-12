@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.repositories;
+/*package com.SIGER.SIGER.repositories;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +10,4 @@ import java.util.Optional;
 public interface RolRepository extends BaseRepository<Rol, Long>{
     Optional<Rol> findByNombreRol(String nombreRol);
     boolean existsByNombreRol(String nombreRol);
-}
+}*/
