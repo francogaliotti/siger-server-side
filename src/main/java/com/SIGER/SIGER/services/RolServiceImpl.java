@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.services;
+/*package com.SIGER.SIGER.services;
 
 import com.SIGER.SIGER.entities.EstadoBoleta;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +42,4 @@ public class RolServiceImpl extends BaseServiceImpl<Rol, Long> implements RolSer
 	}
 
 
-}
+}*/

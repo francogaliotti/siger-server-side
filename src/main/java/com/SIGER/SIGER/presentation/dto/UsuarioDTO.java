@@ -1,11 +1,7 @@
 package com.SIGER.SIGER.presentation.dto;
 
-import com.SIGER.SIGER.entities.Rol;
+import com.SIGER.SIGER.security.entity.Rol;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 

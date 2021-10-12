@@ -16,16 +16,16 @@ import java.io.IOException;
 @Service
 public class EmailService {
 
-    @Value("${app.sendgrid.templateId}")
-    private String templateId;
-
     @Value("${app.sendgrid.key}")
     private String appkey;
+
+    /*@Value("${app.sendgrid.templateId}")
+    private String templateId;*/
 
     @Autowired
     SendGrid sendGrid;
 
-    private String remitente = "UTNSIGER@gmail.com";
+    private String remitente = "SIGERUTN@gmail.com";
 
     private String destinatario;
 
@@ -51,7 +51,7 @@ public class EmailService {
         to.setEmail(this.destinatario);
         Content content = new Content("text/plain", mensaje);
         Mail mail = new Mail(from, subject, to, content);
-        mail.setTemplateId(templateId);
+        //mail.setTemplateId(templateId);
 
         SendGrid sg = new SendGrid(appkey);
         Request request = new Request();
