@@ -11,4 +11,7 @@ public interface ViaticoRepository extends BaseRepository<Viatico, Long>{
 
     Optional<Viatico> findByCodViatico(String codViatico);
     boolean existsByCodViatico(String codViatico);
+
+    Optional<Viatico> findByDenominacionViatico(String denominacionViatico);
+    boolean existsByDenominacionViatico(String denominacionViatico);
 }

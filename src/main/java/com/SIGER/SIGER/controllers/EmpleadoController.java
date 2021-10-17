@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Empleado;
-import com.SIGER.SIGER.services.EmpleadoServiceImpl;
+import com.SIGER.SIGER.servicesImpl.EmpleadoServiceImpl;
 
 @RestController
 @CrossOrigin

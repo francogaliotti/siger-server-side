@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.TipoLicencia;
-import com.SIGER.SIGER.services.TipoLicenciaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.TipoLicenciaServiceImpl;
 
 @RestController
 @CrossOrigin

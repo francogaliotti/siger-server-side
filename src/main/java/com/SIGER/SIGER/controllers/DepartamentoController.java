@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Departamento;
-import com.SIGER.SIGER.services.DepartamentoServiceImpl;
+import com.SIGER.SIGER.servicesImpl.DepartamentoServiceImpl;
 
 @RestController
 @RequestMapping

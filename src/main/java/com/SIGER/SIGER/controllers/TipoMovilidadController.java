@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.TipoMovilidad;
-import com.SIGER.SIGER.services.TipoMovilidadServiceImpl;
+import com.SIGER.SIGER.servicesImpl.TipoMovilidadServiceImpl;
 
 @RestController
 @RequestMapping("/estado_boleta")

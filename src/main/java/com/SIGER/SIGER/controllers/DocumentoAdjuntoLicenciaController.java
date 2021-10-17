@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.DocumentoAdjuntoLicencia;
-import com.SIGER.SIGER.services.DocumentoAdjuntoLicenciaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.DocumentoAdjuntoLicenciaServiceImpl;
 
 @RestController
 @RequestMapping

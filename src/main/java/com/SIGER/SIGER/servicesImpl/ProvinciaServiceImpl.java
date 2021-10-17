@@ -1,6 +1,6 @@
-package com.SIGER.SIGER.services;
+package com.SIGER.SIGER.servicesImpl;
 
-import com.SIGER.SIGER.entities.Permiso;
+import com.SIGER.SIGER.services.ProvinciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 //@Transactional
 @NoArgsConstructor
-public class ProvinciaServiceImpl extends BaseServiceImpl<Provincia, Long> implements ProvinciaService{
+public class ProvinciaServiceImpl extends BaseServiceImpl<Provincia, Long> implements ProvinciaService {
 	
 	@Autowired
 	private ProvinciaRepository provinciaRepository;

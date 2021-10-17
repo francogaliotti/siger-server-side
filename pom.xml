@@ -109,6 +109,11 @@
 			<artifactId>spring-restdocs-asciidoctor</artifactId>
 			<version>${spring-restdocs.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.11</version>
+		</dependency>
 	</dependencies>
 
 	<build>
