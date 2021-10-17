@@ -13,4 +13,13 @@ public class MapperDTO {
 
         return dto;
     }
+
+    /*public static <DTO, E> DTO MapperEntityToDTO(E fromEntity, DTO toDto){
+
+        String aux_entity = new Gson().toJson(fromEntity);
+
+        toDto = (DTO)new Gson().fromJson(aux_entity, toDto.getClass());
+
+        return toDto;
+    }*/
 }

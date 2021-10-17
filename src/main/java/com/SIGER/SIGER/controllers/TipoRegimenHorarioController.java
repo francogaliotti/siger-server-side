@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.TipoRegimenHorario;
-import com.SIGER.SIGER.services.TipoRegimenHorarioServiceImpl;
+import com.SIGER.SIGER.servicesImpl.TipoRegimenHorarioServiceImpl;
 
 @RestController
 @RequestMapping("/tipo-regimen-horario")

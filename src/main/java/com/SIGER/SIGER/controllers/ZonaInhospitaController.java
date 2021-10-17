@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.ZonaInhospita;
-import com.SIGER.SIGER.services.ZonaInhospitaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.ZonaInhospitaServiceImpl;
 
 @RestController
 @RequestMapping

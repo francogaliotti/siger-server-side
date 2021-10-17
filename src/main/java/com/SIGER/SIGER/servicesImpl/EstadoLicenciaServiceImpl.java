@@ -1,5 +1,6 @@
-package com.SIGER.SIGER.services;
+package com.SIGER.SIGER.servicesImpl;
 
+import com.SIGER.SIGER.services.EstadoLicenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Service
 //@Transactional
 @NoArgsConstructor
-public class EstadoLicenciaServiceImpl extends BaseServiceImpl<EstadoLicencia, Long> implements EstadoLicenciaService{
+public class EstadoLicenciaServiceImpl extends BaseServiceImpl<EstadoLicencia, Long> implements EstadoLicenciaService {
 	
 	@Autowired
 	private EstadoLicenciaRepository estadoLicenciaRepository;

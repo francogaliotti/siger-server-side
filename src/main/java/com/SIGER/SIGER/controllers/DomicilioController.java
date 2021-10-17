@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Domicilio;
-import com.SIGER.SIGER.services.DomicilioServiceImpl;
+import com.SIGER.SIGER.servicesImpl.DomicilioServiceImpl;
 
 @RestController
 @RequestMapping

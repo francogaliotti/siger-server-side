@@ -1,8 +1,8 @@
-package com.SIGER.SIGER.services;
+package com.SIGER.SIGER.servicesImpl;
 
-import java.util.List;
 import java.util.Optional;
 
+import com.SIGER.SIGER.services.EstadoBoletaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +12,14 @@ import com.SIGER.SIGER.repositories.EstadoBoletaRepository;
 
 import lombok.NoArgsConstructor;
 
+import javax.transaction.Transactional;
+
 @Service
-//@Transactional
-@NoArgsConstructor
-public class EstadoBoletaServiceImpl extends BaseServiceImpl<EstadoBoleta, Long> implements EstadoBoletaService{
+@Transactional
+public class EstadoBoletaServiceImpl extends BaseServiceImpl<EstadoBoleta, Long> implements EstadoBoletaService {
 	
 	@Autowired
 	private EstadoBoletaRepository estadoBoletaRepository;
-	
-	
-	public EstadoBoletaServiceImpl(BaseRepository<EstadoBoleta, Long> baseRepository) { super(baseRepository); }
 	
 	public Optional<EstadoBoleta> getByNombreEstadoBoleta(String nombre){
 		return estadoBoletaRepository.findByNombreEstadoBoleta(nombre);

@@ -1,5 +1,6 @@
-package com.SIGER.SIGER.services;
+package com.SIGER.SIGER.servicesImpl;
 
+import com.SIGER.SIGER.services.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import com.SIGER.SIGER.repositories.SectorRepository;
 
 
 @Service
-public class SectorServiceImpl extends BaseServiceImpl<Sector, Long> implements SectorService{
+public class SectorServiceImpl extends BaseServiceImpl<Sector, Long> implements SectorService {
 	
 	@Autowired
     private SectorRepository sectorRepository;

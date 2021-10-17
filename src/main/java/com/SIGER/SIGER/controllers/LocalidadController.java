@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Localidad;
-import com.SIGER.SIGER.services.LocalidadServiceImpl;
+import com.SIGER.SIGER.servicesImpl.LocalidadServiceImpl;
 
 @RestController
 @RequestMapping

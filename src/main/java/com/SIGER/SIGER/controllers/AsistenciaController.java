@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Asistencia;
-import com.SIGER.SIGER.services.AsistenciaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.AsistenciaServiceImpl;
 
 @RestController
 @CrossOrigin

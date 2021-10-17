@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Remuneracion;
-import com.SIGER.SIGER.services.RemuneracionServiceImpl;
+import com.SIGER.SIGER.servicesImpl.RemuneracionServiceImpl;
 
 @RestController
 @RequestMapping

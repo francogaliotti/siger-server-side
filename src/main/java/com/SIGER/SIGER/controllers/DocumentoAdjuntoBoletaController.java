@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.DocumentoAdjuntoBoleta;
-import com.SIGER.SIGER.services.DocumentoAdjuntoBoletaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.DocumentoAdjuntoBoletaServiceImpl;
 
 @RestController
 @RequestMapping

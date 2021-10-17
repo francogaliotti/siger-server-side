@@ -1,10 +1,11 @@
-package com.SIGER.SIGER.services;
+package com.SIGER.SIGER.servicesImpl;
 
 import com.SIGER.SIGER.entities.Permiso;
 
 import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.repositories.PermisoRepository;
 
+import com.SIGER.SIGER.services.PermisoService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Service
 //@Transactional
 @NoArgsConstructor
-public class PermisoServiceImpl extends BaseServiceImpl<Permiso, Long> implements PermisoService{
+public class PermisoServiceImpl extends BaseServiceImpl<Permiso, Long> implements PermisoService {
     @Autowired
     private PermisoRepository permisoRepository;
 

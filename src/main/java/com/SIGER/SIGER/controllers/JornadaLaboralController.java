@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.RegimenHorario;
-import com.SIGER.SIGER.services.JornadaLaboralServiceImpl;
+import com.SIGER.SIGER.servicesImpl.JornadaLaboralServiceImpl;
 
 @RestController
 @RequestMapping

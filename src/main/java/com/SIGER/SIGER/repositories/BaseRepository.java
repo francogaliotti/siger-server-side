@@ -7,7 +7,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import com.SIGER.SIGER.entities.BaseEntity;
 
-@NoRepositoryBean//La interface no se puede instanciar
+@NoRepositoryBean//El interface no puede instanciarse
 public interface BaseRepository<E extends BaseEntity, ID extends Serializable> extends JpaRepository<E, ID> {
 	
 }
