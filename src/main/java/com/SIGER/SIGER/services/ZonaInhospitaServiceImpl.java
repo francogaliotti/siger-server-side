@@ -1,5 +1,6 @@
 package com.SIGER.SIGER.services;
 
+import com.SIGER.SIGER.entities.EstadoLicencia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,8 @@ import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.repositories.ZonaInhospitaRepository;
 
 import lombok.NoArgsConstructor;
+
+import java.util.Optional;
 
 @Service
 //@Transactional
@@ -22,4 +25,15 @@ public class ZonaInhospitaServiceImpl extends BaseServiceImpl<ZonaInhospita, Lon
       super(baseRepository);
   }
 
+	public Optional<ZonaInhospita> getByDenominacionZona(String nombre){
+		return zonaInhospitaRepository.findByDenominacionZona(nombre);
+	}
+
+	public boolean existsById (Long id) {
+		return zonaInhospitaRepository.existsById(id);
+	}
+
+	public boolean existsByDenominacionZona (String denominacion) {
+		return zonaInhospitaRepository.existsByDenominacionZona(denominacion);
+	}
 }
