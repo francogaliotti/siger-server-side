@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.SIGER.SIGER.entities.ZonaInhospita;
-import com.SIGER.SIGER.services.ZonaInhospitaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.ZonaInhospitaServiceImpl;
 
 import java.util.List;
 

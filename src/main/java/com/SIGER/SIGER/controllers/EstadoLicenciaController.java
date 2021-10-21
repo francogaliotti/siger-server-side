@@ -10,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.SIGER.SIGER.entities.EstadoLicencia;
-import com.SIGER.SIGER.services.EstadoLicenciaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.EstadoLicenciaServiceImpl;
 
 import java.util.List;
 

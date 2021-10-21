@@ -11,16 +11,16 @@ import com.SIGER.SIGER.entities.BaseEntity;
 
 public interface BaseController <E extends BaseEntity, ID extends Serializable>{
 	
-    public ResponseEntity<?> getAll();
+    ResponseEntity<?> getAll();
 
-    public ResponseEntity<?> getAll(Pageable pageable);
+    ResponseEntity<?> getAll(Pageable pageable);
 
-    public ResponseEntity<?> getOne(@PathVariable ID id);
+    ResponseEntity<?> getOne(@PathVariable ID id);
 
-    public ResponseEntity<?> save(@RequestBody E entity);
+    ResponseEntity<?> save(@RequestBody E entity);
 
-    public ResponseEntity<?> update(@PathVariable ID id, @RequestBody E entity);
+    ResponseEntity<?> update(@PathVariable ID id, @RequestBody E entity/*, @RequestBody DTO dto*/);
 
-    public ResponseEntity<?> delete(@PathVariable ID id);
+    ResponseEntity<?> delete(@PathVariable ID id);
 
 }

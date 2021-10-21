@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Boleta;
-import com.SIGER.SIGER.services.BoletaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.BoletaServiceImpl;
 
 @RestController
 @CrossOrigin

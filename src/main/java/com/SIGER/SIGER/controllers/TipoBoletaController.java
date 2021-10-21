@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.TipoBoleta;
-import com.SIGER.SIGER.services.TipoBoletaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.TipoBoletaServiceImpl;
 
 @RestController
 @CrossOrigin

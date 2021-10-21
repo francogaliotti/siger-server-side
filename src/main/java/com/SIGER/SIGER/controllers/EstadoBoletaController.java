@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.entities.EstadoBoleta;
-import com.SIGER.SIGER.services.EstadoBoletaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.EstadoBoletaServiceImpl;
 
 @RestController
 @RequestMapping("/estadoBoleta")
@@ -78,6 +79,7 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoBoleta estadoBoleta) {
 		if(StringUtils.isBlank(estadoBoleta.getNombreEstadoBoleta()))
@@ -97,28 +99,8 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 		return new ResponseEntity(new Mensaje("Estado de Boleta creado"), HttpStatus.OK);
 	}
 
-
-	/*@PostMapping("/createDTO")
-	public ResponseEntity<?> createDTO(@RequestBody EstadoBoletaDTO estadoBoletaDTO){
-		if(StringUtils.isBlank(estadoBoletaDTO.getNombreEstadoBoleta()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(estadoBoletaDTO.getCodEstadoBoleta()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-		if(estadoboletaServiceImpl.existsByNombreEstadoBoleta(estadoBoletaDTO.getNombreEstadoBoleta()))
-			return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
-		EstadoBoleta estadoBoleta = EstadoBoleta.builder().codEstadoBoleta(estadoBoletaDTO.getCodEstadoBoleta()).
-				nombreEstadoBoleta(estadoBoletaDTO.getNombreEstadoBoleta()).build();
-		try {
-			estadoboletaServiceImpl.Save(estadoBoleta);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Boleta creado"), HttpStatus.OK);
-	}*/
-
-
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) {
 		try {
@@ -142,38 +124,8 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 		return new ResponseEntity(new Mensaje("Estado de Boleta actualizado"), HttpStatus.OK);
 	}
 
-		/*
-
-	@PutMapping("/updateDTO/{id}")
-	public ResponseEntity<?> updateDTO(@PathVariable("id") Long id, @RequestBody EstadoBoletaDTO estadoBoletaDTO){
-		if(!estadoboletaServiceImpl.existsById(id))
-			return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		if(estadoboletaServiceImpl.existsByNombreEstadoBoleta(estadoBoletaDTO.getNombreEstadoBoleta()) && estadoboletaServiceImpl.getByNombreEstadoBoleta(estadoBoletaDTO.getNombreEstadoBoleta()).get().getId() != id)
-			return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
-		if(StringUtils.isBlank(estadoBoletaDTO.getNombreEstadoBoleta()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(estadoBoletaDTO.getCodEstadoBoleta()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-
-		EstadoBoleta estadoBoleta = null;
-		try {
-			estadoBoleta = estadoboletaServiceImpl.FindById(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		estadoBoleta.setNombreEstadoBoleta(estadoBoletaDTO.getNombreEstadoBoleta());
-		estadoBoleta.setCodEstadoBoleta(estadoBoletaDTO.getCodEstadoBoleta());
-		try {
-			estadoboletaServiceImpl.Save(estadoBoleta);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Boleta actualizado"), HttpStatus.OK);
-	}*/
-
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
 			try {

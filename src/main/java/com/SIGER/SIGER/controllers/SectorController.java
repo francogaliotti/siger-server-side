@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SIGER.SIGER.entities.Sector;
-import com.SIGER.SIGER.services.SectorServiceImpl;
+import com.SIGER.SIGER.servicesImpl.SectorServiceImpl;
 @RestController
 @CrossOrigin
 @RequestMapping

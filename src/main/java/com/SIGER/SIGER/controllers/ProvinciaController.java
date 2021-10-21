@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.SIGER.SIGER.entities.Provincia;
-import com.SIGER.SIGER.services.ProvinciaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.ProvinciaServiceImpl;
 
 import java.util.List;
 
