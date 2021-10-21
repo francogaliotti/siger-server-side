@@ -33,8 +33,8 @@ public class ZonaInhospitaServiceImpl extends BaseServiceImpl<ZonaInhospita, Lon
 		return zonaInhospitaRepository.existsById(id);
 	}
 
-	public boolean existsByDenominacionZona (String denominacion) {
-		return zonaInhospitaRepository.existsByDenominacionZona(denominacion);
+	public boolean existsByDenominacionZona (String den) {
+		return zonaInhospitaRepository.existsByDenominacionZona(den);
 	}
 
 }
