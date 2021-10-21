@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.SIGER.SIGER.entities.EstadoLicencia;
@@ -64,6 +65,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoLicencia estadoLicencia) {
 		try{
@@ -75,6 +77,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, EstadoLicencia estadoLicencia) {
 		try {
@@ -99,6 +102,7 @@ public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia,
 	}
 
 	@Override
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
 		try {

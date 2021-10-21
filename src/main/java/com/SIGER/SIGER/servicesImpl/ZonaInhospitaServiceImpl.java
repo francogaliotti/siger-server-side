@@ -10,6 +10,8 @@ import com.SIGER.SIGER.repositories.ZonaInhospitaRepository;
 
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Service
 //@Transactional
 @NoArgsConstructor
@@ -22,5 +24,17 @@ public class ZonaInhospitaServiceImpl extends BaseServiceImpl<ZonaInhospita, Lon
 	public ZonaInhospitaServiceImpl(BaseRepository<ZonaInhospita, Long> baseRepository) {
       super(baseRepository);
   }
+
+	public Optional<ZonaInhospita> getByDenominacionZona(String nombre){
+		return zonaInhospitaRepository.findByDenominacionZona(nombre);
+	}
+
+	public boolean existsById (Long id) {
+		return zonaInhospitaRepository.existsById(id);
+	}
+
+	public boolean existsByDenominacionZona (String den) {
+		return zonaInhospitaRepository.existsByDenominacionZona(den);
+	}
 
 }
