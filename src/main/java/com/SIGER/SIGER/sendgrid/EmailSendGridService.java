@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class EmailService {
+public class EmailSendGridService {
 
     @Value("${app.sendgrid.key}")
     private String appkey;
