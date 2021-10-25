@@ -2,7 +2,7 @@
 
 import com.SIGER.SIGER.BI.UsuarioExpert;
 import com.SIGER.SIGER.presentation.dto.DTORegister;
-import com.SIGER.SIGER.sendgrid.EmailService;
+import com.SIGER.SIGER.sendgrid.EmailSendGridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServic
 	UsuarioServiceImpl usuarioServiceImpl;
 
 	@Autowired
-	EmailService emailService;
+	EmailSendGridService emailService;
 
 	private final AuthenticationManager authenticationManager;
 
