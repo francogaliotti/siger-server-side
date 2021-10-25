@@ -1,6 +1,6 @@
-package com.SIGER.SIGER.servicesImpl;
+package com.SIGER.SIGER.services;
 
-import com.SIGER.SIGER.services.EstadoLicenciaService;
+import com.SIGER.SIGER.entities.EstadoBoleta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 //@Transactional
 @NoArgsConstructor
-public class EstadoLicenciaServiceImpl extends BaseServiceImpl<EstadoLicencia, Long> implements EstadoLicenciaService {
+public class EstadoLicenciaServiceImpl extends BaseServiceImpl<EstadoLicencia, Long> implements EstadoLicenciaService{
 	
 	@Autowired
 	private EstadoLicenciaRepository estadoLicenciaRepository;
@@ -34,5 +34,4 @@ public class EstadoLicenciaServiceImpl extends BaseServiceImpl<EstadoLicencia, L
 	public boolean existsByNombreEstadoLicencia (String nombre) {
 		return estadoLicenciaRepository.existsByNombreEstadoLicencia(nombre);
 	}
-
 }
