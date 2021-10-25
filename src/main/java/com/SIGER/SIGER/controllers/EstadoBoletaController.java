@@ -2,6 +2,7 @@ package com.SIGER.SIGER.controllers;
 
 import java.util.List;
 
+import com.SIGER.SIGER.BI.EstadoBoletaExpert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -27,21 +28,12 @@ import com.SIGER.SIGER.servicesImpl.EstadoBoletaServiceImpl;
 public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, EstadoBoletaServiceImpl>{
 	
 	@Autowired
-	EstadoBoletaServiceImpl estadoboletaServiceImpl;
-
-	// Override methods
+	EstadoBoletaExpert estadoBoletaExpert;
 	
 	@Override
 	@GetMapping("/list")
 	public ResponseEntity<List<EstadoBoleta>> getAll() {
-		List<EstadoBoleta> list = null;
-		try {
-			list = estadoboletaServiceImpl.FindAll();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(list, HttpStatus.OK);
+		return estadoBoletaExpert.getAll();
 	}
 		
 	@Override
@@ -53,95 +45,33 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 	@Override
 	@GetMapping("/detail/{id}")
 	public ResponseEntity<?> getOne(Long id) {
-		try {
-			if(estadoboletaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		EstadoBoleta estadoBoleta = null;
-		try {
-			estadoBoleta = estadoboletaServiceImpl.FindById(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(estadoBoleta, HttpStatus.OK);
+		return estadoBoletaExpert.getOne(id);
 	}
 
 	@GetMapping("/detailname/{nombre}")
 	public ResponseEntity<EstadoBoleta> getByNombre(@PathVariable("nombre") String nombreEstadoBoleta){
-		if(!estadoboletaServiceImpl.existsByNombreEstadoBoleta(nombreEstadoBoleta))
-			return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		EstadoBoleta estadoBoleta = estadoboletaServiceImpl.getByNombreEstadoBoleta(nombreEstadoBoleta).get();
-		return new ResponseEntity(estadoBoleta, HttpStatus.OK);
+		return estadoBoletaExpert.getByNombre(nombreEstadoBoleta);
 	}
 
 	@Override
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoBoleta estadoBoleta) {
-		if(StringUtils.isBlank(estadoBoleta.getNombreEstadoBoleta()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(estadoBoleta.getCodEstadoBoleta().length()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-		if(estadoboletaServiceImpl.existsByNombreEstadoBoleta(estadoBoleta.getNombreEstadoBoleta()))
-			return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
-		EstadoBoleta estadoBoletaNew = EstadoBoleta.builder().codEstadoBoleta(estadoBoleta.getCodEstadoBoleta()).
-				nombreEstadoBoleta(estadoBoleta.getNombreEstadoBoleta()).build();
-		try {
-			estadoboletaServiceImpl.Save(estadoBoletaNew);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Boleta creado"), HttpStatus.OK);
+		return estadoBoletaExpert.save(estadoBoleta);
 	}
 
 	@Override
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) {
-		try {
-			if(estadoboletaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if(StringUtils.isBlank(estadoBoleta.getNombreEstadoBoleta()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(estadoBoleta.getCodEstadoBoleta().length()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-		
-		try {
-			estadoboletaServiceImpl.Update(id, estadoBoleta);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Boleta actualizado"), HttpStatus.OK);
+		return estadoBoletaExpert.update(id, estadoBoleta);
 	}
 
 	@Override
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
-			try {
-				if(estadoboletaServiceImpl.FindById(id).equals(false))
-					return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				estadoboletaServiceImpl.Delete(id);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return new ResponseEntity(new Mensaje("Estado de Boleta eliminado"), HttpStatus.OK);
+		return estadoBoletaExpert.delete(id);
 	}
 
 }
