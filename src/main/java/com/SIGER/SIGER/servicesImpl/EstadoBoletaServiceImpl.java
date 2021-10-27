@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.SIGER.SIGER.entities.EstadoBoleta;
-import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.repositories.EstadoBoletaRepository;
-
-import lombok.NoArgsConstructor;
 
 import javax.transaction.Transactional;
 
@@ -19,7 +16,7 @@ import javax.transaction.Transactional;
 public class EstadoBoletaServiceImpl extends BaseServiceImpl<EstadoBoleta, Long> implements EstadoBoletaService {
 	
 	@Autowired
-	private EstadoBoletaRepository estadoBoletaRepository;
+	EstadoBoletaRepository estadoBoletaRepository;
 	
 	public Optional<EstadoBoleta> getByNombreEstadoBoleta(String nombre){
 		return estadoBoletaRepository.findByNombreEstadoBoleta(nombre);
