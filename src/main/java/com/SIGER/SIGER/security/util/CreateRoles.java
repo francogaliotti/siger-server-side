@@ -1,4 +1,4 @@
-/*package com.SIGER.SIGER.util;
+/*package com.SIGER.SIGER.security.util;
 
 import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.security.enums.RolNombre;
