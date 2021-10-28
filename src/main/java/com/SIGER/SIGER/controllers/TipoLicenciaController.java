@@ -1,8 +1,11 @@
 package com.SIGER.SIGER.controllers;
 
+import com.SIGER.SIGER.dto.Cualquiera;
+import com.SIGER.SIGER.entities.Empleado;
 import com.SIGER.SIGER.entities.EstadoLicencia;
+import com.SIGER.SIGER.entities.TipoRequerimiento;
 import com.SIGER.SIGER.presentation.dto.Mensaje;
-import com.SIGER.SIGER.servicesImpl.EstadoLicenciaServiceImpl;
+import com.SIGER.SIGER.servicesImpl.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -12,17 +15,20 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.SIGER.SIGER.entities.TipoLicencia;
-import com.SIGER.SIGER.servicesImpl.TipoLicenciaServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/tipoLicencia")
 @CrossOrigin(origins = "http://localhost:4200")
-public class TipoLicenciaController extends BaseControllerImpl<TipoLicencia, TipoLicenciaServiceImpl>{
+public class TipoLicenciaController /*extends BaseControllerImpl<TipoLicencia, TipoLicenciaServiceImpl>*/{
 
 	@Autowired
 	TipoLicenciaServiceImpl tipoLicenciaServiceImpl;
+	@Autowired
+	EmpleadoServiceImpl empleadoServiceImpl;
+	@Autowired
+	SectorServiceImpl sectorServiceImpl;
 
 	@Override
 	@GetMapping("/list")
@@ -69,7 +75,17 @@ public class TipoLicenciaController extends BaseControllerImpl<TipoLicencia, Tip
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
-	public ResponseEntity<?> save(TipoLicencia tipoLicencia) {
+	public ResponseEntity<?> save(Cualquiera cualquiera) throws Exception {
+		TipoLicencia tipoLicencia1 = new TipoLicencia();
+		tipoLicencia1.setCodigo(cualquiera.getCodigo());
+		tipoLicencia1.setDenominacion(cualquiera.getDenominacion());
+
+		Empleado empleado = empleadoServiceImpl.FindById(cualquiera.getAutorizadores());
+		TipoRequerimiento tipoRequerimiento = new TipoRequerimiento();
+		tipoRequerimiento.setAprobadores(empleado);
+		tipoLicencia1.setTipoRequerimiento(tipoRequerimiento);
+		tipoRequerimiento.setAprueban();
+
 		try{
 			tipoLicencia = tipoLicenciaServiceImpl.Save(tipoLicencia);
 		}catch(Exception e){
