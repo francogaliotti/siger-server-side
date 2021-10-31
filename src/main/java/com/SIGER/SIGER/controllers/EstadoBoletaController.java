@@ -54,21 +54,21 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 	}
 
 	@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> save(EstadoBoleta estadoBoleta) {
 		return estadoBoletaExpert.save(estadoBoleta);
 	}
 
 	@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) {
 		return estadoBoletaExpert.update(id, estadoBoleta);
 	}
 
 	@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
 		return estadoBoletaExpert.delete(id);

@@ -23,7 +23,6 @@ public class EstadoBoletaExpert {
         try {
             list = estadoboletaServiceImpl.FindAll();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new ResponseEntity(list, HttpStatus.OK);
@@ -34,14 +33,12 @@ public class EstadoBoletaExpert {
             if(estadoboletaServiceImpl.FindById(id).equals(false))
                 return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         EstadoBoleta estadoBoleta = null;
         try {
             estadoBoleta = estadoboletaServiceImpl.FindById(id);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new ResponseEntity(estadoBoleta, HttpStatus.OK);
@@ -58,7 +55,7 @@ public class EstadoBoletaExpert {
         if(StringUtils.isBlank(estadoBoleta.getNombreEstadoBoleta()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         if(estadoBoleta.getCodEstadoBoleta().length()<0)
-            return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
         if(estadoboletaServiceImpl.existsByNombreEstadoBoleta(estadoBoleta.getNombreEstadoBoleta()))
             return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
         EstadoBoleta estadoBoletaNew = EstadoBoleta.builder().codEstadoBoleta(estadoBoleta.getCodEstadoBoleta()).
@@ -66,7 +63,6 @@ public class EstadoBoletaExpert {
         try {
             estadoboletaServiceImpl.Save(estadoBoletaNew);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new ResponseEntity(new Mensaje("Estado de Boleta creado"), HttpStatus.OK);
@@ -77,18 +73,16 @@ public class EstadoBoletaExpert {
             if(estadoboletaServiceImpl.FindById(id).equals(false))
                 return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         if(StringUtils.isBlank(estadoBoleta.getNombreEstadoBoleta()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         if(estadoBoleta.getCodEstadoBoleta().length()<0)
-            return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
         try {
             estadoboletaServiceImpl.Update(id, estadoBoleta);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new ResponseEntity(new Mensaje("Estado de Boleta actualizado"), HttpStatus.OK);
@@ -99,13 +93,11 @@ public class EstadoBoletaExpert {
             if(estadoboletaServiceImpl.FindById(id).equals(false))
                 return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         try {
             estadoboletaServiceImpl.Delete(id);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new ResponseEntity(new Mensaje("Estado de Boleta eliminado"), HttpStatus.OK);
