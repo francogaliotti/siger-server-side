@@ -1,17 +1,14 @@
 package com.SIGER.SIGER.BI;
 
-import com.SIGER.SIGER.entities.EstadoBoleta;
 import com.SIGER.SIGER.entities.Viatico;
 import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.servicesImpl.ViaticoServiceImpl;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
 
 @Component
 public class ViaticoExpert {
