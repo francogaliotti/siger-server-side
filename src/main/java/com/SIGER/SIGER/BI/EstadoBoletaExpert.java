@@ -3,14 +3,13 @@ package com.SIGER.SIGER.BI;
 import com.SIGER.SIGER.entities.EstadoBoleta;
 import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.servicesImpl.EstadoBoletaServiceImpl;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
 
 @Component
 public class EstadoBoletaExpert {
@@ -68,7 +67,7 @@ public class EstadoBoletaExpert {
         return new ResponseEntity(new Mensaje("Estado de Boleta creado"), HttpStatus.OK);
     }
 
-    public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) {
+    public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) throws Exception {
         try {
             if(estadoboletaServiceImpl.FindById(id).equals(false))
                 return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
@@ -81,7 +80,10 @@ public class EstadoBoletaExpert {
             return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
         try {
-            estadoboletaServiceImpl.Update(id, estadoBoleta);
+            EstadoBoleta estadoBoleta1 = estadoboletaServiceImpl.FindById(id);
+            estadoBoleta1.setCodEstadoBoleta(estadoBoleta.getCodEstadoBoleta());
+            estadoBoleta1.setNombreEstadoBoleta(estadoBoleta.getNombreEstadoBoleta());
+            estadoboletaServiceImpl.Update(id, estadoBoleta1);
         } catch (Exception e) {
             e.printStackTrace();
         }

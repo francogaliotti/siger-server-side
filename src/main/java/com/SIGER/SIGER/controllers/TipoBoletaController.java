@@ -3,7 +3,6 @@ package com.SIGER.SIGER.controllers;
 import com.SIGER.SIGER.BI.TipoBoletaExpert;
 import com.SIGER.SIGER.dto.TipoBoletaDTO;
 import com.SIGER.SIGER.entities.TipoBoleta;
-import com.SIGER.SIGER.servicesImpl.TipoBoletaServiceImpl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +45,7 @@ public class TipoBoletaController /*extends BaseControllerImpl<TipoBoleta, TipoB
 	}
 
 	//@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> save(@RequestBody TipoBoletaDTO tipoBoletaDTO) {
 		System.out.println(tipoBoletaDTO.getCodigo());
@@ -55,14 +54,14 @@ public class TipoBoletaController /*extends BaseControllerImpl<TipoBoleta, TipoB
 	}
 
 	//@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody TipoBoletaDTO tipoBoletaDTO) {
 		return tipoBoletaExpert.update(id, tipoBoletaDTO);
 	}
 
 	//@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		return tipoBoletaExpert.delete(id);

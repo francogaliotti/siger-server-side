@@ -1,10 +1,6 @@
 package com.SIGER.SIGER.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +19,10 @@ public class TipoRequerimiento extends BaseEntity{
 	
 	//Relations
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	/*@OneToMany(cascade = CascadeType.ALL)
 	private List<Sector> aprueban = new ArrayList<Sector>();
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Empleado> aprobadores = new ArrayList<Empleado>();
+	private List<Empleado> aprobadores = new ArrayList<Empleado>();*/
 
 }

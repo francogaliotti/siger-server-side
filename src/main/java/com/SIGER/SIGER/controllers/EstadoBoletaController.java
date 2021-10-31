@@ -63,7 +63,7 @@ public class EstadoBoletaController extends BaseControllerImpl<EstadoBoleta, Est
 	@Override
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) {
+	public ResponseEntity<?> update(Long id, EstadoBoleta estadoBoleta) throws Exception {
 		return estadoBoletaExpert.update(id, estadoBoleta);
 	}
 

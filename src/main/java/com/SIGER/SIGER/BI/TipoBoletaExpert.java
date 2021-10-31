@@ -90,9 +90,18 @@ public class TipoBoletaExpert {
       return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);
     if(tipoBoletaDTO.getCodigo().length()<0)
       return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-    ModelMapper modelMapper = new ModelMapper();
-    TipoBoleta tipoBoleta = modelMapper.map(tipoBoletaDTO, TipoBoleta.class);
+
     try {
+      TipoBoleta tipoBoleta = tipoBoletaServiceImpl.FindById(id);
+      tipoBoleta.setCodigo(tipoBoletaDTO.getCodigo());
+      tipoBoleta.setTipoBoletaDenominacion(tipoBoletaDTO.getTipoBoletaDenominacion());
+      tipoBoleta.setTieneMovilidad(tipoBoletaDTO.isTieneMovilidad());
+      tipoBoleta.setTineZonaInhospita(tipoBoletaDTO.isTineZonaInhospita());
+      tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
+      tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaDTO.isPermiteNoFichadaRetorno());
+      tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaDTO.isPermiteNoFichadaSalida());
+      tipoBoleta.getTipoRequerimiento().setTipoRequerimientoDenominacion(tipoBoletaDTO.getTipoRequerimientoDenominacion());
+      tipoBoleta.getTipoRequerimiento().setCantNiveles(tipoBoletaDTO.getTipoRequerimientoCantNiveles());
       tipoBoletaServiceImpl.Update(id, tipoBoleta);
     } catch (Exception e) {
       e.printStackTrace();
