@@ -20,9 +20,6 @@ import java.util.Date;
 public class TipoLicenciaDTO {
     @Id
     @Column(name = "id", nullable = false)
-    private Date fechaAlta;
-
-    private Date fechaBaja;
 
     private int cantidadMaximaAnual;
 
