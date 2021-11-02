@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface EstadoLicenciaRepository extends BaseRepository<EstadoLicencia, Long>{
     Optional<EstadoLicencia> findByNombreEstadoLicencia(String nombreEstadoLicencia);
     boolean existsByNombreEstadoLicencia(String nombreEstadoLicencia);
-
 }
