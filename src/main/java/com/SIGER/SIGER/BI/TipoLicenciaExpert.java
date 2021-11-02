@@ -1,23 +1,15 @@
 package com.SIGER.SIGER.BI;
 
-import com.SIGER.SIGER.dto.TipoBoletaDTO;
 import com.SIGER.SIGER.dto.TipoLicenciaDTO;
-import com.SIGER.SIGER.entities.TipoBoleta;
 import com.SIGER.SIGER.entities.TipoLicencia;
 import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.servicesImpl.TipoLicenciaServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +91,6 @@ public class TipoLicenciaExpert {
             TipoLicencia tipoLicencia = tipoLicenciaServiceImpl.FindById(id);
             tipoLicencia.setCodigo(tipoLicenciaDTO.getCodigo());
             tipoLicencia.setDenominacion(tipoLicenciaDTO.getDenominacion());
-            tipoLicencia.setCantidadMaximaAnual(tipoLicenciaDTO.getCantidadMaximaAnual());
-            tipoLicencia.setCantidadMaximaMensual(tipoLicenciaDTO.getCantidadMaximaMensual());
-            tipoLicencia.setCantidadMaximaDiaria(tipoLicenciaDTO.getCantidadMaximaDiaria());
             tipoLicencia.setGeneraRequerimiento(tipoLicenciaDTO.getGeneraRequerimiento());
             tipoLicencia.setJustificaRequerimiento(tipoLicenciaDTO.getJustificaRequerimiento());
             tipoLicencia.setLimiteRangoDias(tipoLicenciaDTO.getLimiteRangoDias());
@@ -110,7 +99,7 @@ public class TipoLicenciaExpert {
             tipoLicencia.setPermiteSolapamiento(tipoLicenciaDTO.getPermiteSolapamiento());
             tipoLicencia.setTipoCalculo(tipoLicenciaDTO.getTipoCalculo());
             tipoLicencia.getTipoRequerimiento().setTipoRequerimientoDenominacion(tipoLicenciaDTO.getTipoRequerimientoDenominacion());
-            tipoLicencia.getTipoRequerimiento().setCantNiveles(tipoLicenciaDTO.getTipoRequerimientoCantidadNiveles());
+            tipoLicencia.getTipoRequerimiento().setCantNiveles(tipoLicenciaDTO.getTipoRequerimientoCantNiveles());
             tipoLicenciaServiceImpl.Update(id, tipoLicencia);
         } catch (Exception e) {
             e.printStackTrace();

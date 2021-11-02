@@ -21,11 +21,6 @@ public class TipoLicenciaDTO {
     @Id
     @Column(name = "id", nullable = false)
 
-    private int cantidadMaximaAnual;
-
-    private int cantidadMaximaDiaria;
-
-    private int cantidadMaximaMensual;
 
     private String codigo;
 
@@ -45,7 +40,7 @@ public class TipoLicenciaDTO {
 
     private String tipoCalculo;
 
-    public int tipoRequerimientoCantidadNiveles;
+    public int tipoRequerimientoCantNiveles;
 
     public String tipoRequerimientoDenominacion;
 

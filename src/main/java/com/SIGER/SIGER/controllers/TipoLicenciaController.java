@@ -1,24 +1,12 @@
 package com.SIGER.SIGER.controllers;
 
 import com.SIGER.SIGER.BI.TipoLicenciaExpert;
-import com.SIGER.SIGER.entities.Empleado;
-import com.SIGER.SIGER.entities.TipoRequerimiento;
-import com.SIGER.SIGER.presentation.dto.LicenciaDTO;
-import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.dto.TipoLicenciaDTO;
-import com.SIGER.SIGER.servicesImpl.*;
-import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import com.SIGER.SIGER.entities.TipoLicencia;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/tipoLicencia")
