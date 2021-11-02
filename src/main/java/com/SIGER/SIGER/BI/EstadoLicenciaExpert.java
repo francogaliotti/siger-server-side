@@ -89,7 +89,10 @@ public class EstadoLicenciaExpert {
             return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
         try {
-            estadoLicenciaServiceImpl.Update(id, estadoLicencia);
+            EstadoLicencia estadoLicencia1 = estadoLicenciaServiceImpl.FindById(id);
+            estadoLicencia1.setCodEstadoLicencia(estadoLicencia.getCodEstadoLicencia());
+            estadoLicencia1.setNombreEstadoLicencia(estadoLicencia.getNombreEstadoLicencia());
+            estadoLicenciaServiceImpl.Update(id, estadoLicencia1);
         } catch (Exception e) {
             e.printStackTrace();
         }

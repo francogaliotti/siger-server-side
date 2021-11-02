@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
+@Component
 public class ZonaInhospitaExpert {
     @Autowired
     ZonaInhospitaServiceImpl zonaInhospitaServiceImpl ;
@@ -80,7 +82,11 @@ public class ZonaInhospitaExpert {
             return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
         try {
-            zonaInhospitaServiceImpl.Update(id, zonaInhospita);
+            ZonaInhospita zonaInhospita1 = zonaInhospitaServiceImpl.FindById(id);
+            zonaInhospita1.setCodZona(zonaInhospita.getCodZona());
+            zonaInhospita1.setDenominacionZona(zonaInhospita.getDenominacionZona());
+            zonaInhospita1.setPrecio(zonaInhospita.getPrecio());
+            zonaInhospitaServiceImpl.Update(id, zonaInhospita1);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
