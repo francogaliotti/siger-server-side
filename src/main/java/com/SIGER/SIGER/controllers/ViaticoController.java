@@ -1,17 +1,19 @@
 package com.SIGER.SIGER.controllers;
 
 import com.SIGER.SIGER.BI.ViaticoExpert;
-import com.SIGER.SIGER.entities.EstadoBoleta;
-import com.SIGER.SIGER.presentation.dto.Mensaje;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
 import com.SIGER.SIGER.entities.Viatico;
 import com.SIGER.SIGER.servicesImpl.ViaticoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/viatico")
@@ -39,27 +41,27 @@ public class ViaticoController extends BaseControllerImpl<Viatico, ViaticoServic
 		return viaticoExpert.getOne(id);
 	}
 
-	@GetMapping("/detailname/{nombre}")
+	/*@GetMapping("/detailname/{nombre}")
 	public ResponseEntity<Viatico> getByNombre(@PathVariable("nombre") String denominacionViatico){
 		return viaticoExpert.getByNombre(denominacionViatico);
-	}
+	}*/
 
 	@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/create")
 	public ResponseEntity<?> save(Viatico viatico) {
 		return viaticoExpert.save(viatico);
 	}
 
 	@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, Viatico viatico) {
 		return viaticoExpert.update(id, viatico);
 	}
 
 	@Override
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
 		return viaticoExpert.delete(id);

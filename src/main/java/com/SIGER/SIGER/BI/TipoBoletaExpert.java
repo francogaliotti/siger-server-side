@@ -20,16 +20,16 @@ public class TipoBoletaExpert {
   TipoBoletaServiceImpl tipoBoletaServiceImpl;
 
   public ResponseEntity<List<TipoBoleta>> getAll() {
-    List<TipoBoleta> list = null;
+    List<TipoBoleta> tipoBoletas = null;
     try {
-      list = tipoBoletaServiceImpl.FindAll();
+      tipoBoletas = tipoBoletaServiceImpl.FindAll();
     } catch (Exception e) {
       e.printStackTrace();
     }
     ModelMapper modelMapper = new ModelMapper();
     List<TipoBoletaDTO> tipoBoletaDTOS = new ArrayList<>();
-    for (int i = 0; i < list.size(); i++) {
-      tipoBoletaDTOS.add(modelMapper.map(list.get(i), TipoBoletaDTO.class));
+    for (int i = 0; i < tipoBoletas.size(); i++) {
+      tipoBoletaDTOS.add(modelMapper.map(tipoBoletas.get(i), TipoBoletaDTO.class));
     }
     return new ResponseEntity(tipoBoletaDTOS, HttpStatus.OK);
   }
@@ -50,11 +50,11 @@ public class TipoBoletaExpert {
     return new ResponseEntity(tipoBoleta, HttpStatus.OK);
   }
 
-  /*public ResponseEntity<EstadoBoleta> getByNombre(@PathVariable("nombre") String nombreEstadoBoleta){
-    if(!tipoBoletaServiceImpl.existsByNombreEstadoBoleta(nombreEstadoBoleta))
+  /*public ResponseEntity<TipoBoleta> getByNombre(String tipoBoletaDenominacion){
+    if(!tipoBoletaServiceImpl.existsByTipoBoletaDenominacion(tipoBoletaDenominacion))
       return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-    EstadoBoleta estadoBoleta = tipoBoletaServiceImpl.getByNombreEstadoBoleta(nombreEstadoBoleta).get();
-    return new ResponseEntity(estadoBoleta, HttpStatus.OK);
+    TipoBoleta tipoBoleta = tipoBoletaServiceImpl.getByTipoBoletaDenominacion(tipoBoletaDenominacion).get();
+    return new ResponseEntity(tipoBoleta, HttpStatus.OK);
   }*/
 
   public ResponseEntity<?> save(TipoBoletaDTO tipoBoletaDTO) {
