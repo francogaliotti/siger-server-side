@@ -1,10 +1,13 @@
 package com.SIGER.SIGER.repositories;
 
-import org.springframework.stereotype.Repository;
-
 import com.SIGER.SIGER.entities.Sector;
+import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SectorRepository extends BaseRepository<Sector, Long>{
+
+  Optional<Sector> findByDenominacion(String denominacion);
+  boolean existsByDenominacion(String denominacion);
 
 }

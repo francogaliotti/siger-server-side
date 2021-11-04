@@ -17,14 +17,14 @@ public class ViaticoExpert {
     ViaticoServiceImpl viaticoServiceImpl;
 
     public ResponseEntity<List<Viatico>> getAll() {
-        List<Viatico> list = null;
+        List<Viatico> viaticos = null;
         try {
-            list = viaticoServiceImpl.FindAll();
+            viaticos = viaticoServiceImpl.FindAll();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return new ResponseEntity(list, HttpStatus.OK);
+        return new ResponseEntity(viaticos, HttpStatus.OK);
     }
 
     public ResponseEntity<?> getOne(Long id) {
