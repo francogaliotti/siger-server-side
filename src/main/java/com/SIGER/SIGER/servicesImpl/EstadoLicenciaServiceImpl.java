@@ -1,6 +1,8 @@
 package com.SIGER.SIGER.servicesImpl;
 
+import com.SIGER.SIGER.entities.EstadoBoleta;
 import com.SIGER.SIGER.services.EstadoLicenciaService;
+import com.SIGER.SIGER.servicesImpl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +36,4 @@ public class EstadoLicenciaServiceImpl extends BaseServiceImpl<EstadoLicencia, L
 	public boolean existsByNombreEstadoLicencia (String nombre) {
 		return estadoLicenciaRepository.existsByNombreEstadoLicencia(nombre);
 	}
-
 }

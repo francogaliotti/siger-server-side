@@ -1,53 +1,52 @@
 package com.SIGER.SIGER.controllers;
 
+import com.SIGER.SIGER.BI.TipoLicenciaExpert;
+import com.SIGER.SIGER.dto.TipoLicenciaDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.SIGER.SIGER.entities.TipoLicencia;
-import com.SIGER.SIGER.servicesImpl.TipoLicenciaServiceImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
-@RequestMapping
-public class TipoLicenciaController extends BaseControllerImpl<TipoLicencia, TipoLicenciaServiceImpl>{
+@RequestMapping("/tipoLicencia")
+@CrossOrigin(origins = "http://localhost:4200")
+public class TipoLicenciaController /*extends BaseControllerImpl<TipoLicencia, TipoLicenciaServiceImpl>*/{
 
-	@Override
+	@Autowired
+	TipoLicenciaExpert tipoLicenciaExpert;
+
+
+	@GetMapping("/list")
 	public ResponseEntity<?> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return tipoLicenciaExpert.getAll();
 	}
 
-	@Override
+
 	public ResponseEntity<?> getAll(Pageable pageable) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public ResponseEntity<?> getOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/detail/{id}")
+	public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+		return tipoLicenciaExpert.getOne(id);
 	}
 
-	@Override
-	public ResponseEntity<?> save(TipoLicencia entity) {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/create")
+	public ResponseEntity<?> save(@RequestBody TipoLicenciaDTO tipoLicenciaDTO) throws Exception {
+		return tipoLicenciaExpert.save(tipoLicenciaDTO);
 	}
 
-	@Override
-	public ResponseEntity<?> update(Long id, TipoLicencia entity) {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/update/{id}")
+	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody TipoLicenciaDTO tipoLicenciaDTO) {
+		return tipoLicenciaExpert.update(id,tipoLicenciaDTO);
 	}
 
-	@Override
-	public ResponseEntity<?> delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+		return tipoLicenciaExpert.delete(id);
 	}
-
 }
