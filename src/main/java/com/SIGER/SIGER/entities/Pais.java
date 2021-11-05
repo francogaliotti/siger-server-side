@@ -11,10 +11,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class TipoSector extends BaseEntity{
+public class Pais extends BaseEntity{
 
-	private String codTipoSector;
-	
-	private String nombreTipoSector;
+  private String nombre;
+
+  private String name;
+
+  private String nom;
+
+  private String iso2;
+
+  private String iso3;
+
+  private String codigoNumerico;
+
+  private String phone_code;
 
 }
