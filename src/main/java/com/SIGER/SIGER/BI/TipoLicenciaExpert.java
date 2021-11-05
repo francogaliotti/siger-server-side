@@ -91,6 +91,7 @@ public class TipoLicenciaExpert {
             TipoLicencia tipoLicencia = tipoLicenciaServiceImpl.FindById(id);
             tipoLicencia.setCodigo(tipoLicenciaDTO.getCodigo());
             tipoLicencia.setDenominacion(tipoLicenciaDTO.getDenominacion());
+            tipoLicencia.setJustificaPresentismo(tipoLicenciaDTO.isJustificaPresentismo());
             tipoLicencia.setGeneraRequerimiento(tipoLicenciaDTO.getGeneraRequerimiento());
             tipoLicencia.setJustificaRequerimiento(tipoLicenciaDTO.getJustificaRequerimiento());
             tipoLicencia.setLimiteRangoDias(tipoLicenciaDTO.getLimiteRangoDias());
