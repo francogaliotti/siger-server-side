@@ -21,51 +21,52 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/tipoBoleta")
 @CrossOrigin(origins = "http://localhost:4200")
-public class TipoBoletaController /*extends BaseControllerImpl<TipoBoleta, TipoBoletaServiceImpl>*/{
+public class TipoBoletaController /*extends BaseControllerImpl<TipoBoleta, TipoBoletaServiceImpl>*/ {
 
-	@Autowired
-	TipoBoletaExpert tipoBoletaExpert;
+  @Autowired
+  TipoBoletaExpert tipoBoletaExpert;
 
-	//@Override
-	@GetMapping("/list")
-	public ResponseEntity<List<TipoBoleta>> getAll() {
-		return tipoBoletaExpert.getAll();
-	}
+  //@Override
+  @GetMapping("/list")
+  public ResponseEntity<List<TipoBoleta>> getAll() {
+    return tipoBoletaExpert.getAll();
+  }
 
-	//@Override
-	public ResponseEntity<?> getAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  //@Override
+  public ResponseEntity<?> getAll(Pageable pageable) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
-	//@Override
-	@GetMapping("/detail/{id}")
-	public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
-		return tipoBoletaExpert.getOne(id);
-	}
+  //@Override
+  @GetMapping("/detail/{id}")
+  public ResponseEntity<?> getOne(@PathVariable("id") Long id) {
+    return tipoBoletaExpert.getOne(id);
+  }
 
-	//@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/create")
-	public ResponseEntity<?> save(@RequestBody TipoBoletaDTO tipoBoletaDTO) {
-		System.out.println(tipoBoletaDTO.getCodigo());
-		System.out.println(tipoBoletaDTO.getTipoBoletaDenominacion());
-		return tipoBoletaExpert.save(tipoBoletaDTO);
-	}
+  //@Override
+  @PreAuthorize("hasRole('ADMIN')")
+  @PostMapping("/create")
+  public ResponseEntity<?> save(@RequestBody TipoBoletaDTO tipoBoletaDTO) {
+    System.out.println(tipoBoletaDTO.getCodigo());
+    System.out.println(tipoBoletaDTO.getTipoBoletaDenominacion());
+    return tipoBoletaExpert.save(tipoBoletaDTO);
+  }
 
-	//@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody TipoBoletaDTO tipoBoletaDTO) {
-		return tipoBoletaExpert.update(id, tipoBoletaDTO);
-	}
+  //@Override
+  @PreAuthorize("hasRole('ADMIN')")
+  @PutMapping("/update/{id}")
+  public ResponseEntity<?> update(@PathVariable("id") Long id,
+      @RequestBody TipoBoletaDTO tipoBoletaDTO) {
+    return tipoBoletaExpert.update(id, tipoBoletaDTO);
+  }
 
-	//@Override
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-		return tipoBoletaExpert.delete(id);
-	}
+  //@Override
+  @PreAuthorize("hasRole('ADMIN')")
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+    return tipoBoletaExpert.delete(id);
+  }
 
 }
 

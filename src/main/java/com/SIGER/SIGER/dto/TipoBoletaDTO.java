@@ -19,17 +19,12 @@ public class TipoBoletaDTO {
 
   private boolean tieneMovilidad;
 
-  private boolean tineZonaInhospita;
+  private boolean tieneZonaInhospita;
 
   private boolean tieneViatico;
 
   private boolean permiteNoFichadaRetorno;
 
   private boolean permiteNoFichadaSalida;
-
-  @NotBlank
-  private String tipoRequerimientoDenominacion;
-
-  private int tipoRequerimientoCantNiveles;
 
 }

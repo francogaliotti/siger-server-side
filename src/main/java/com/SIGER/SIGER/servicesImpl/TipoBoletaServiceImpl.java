@@ -15,6 +15,16 @@ public class TipoBoletaServiceImpl extends BaseServiceImpl<TipoBoleta, Long> imp
   TipoBoletaRepository tipoBoletaRepository;
 
   @Transactional
+  public Optional<TipoBoleta> getByCodigo(String codigo) {
+    return tipoBoletaRepository.findByCodigo(codigo);
+  }
+
+  @Transactional
+  public boolean existsByCodigo(String codigo) {
+    return tipoBoletaRepository.existsByCodigo(codigo);
+  }
+
+  @Transactional
   public Optional<TipoBoleta> getByTipoBoletaDenominacion(String tipoBoletaDenominacion) {
     return tipoBoletaRepository.findByTipoBoletaDenominacion(tipoBoletaDenominacion);
   }
