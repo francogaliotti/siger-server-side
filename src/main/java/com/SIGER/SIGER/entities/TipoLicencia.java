@@ -37,6 +37,8 @@ public class TipoLicencia extends BaseEntity {
 	private String codigo;
 
 	private String denominacion;
+
+	private boolean justificaPresentismo;
 	
 	private char generaRequerimiento;
 	
