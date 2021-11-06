@@ -36,8 +36,9 @@ public class TipoBoletaExpert {
 
   public ResponseEntity<?> getOne(Long id) {
     try {
-      if(tipoBoletaServiceImpl.FindById(id).equals(false))
+      if (tipoBoletaServiceImpl.FindById(id).equals(false)) {
         return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -59,14 +60,20 @@ public class TipoBoletaExpert {
 
   public ResponseEntity<?> save(TipoBoletaDTO tipoBoletaDTO) {
     System.out.println(tipoBoletaDTO.getTipoBoletaDenominacion());
-    if(StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion()))
-      return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"), HttpStatus.BAD_REQUEST);
-    if(StringUtils.isBlank(tipoBoletaDTO.getTipoRequerimientoDenominacion()))
-      return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);
-    if(tipoBoletaDTO.getCodigo().length()<0)
+    if (StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion())) {
+      return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"),
+          HttpStatus.BAD_REQUEST);
+    }
+    if (tipoBoletaDTO.getCodigo().length() < 0) {
       return new ResponseEntity(new Mensaje("El código es obligatorio"), HttpStatus.BAD_REQUEST);
-    if(tipoBoletaServiceImpl.existsByTipoBoletaDenominacion(tipoBoletaDTO.getTipoBoletaDenominacion()))
+    }
+    if (tipoBoletaServiceImpl.existsByCodigo(tipoBoletaDTO.getCodigo())) {
       return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
+    }
+    if (tipoBoletaServiceImpl.existsByTipoBoletaDenominacion(
+        tipoBoletaDTO.getTipoBoletaDenominacion())) {
+      return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
+    }
     ModelMapper modelMapper = new ModelMapper();
     TipoBoleta tipoBoleta = modelMapper.map(tipoBoletaDTO, TipoBoleta.class);
     try {
@@ -79,29 +86,30 @@ public class TipoBoletaExpert {
 
   public ResponseEntity<?> update(Long id, TipoBoletaDTO tipoBoletaDTO) {
     try {
-      if(tipoBoletaServiceImpl.FindById(id).equals(false))
+      if (tipoBoletaServiceImpl.FindById(id).equals(false)) {
         return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+      }
     } catch (Exception e1) {
       e1.printStackTrace();
     }
-    if(StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion()))
-      return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"), HttpStatus.BAD_REQUEST);
-    if(StringUtils.isBlank(tipoBoletaDTO.getTipoRequerimientoDenominacion()))
-      return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);
-    if(tipoBoletaDTO.getCodigo().length()<0)
-      return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+    if (StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion())) {
+      return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"),
+          HttpStatus.BAD_REQUEST);
+    }
+    if (tipoBoletaDTO.getCodigo().length() < 0) {
+      return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"),
+          HttpStatus.BAD_REQUEST);
+    }
 
     try {
       TipoBoleta tipoBoleta = tipoBoletaServiceImpl.FindById(id);
       tipoBoleta.setCodigo(tipoBoletaDTO.getCodigo());
       tipoBoleta.setTipoBoletaDenominacion(tipoBoletaDTO.getTipoBoletaDenominacion());
       tipoBoleta.setTieneMovilidad(tipoBoletaDTO.isTieneMovilidad());
-      tipoBoleta.setTineZonaInhospita(tipoBoletaDTO.isTineZonaInhospita());
+      tipoBoleta.setTineZonaInhospita(tipoBoletaDTO.isTieneZonaInhospita());
       tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
       tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaDTO.isPermiteNoFichadaRetorno());
       tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaDTO.isPermiteNoFichadaSalida());
-      tipoBoleta.getTipoRequerimiento().setTipoRequerimientoDenominacion(tipoBoletaDTO.getTipoRequerimientoDenominacion());
-      tipoBoleta.getTipoRequerimiento().setCantNiveles(tipoBoletaDTO.getTipoRequerimientoCantNiveles());
       tipoBoletaServiceImpl.Update(id, tipoBoleta);
     } catch (Exception e) {
       e.printStackTrace();
@@ -111,8 +119,9 @@ public class TipoBoletaExpert {
 
   public ResponseEntity<?> delete(Long id) {
     try {
-      if(tipoBoletaServiceImpl.FindById(id).equals(false))
+      if (tipoBoletaServiceImpl.FindById(id).equals(false)) {
         return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+      }
     } catch (Exception e1) {
       e1.printStackTrace();
     }
