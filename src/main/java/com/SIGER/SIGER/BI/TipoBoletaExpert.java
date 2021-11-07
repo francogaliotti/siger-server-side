@@ -59,7 +59,7 @@ public class TipoBoletaExpert {
   }*/
 
   public ResponseEntity<?> save(TipoBoletaDTO tipoBoletaDTO) {
-    System.out.println(tipoBoletaDTO.getTipoBoletaDenominacion());
+    System.out.println(tipoBoletaDTO.toString());
     if (StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion())) {
       return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"),
           HttpStatus.BAD_REQUEST);
@@ -106,7 +106,7 @@ public class TipoBoletaExpert {
       tipoBoleta.setCodigo(tipoBoletaDTO.getCodigo());
       tipoBoleta.setTipoBoletaDenominacion(tipoBoletaDTO.getTipoBoletaDenominacion());
       tipoBoleta.setTieneMovilidad(tipoBoletaDTO.isTieneMovilidad());
-      tipoBoleta.setTineZonaInhospita(tipoBoletaDTO.isTieneZonaInhospita());
+      tipoBoleta.setTieneZonaInhospita(tipoBoletaDTO.isTieneZonaInhospita());
       tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
       tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaDTO.isPermiteNoFichadaRetorno());
       tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaDTO.isPermiteNoFichadaSalida());

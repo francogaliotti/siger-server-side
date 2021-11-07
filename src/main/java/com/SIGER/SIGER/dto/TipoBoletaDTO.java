@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TipoBoletaDTO {
 
+  private Long id;
+
   private String codigo;
 
   @NotBlank
