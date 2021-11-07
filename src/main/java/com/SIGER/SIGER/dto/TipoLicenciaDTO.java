@@ -26,6 +26,8 @@ public class TipoLicenciaDTO {
 
     private String denominacion;
 
+    private boolean justificaPresentismo;
+
     private char generaRequerimiento;
 
     private char justificaRequerimiento;

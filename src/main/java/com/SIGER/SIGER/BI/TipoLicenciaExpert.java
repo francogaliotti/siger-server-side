@@ -57,8 +57,8 @@ public class TipoLicenciaExpert {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         if(tipoLicenciaDTO.getCodigo().length()<0)
             return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(tipoLicenciaDTO.getTipoRequerimientoDenominacion()))
-            return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);
+        /*if(StringUtils.isBlank(tipoLicenciaDTO.getTipoRequerimientoDenominacion()))
+            return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);*/
         if(tipoLicenciaServiceImpl.existsByNombreTipoLicencia(tipoLicenciaDTO.getDenominacion()))
             return new ResponseEntity(new Mensaje("El nombre del tipo ya existe"), HttpStatus.BAD_REQUEST);
         ModelMapper modelMapper = new ModelMapper();
@@ -83,14 +83,15 @@ public class TipoLicenciaExpert {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         if(tipoLicenciaDTO.getCodigo().length()<0)
             return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-        if(StringUtils.isBlank(tipoLicenciaDTO.getTipoRequerimientoDenominacion()))
-            return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);
+        /*if(StringUtils.isBlank(tipoLicenciaDTO.getTipoRequerimientoDenominacion()))
+            return new ResponseEntity(new Mensaje("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);*/
         /*ModelMapper modelMapper = new ModelMapper();
         TipoLicencia tipoLicencia = modelMapper.map(tipoLicenciaDTO,TipoLicencia.class);*/
         try {
             TipoLicencia tipoLicencia = tipoLicenciaServiceImpl.FindById(id);
             tipoLicencia.setCodigo(tipoLicenciaDTO.getCodigo());
             tipoLicencia.setDenominacion(tipoLicenciaDTO.getDenominacion());
+            tipoLicencia.setJustificaPresentismo(tipoLicenciaDTO.isJustificaPresentismo());
             tipoLicencia.setGeneraRequerimiento(tipoLicenciaDTO.getGeneraRequerimiento());
             tipoLicencia.setJustificaRequerimiento(tipoLicenciaDTO.getJustificaRequerimiento());
             tipoLicencia.setLimiteRangoDias(tipoLicenciaDTO.getLimiteRangoDias());
