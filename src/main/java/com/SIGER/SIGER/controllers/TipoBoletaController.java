@@ -48,8 +48,6 @@ public class TipoBoletaController /*extends BaseControllerImpl<TipoBoleta, TipoB
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/create")
   public ResponseEntity<?> save(@RequestBody TipoBoletaDTO tipoBoletaDTO) {
-    System.out.println(tipoBoletaDTO.getCodigo());
-    System.out.println(tipoBoletaDTO.getTipoBoletaDenominacion());
     return tipoBoletaExpert.save(tipoBoletaDTO);
   }
 
