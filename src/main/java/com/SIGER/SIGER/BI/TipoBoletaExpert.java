@@ -59,7 +59,6 @@ public class TipoBoletaExpert {
   }*/
 
   public ResponseEntity<?> save(TipoBoletaDTO tipoBoletaDTO) {
-    System.out.println(tipoBoletaDTO.toString());
     if (StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion())) {
       return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"),
           HttpStatus.BAD_REQUEST);
