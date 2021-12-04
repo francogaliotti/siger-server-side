@@ -1,27 +1,34 @@
 package com.SIGER.SIGER.controllers;
 
+import com.SIGER.SIGER.model.requests.BaseRequest;
+import com.SIGER.SIGER.model.responses.BaseResponse;
 import java.io.Serializable;
-
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.SIGER.SIGER.entities.BaseEntity;
 
-public interface BaseController <E extends BaseEntity, ID extends Serializable>{
-	
-    ResponseEntity<?> getAll();
+public interface BaseController <Req extends BaseRequest, Res extends BaseResponse,
+    ID extends Serializable>{
 
-    ResponseEntity<?> getAll(Pageable pageable);
+    ResponseEntity<List<Res>> getAll(@RequestParam("page") int page,
+        UriComponentsBuilder uriBuilder,
+        HttpServletResponse response) throws Exception;
 
-    ResponseEntity<?> getOne(@PathVariable ID id);
+    ResponseEntity<Res> getById(@PathVariable ID id) throws Exception;
 
-    ResponseEntity<?> save(@RequestBody E entity);
+    ResponseEntity<Res> post(@RequestBody Req req) throws Exception;
 
-    ResponseEntity<?> update(@PathVariable ID id, @RequestBody E entity/*, @RequestBody DTO dto*/)
+    ResponseEntity<Res> put(@PathVariable ID id, @RequestBody Req req)
         throws Exception;
 
-    ResponseEntity<?> delete(@PathVariable ID id);
+    ResponseEntity<Res> patch(@PathVariable ID id, @RequestBody Req dto)
+        throws Exception;
+
+    ResponseEntity<?> delete(@PathVariable ID id) throws Exception;
 
 }

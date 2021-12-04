@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.security.entity;
 
-import com.SIGER.SIGER.entities.BaseEntity;
+import com.SIGER.SIGER.model.entities.BaseEntity;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;

@@ -1,116 +1,124 @@
 package com.SIGER.SIGER.BI;
 
-import com.SIGER.SIGER.entities.EstadoLicencia;
-import com.SIGER.SIGER.presentation.dto.Mensaje;
-import com.SIGER.SIGER.servicesImpl.EstadoLicenciaServiceImpl;
+import com.SIGER.SIGER.common.Message;
+import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
+import com.SIGER.SIGER.model.entities.EstadoLicencia;
+import com.SIGER.SIGER.model.requests.EstadoLicenciaRequest;
+import com.SIGER.SIGER.model.responses.EstadoLicenciaResponse;
+import com.SIGER.SIGER.services.EstadoLicenciaService;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-
-import java.util.List;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
-public class EstadoLicenciaExpert {
+public class EstadoLicenciaExpert extends
+    AbsBaseExpert<EstadoLicencia, EstadoLicenciaService, EstadoLicenciaRequest, EstadoLicenciaResponse> {
 
-    @Autowired
-    EstadoLicenciaServiceImpl estadoLicenciaServiceImpl;
+  @Autowired
+  EstadoLicenciaService estadoLicenciaService;
 
-    public ResponseEntity<?> getAll() {
-        List<EstadoLicencia> list = null;
-        try{
-            list = estadoLicenciaServiceImpl.FindAll();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity(list, HttpStatus.OK);
+  @Autowired
+  PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
+
+  @Override
+  public ResponseEntity<List<EstadoLicenciaResponse>> findAll(int page, int size,
+      UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
+
+    Page<EstadoLicencia> estadoLicenciaResponsePage = estadoLicenciaService.findAll(page, size);
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
+        estadoLicenciaResponsePage.getTotalPages(), "/estado-licencia");
+
+    List<EstadoLicenciaResponse> estadoLicenciaResponses = converterPageToList(
+        estadoLicenciaResponsePage.getContent());
+    return new ResponseEntity(estadoLicenciaResponses, HttpStatus.OK);
+  }
+
+  private List<EstadoLicenciaResponse> converterPageToList(List<EstadoLicencia> estadoLicencias) {
+
+    List<EstadoLicenciaResponse> estadoLicenciaResponses = new ArrayList<>();
+    for (int i = 0; i < estadoLicencias.size(); i++) {
+      estadoLicenciaResponses.add(
+          modelMapper.map(estadoLicencias.get(i), EstadoLicenciaResponse.class));
+    }
+    return estadoLicenciaResponses;
+  }
+
+  @Override
+  public ResponseEntity<EstadoLicenciaResponse> findById(Long id) {
+    try {
+      if (estadoLicenciaService.findById(id).equals(false)) {
+        return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    EstadoLicencia estadoLicencia = null;
+
+    try {
+      estadoLicencia = estadoLicenciaService.findById(id);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return new ResponseEntity(estadoLicencia, HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<EstadoLicenciaResponse> save(EstadoLicenciaRequest estadoLicenciaRequest)
+      throws Exception {
+    if (StringUtils.isBlank(estadoLicenciaRequest.getNombreEstadoLicencia())) {
+      return new ResponseEntity(new Message("El nombre es obligatorio"),
+          HttpStatus.BAD_REQUEST);
+    }
+    if (estadoLicenciaRequest.getCodEstadoLicencia().length() < 0) {
+      return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"),
+          HttpStatus.BAD_REQUEST);
+    }
+    if (estadoLicenciaService.existsByNombreEstadoLicencia(
+        estadoLicenciaRequest.getNombreEstadoLicencia())) {
+      return new ResponseEntity(new Message("El nombre ya existe"), HttpStatus.BAD_REQUEST);
     }
 
+    EstadoLicencia estadoLicencia = modelMapper.map(estadoLicenciaRequest, EstadoLicencia.class);
+    estadoLicenciaService.save(estadoLicencia);
 
-    public ResponseEntity<?> getAll(Pageable pageable) {
-        List<EstadoLicencia> estadosLicencia = null;
-        try {
-            estadosLicencia = estadoLicenciaServiceImpl.FindAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity(estadosLicencia, HttpStatus.OK);
+    return new ResponseEntity(new Message("Estado de Licencia creado"), HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<EstadoLicenciaResponse> update(Long id,
+      EstadoLicenciaRequest estadoLicenciaRequest) throws Exception {
+
+    if (estadoLicenciaService.findById(id).equals(false)) {
+      return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<?> getOne(Long id) {
-        try {
-            if(estadoLicenciaServiceImpl.FindById(id).equals(false))
-                return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        EstadoLicencia estadoLicencia = null;
-
-        try{
-            estadoLicencia = estadoLicenciaServiceImpl.FindById(id);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity(estadoLicencia, HttpStatus.OK);
+    if (StringUtils.isBlank(estadoLicenciaRequest.getNombreEstadoLicencia())) {
+      return new ResponseEntity(new Message("El nombre es obligatorio"),
+          HttpStatus.BAD_REQUEST);
+    }
+    if (estadoLicenciaRequest.getCodEstadoLicencia().length() < 0) {
+      return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"),
+          HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<?> save(EstadoLicencia estadoLicencia) {
-        if(StringUtils.isBlank(estadoLicencia.getNombreEstadoLicencia()))
-            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-        if(estadoLicencia.getCodEstadoLicencia().length()<0)
-            return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-        if(estadoLicenciaServiceImpl.existsByNombreEstadoLicencia(estadoLicencia.getNombreEstadoLicencia()))
-            return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
-        try{
-            estadoLicencia = estadoLicenciaServiceImpl.Save(estadoLicencia);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity(new Mensaje("Estado de Licencia creado"), HttpStatus.OK);
-    }
+    EstadoLicencia estadoLicencia1 = estadoLicenciaService.findById(id);
+    estadoLicencia1.setCodEstadoLicencia(estadoLicenciaRequest.getCodEstadoLicencia());
+    estadoLicencia1.setNombreEstadoLicencia(estadoLicenciaRequest.getNombreEstadoLicencia());
+    estadoLicenciaService.update(id, estadoLicencia1);
 
-    public ResponseEntity<?> update(Long id, EstadoLicencia estadoLicencia) {
-        try {
-            if(estadoLicenciaServiceImpl.FindById(id).equals(false))
-                return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        if(StringUtils.isBlank(estadoLicencia.getNombreEstadoLicencia()))
-            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-        if(estadoLicencia.getCodEstadoLicencia().length()<0)
-            return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity(new Message("Estado de Licencia actualizado"), HttpStatus.OK);
+  }
 
-        try {
-            EstadoLicencia estadoLicencia1 = estadoLicenciaServiceImpl.FindById(id);
-            estadoLicencia1.setCodEstadoLicencia(estadoLicencia.getCodEstadoLicencia());
-            estadoLicencia1.setNombreEstadoLicencia(estadoLicencia.getNombreEstadoLicencia());
-            estadoLicenciaServiceImpl.Update(id, estadoLicencia1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity(new Mensaje("Estado de Licencia actualizado"), HttpStatus.OK);
-    }
-
-    public ResponseEntity<?> delete(Long id) {
-        try {
-            if(estadoLicenciaServiceImpl.FindById(id).equals(false))
-                return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        try {
-            estadoLicenciaServiceImpl.Delete(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity(new Mensaje("Estado de Licencia eliminado"), HttpStatus.OK);
-    }
+  @Override
+  public ResponseEntity<?> delete(Long id) throws Exception {
+    estadoLicenciaService.delete(id);
+    return new ResponseEntity(new Message("Estado de Licencia eliminado"), HttpStatus.OK);
+  }
 }

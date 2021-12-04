@@ -1,9 +1,8 @@
 package com.SIGER.SIGER.repositories;
 
-import com.SIGER.SIGER.entities.EstadoLicencia;
 import org.springframework.stereotype.Repository;
 
-import com.SIGER.SIGER.entities.TipoLicencia;
+import com.SIGER.SIGER.model.entities.TipoLicencia;
 
 import java.util.Optional;
 

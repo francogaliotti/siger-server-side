@@ -1,9 +1,9 @@
 package com.SIGER.SIGER.emailSender.controller;
 
+import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.emailSender.dto.ChangePasswordDTO;
 import com.SIGER.SIGER.emailSender.dto.EmailValuesDTO;
 import com.SIGER.SIGER.emailSender.service.EmailService;
-import com.SIGER.SIGER.presentation.dto.Mensaje;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public class EmailController {
   public ResponseEntity<?> sendEmail(@RequestBody EmailValuesDTO valuesDTO){
     Optional<Usuario> usuarioOptional = usuarioService.getByUsernameOrEmail(valuesDTO.getMailTo());
     if(!usuarioOptional.isPresent()){
-      return new ResponseEntity<>(new Mensaje("No existe ningún usuario con esas credenciales"),
+      return new ResponseEntity<>(new Message("No existe ningún usuario con esas credenciales"),
           HttpStatus.NOT_FOUND);
     }
 
@@ -64,21 +64,21 @@ public class EmailController {
     usuarioService.save(usuario);
     emailService.sendEmail(valuesDTO);
 
-    return new ResponseEntity<>(new Mensaje("Te hemos enviado un correo"), HttpStatus.OK);
+    return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);
   }
 
   @PostMapping("/change-password")
   public ResponseEntity<?> changePassword(@Valid@RequestBody ChangePasswordDTO changePasswordDTO,
       BindingResult bindingResult){
     if(bindingResult.hasErrors()){
-      return new ResponseEntity<>(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(new Message("Campos mal puestos"), HttpStatus.BAD_REQUEST);
     }
     if(!changePasswordDTO.getPassword().equals(changePasswordDTO.getConfirmPassword())){
-      return new ResponseEntity<>(new Mensaje("Las contraseñas no coinciden"), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(new Message("Las contraseñas no coinciden"), HttpStatus.BAD_REQUEST);
     }
     Optional<Usuario>usuarioOptional = usuarioService.findByTokenPassword(changePasswordDTO.getTokenPassword());
     if(!usuarioOptional.isPresent()){
-      return new ResponseEntity<>(new Mensaje("No existe ningún usuario con esas credenciales"),
+      return new ResponseEntity<>(new Message("No existe ningún usuario con esas credenciales"),
           HttpStatus.NOT_FOUND);
     }
     Usuario usuario = usuarioOptional.get();
@@ -86,7 +86,7 @@ public class EmailController {
     usuario.setPassword(newPassword);
     usuario.setTokenPassword(null);
     usuarioService.save(usuario);
-    return new ResponseEntity<>(new Mensaje("Contraseña actualizada"), HttpStatus.OK);
+    return new ResponseEntity<>(new Message("Contraseña actualizada"), HttpStatus.OK);
   }
 
 }

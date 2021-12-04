@@ -1,10 +1,12 @@
 package com.SIGER.SIGER.exception.response;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@JsonRootName("error")
 public class ErrorResponse {
 
   private String message;

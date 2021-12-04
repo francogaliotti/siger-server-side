@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.repositories;
 
-import com.SIGER.SIGER.entities.Empleado;
+import com.SIGER.SIGER.model.entities.Empleado;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 

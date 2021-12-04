@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.repositories;
 
-import com.SIGER.SIGER.entities.TipoBoleta;
+import com.SIGER.SIGER.model.entities.TipoBoleta;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
