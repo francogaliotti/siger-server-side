@@ -1,11 +1,12 @@
 package com.SIGER.SIGER.presentation.dto;
 
-import com.SIGER.SIGER.entities.BaseEntity;
+import com.SIGER.SIGER.model.entities.BaseEntity;
+import com.SIGER.SIGER.model.responses.BaseResponse;
 import com.google.gson.Gson;
 
 public class MapperDTO {
 
-    public static BaseEntityDTO MapperToDTO(BaseEntity entity, BaseEntityDTO dto){
+    public static BaseResponse MapperToDTO(BaseEntity entity, BaseResponse dto){
 
         String aux_entity = new Gson().toJson(entity);
 

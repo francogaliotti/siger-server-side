@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.repositories;
 
-import com.SIGER.SIGER.entities.TipoSector;
+import com.SIGER.SIGER.model.entities.TipoSector;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 

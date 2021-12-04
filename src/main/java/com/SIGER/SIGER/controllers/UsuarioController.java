@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
-import com.SIGER.SIGER.entities.Usuario;
+import com.SIGER.SIGER.model.entities.Usuario;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServiceImpl>{
+public class UsuarioController extends AbsBaseController<Usuario, UsuarioServiceImpl>{
 
 	@Autowired
 	UsuarioServiceImpl usuarioServiceImpl;

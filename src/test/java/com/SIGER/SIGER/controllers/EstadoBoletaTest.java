@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.entities.EstadoBoleta;
+import com.SIGER.SIGER.model.requests.EstadoBoletaRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,15 +12,15 @@ public class EstadoBoletaTest {
 
     @Autowired
     EstadoBoletaController estadoBoletaController;
-    EstadoBoleta estadoBoleta = new EstadoBoleta();
+    EstadoBoletaRequest estadoBoletaRequest = new EstadoBoletaRequest();
 
     @Test
-    public void cargarBoleta(){
+    public void cargarBoleta() throws Exception {
 
-        this.estadoBoleta.setCodEstadoBoleta("AA");
-        this.estadoBoleta.setNombreEstadoBoleta("Estado de boleta de prueba");
+        this.estadoBoletaRequest.setCodEstadoBoleta("AA");
+        this.estadoBoletaRequest.setNombreEstadoBoleta("Estado de boleta de prueba");
 
-        ResponseEntity responseEntity = estadoBoletaController.save(this.estadoBoleta);
+        ResponseEntity responseEntity = estadoBoletaController.post(this.estadoBoletaRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is2xxSuccessful(), responseEntity.toString());
     }

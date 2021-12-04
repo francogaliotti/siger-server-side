@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.entities.Viatico;
+import com.SIGER.SIGER.model.requests.ViaticoRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,36 +12,36 @@ public class ViaticoTesting {
 
     @Autowired
     ViaticoController viaticoController;
-    Viatico viatico = new Viatico();
+    ViaticoRequest viaticoRequest = new ViaticoRequest();
 
     @Test
-    public void cargarViatico(){
+    public void cargarViatico() throws Exception {
 
-        this.viatico.setCodViatico("AA");
-        this.viatico.setDenominacionViatico("Viatico de prueba");
-        this.viatico.setImporte(100);
+        this.viaticoRequest.setCodViatico("AA");
+        this.viaticoRequest.setDenominacionViatico("Viatico de prueba");
+        this.viaticoRequest.setImporte(100);
 
-        ResponseEntity responseEntity = viaticoController.save(this.viatico);
+        ResponseEntity responseEntity = viaticoController.post(this.viaticoRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is2xxSuccessful(), responseEntity.toString());
     }
 
     @Test
-    public void editarViatico(){
+    public void editarViatico() throws Exception {
 
         Long id = Long.valueOf(1);
-        this.viatico.setCodViatico("AA");
-        this.viatico.setDenominacionViatico("Viatico de prueba");
-        this.viatico.setImporte(200);
+        this.viaticoRequest.setCodViatico("AA");
+        this.viaticoRequest.setDenominacionViatico("Viatico de prueba");
+        this.viaticoRequest.setImporte(200);
 
-        ResponseEntity responseEntity = viaticoController.update(id, this.viatico);
+        ResponseEntity responseEntity = viaticoController.put(id, this.viaticoRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is2xxSuccessful(), responseEntity.toString());
 
     }
 
     @Test
-    public void borrarViatico(){
+    public void borrarViatico() throws Exception {
 
         Long id = Long.valueOf(1);
 
@@ -52,37 +52,37 @@ public class ViaticoTesting {
     }
 
     @Test
-    public void cargarViaticoConCodigoErroneo(){
+    public void cargarViaticoConCodigoErroneo() throws Exception {
 
-        this.viatico.setCodViatico("");
-        this.viatico.setDenominacionViatico("Viatico de prueba");
-        this.viatico.setImporte(100);
+        this.viaticoRequest.setCodViatico("");
+        this.viaticoRequest.setDenominacionViatico("Viatico de prueba");
+        this.viaticoRequest.setImporte(100);
 
-        ResponseEntity responseEntity = viaticoController.save(this.viatico);
-
-        Assert.isTrue(responseEntity.getStatusCode().is4xxClientError(), responseEntity.toString());
-    }
-
-    @Test
-    public void cargarViaticoConDenominacionErroneo(){
-
-        this.viatico.setCodViatico("AA");
-        this.viatico.setDenominacionViatico("");
-        this.viatico.setImporte(100);
-
-        ResponseEntity responseEntity = viaticoController.save(this.viatico);
+        ResponseEntity responseEntity = viaticoController.post(this.viaticoRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is4xxClientError(), responseEntity.toString());
     }
 
     @Test
-    public void cargarViaticoConImporteErroneo(){
+    public void cargarViaticoConDenominacionErroneo() throws Exception {
 
-        this.viatico.setCodViatico("AA");
-        this.viatico.setDenominacionViatico("Viatico de prueba");
-        this.viatico.setImporte(-100);
+        this.viaticoRequest.setCodViatico("AA");
+        this.viaticoRequest.setDenominacionViatico("");
+        this.viaticoRequest.setImporte(100);
 
-        ResponseEntity responseEntity = viaticoController.save(this.viatico);
+        ResponseEntity responseEntity = viaticoController.post(this.viaticoRequest);
+
+        Assert.isTrue(responseEntity.getStatusCode().is4xxClientError(), responseEntity.toString());
+    }
+
+    @Test
+    public void cargarViaticoConImporteErroneo() throws Exception {
+
+        this.viaticoRequest.setCodViatico("AA");
+        this.viaticoRequest.setDenominacionViatico("Viatico de prueba");
+        this.viaticoRequest.setImporte(-100);
+
+        ResponseEntity responseEntity = viaticoController.post(this.viaticoRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is4xxClientError(), responseEntity.toString());
     }

@@ -1,7 +1,7 @@
 package com.SIGER.SIGER.controllers;
 
 
-import com.SIGER.SIGER.entities.ZonaInhospita;
+import com.SIGER.SIGER.model.requests.ZonaInhospitaRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,27 +12,27 @@ import org.springframework.util.Assert;
 public class ZonaInhospitaControllerTest {
     @Autowired
     ZonaInhospitaController zonaInhospitaController;
-    ZonaInhospita zonaInhospita = new ZonaInhospita();
+    ZonaInhospitaRequest zonaInhospitaRequest = new ZonaInhospitaRequest();
 
     @Test
-    public void cargarZonaInhospita(){
-        this.zonaInhospita.setCodZona("009");
-        this.zonaInhospita.setDenominacionZona("Perdriel");
-        this.zonaInhospita.setPrecio(900);
+    public void cargarZonaInhospita() throws Exception {
+        this.zonaInhospitaRequest.setCodZona("009");
+        this.zonaInhospitaRequest.setDenominacionZona("Perdriel");
+        this.zonaInhospitaRequest.setPrecio(900);
 
-        ResponseEntity responseEntity = zonaInhospitaController.save(zonaInhospita);
+        ResponseEntity responseEntity = zonaInhospitaController.post(zonaInhospitaRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is2xxSuccessful(), responseEntity.toString());
     }
     @Test
-    public void editarZonaInhospita(){
-        ZonaInhospita zona2 = new ZonaInhospita();
+    public void editarZonaInhospita() throws Exception {
+        ZonaInhospitaRequest zonaInhospitaRequest = new ZonaInhospitaRequest();
         Long id = Long.valueOf(1);
-        zona2.setCodZona("002");
-        zona2.setDenominacionZona("Lulunta");
-        zona2.setPrecio(900);
+        zonaInhospitaRequest.setCodZona("002");
+        zonaInhospitaRequest.setDenominacionZona("Lulunta");
+        zonaInhospitaRequest.setPrecio(900);
 
-        ResponseEntity responseEntity = zonaInhospitaController.update(id, zona2);
+        ResponseEntity responseEntity = zonaInhospitaController.put(id, zonaInhospitaRequest);
 
         Assert.isTrue(responseEntity.getStatusCode().is2xxSuccessful(), responseEntity.toString());
     }

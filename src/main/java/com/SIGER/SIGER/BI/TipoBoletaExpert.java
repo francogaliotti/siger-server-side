@@ -1,135 +1,130 @@
 package com.SIGER.SIGER.BI;
 
-import com.SIGER.SIGER.dto.TipoBoletaDTO;
-import com.SIGER.SIGER.entities.TipoBoleta;
-import com.SIGER.SIGER.presentation.dto.Mensaje;
-import com.SIGER.SIGER.servicesImpl.TipoBoletaServiceImpl;
+import com.SIGER.SIGER.common.Message;
+import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
+import com.SIGER.SIGER.model.entities.TipoBoleta;
+import com.SIGER.SIGER.model.requests.TipoBoletaRequest;
+import com.SIGER.SIGER.model.responses.TipoBoletaResponse;
+import com.SIGER.SIGER.services.TipoBoletaService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
-public class TipoBoletaExpert {
+public class TipoBoletaExpert extends
+    AbsBaseExpert<TipoBoleta, TipoBoletaService, TipoBoletaRequest, TipoBoletaResponse> {
 
   @Autowired
-  TipoBoletaServiceImpl tipoBoletaServiceImpl;
+  TipoBoletaService tipoBoletaServiceImpl;
 
-  public ResponseEntity<List<TipoBoleta>> getAll() {
-    List<TipoBoleta> tipoBoletas = null;
-    try {
-      tipoBoletas = tipoBoletaServiceImpl.FindAll();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    ModelMapper modelMapper = new ModelMapper();
-    List<TipoBoletaDTO> tipoBoletaDTOS = new ArrayList<>();
-    for (int i = 0; i < tipoBoletas.size(); i++) {
-      tipoBoletaDTOS.add(modelMapper.map(tipoBoletas.get(i), TipoBoletaDTO.class));
-    }
-    return new ResponseEntity(tipoBoletaDTOS, HttpStatus.OK);
+  @Autowired
+  PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
+
+  @Override
+  public ResponseEntity<List<TipoBoletaResponse>> findAll(int page, int size,
+      UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
+
+    Page<TipoBoleta> tipoBoletaPage = tipoBoletaServiceImpl.findAll(page, size);
+    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
+        tipoBoletaPage.getTotalPages(), "/tipo-boleta");
+
+    List<TipoBoletaResponse> tipoBoletaResponses = converterPageToList(tipoBoletaPage.getContent());
+
+    return new ResponseEntity(tipoBoletaResponses, HttpStatus.OK);
   }
 
-  public ResponseEntity<?> getOne(Long id) {
-    try {
-      if (tipoBoletaServiceImpl.FindById(id).equals(false)) {
-        return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+  private List<TipoBoletaResponse> converterPageToList(List<TipoBoleta> tipoBoletas) {
+
+    List<TipoBoletaResponse> tipoBoletaResponses = new ArrayList<>();
+    for (int i = 0; i < tipoBoletas.size(); i++) {
+      tipoBoletaResponses.add(
+          modelMapper.map(tipoBoletas.get(i), TipoBoletaResponse.class));
     }
-    TipoBoleta tipoBoleta = null;
-    try {
-      tipoBoleta = tipoBoletaServiceImpl.FindById(id);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return new ResponseEntity(tipoBoleta, HttpStatus.OK);
+    return tipoBoletaResponses;
+  }
+
+  @Override
+  public ResponseEntity<TipoBoletaResponse> findById(Long id) throws Exception {
+    TipoBoleta tipoBoleta = tipoBoletaServiceImpl.findById(id);
+    TipoBoletaResponse tipoBoletaResponse = modelMapper.map(tipoBoleta, TipoBoletaResponse.class);
+    return new ResponseEntity(tipoBoletaResponse, HttpStatus.OK);
   }
 
   /*public ResponseEntity<TipoBoleta> getByNombre(String tipoBoletaDenominacion){
     if(!tipoBoletaServiceImpl.existsByTipoBoletaDenominacion(tipoBoletaDenominacion))
-      return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+      return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     TipoBoleta tipoBoleta = tipoBoletaServiceImpl.getByTipoBoletaDenominacion(tipoBoletaDenominacion).get();
     return new ResponseEntity(tipoBoleta, HttpStatus.OK);
   }*/
 
-  public ResponseEntity<?> save(TipoBoletaDTO tipoBoletaDTO) {
-    if (StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion())) {
-      return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"),
+  @Override
+  public ResponseEntity<TipoBoletaResponse> save(TipoBoletaRequest tipoBoletaRequest)
+      throws Exception {
+    System.out.println(tipoBoletaRequest.getTipoBoletaDenominacion());
+    if (StringUtils.isBlank(tipoBoletaRequest.getTipoBoletaDenominacion())) {
+      return new ResponseEntity(new Message("La denominación del tipo de Boleta es obligatoria"),
           HttpStatus.BAD_REQUEST);
     }
-    if (tipoBoletaDTO.getCodigo().length() < 0) {
-      return new ResponseEntity(new Mensaje("El código es obligatorio"), HttpStatus.BAD_REQUEST);
+    if (tipoBoletaRequest.getCodigo().length() < 0) {
+      return new ResponseEntity(new Message("El código es obligatorio"), HttpStatus.BAD_REQUEST);
     }
-    if (tipoBoletaServiceImpl.existsByCodigo(tipoBoletaDTO.getCodigo())) {
-      return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
+    if (tipoBoletaServiceImpl.existsByCodigo(tipoBoletaRequest.getCodigo())) {
+      return new ResponseEntity(new Message("El nombre ya existe"), HttpStatus.BAD_REQUEST);
     }
     if (tipoBoletaServiceImpl.existsByTipoBoletaDenominacion(
-        tipoBoletaDTO.getTipoBoletaDenominacion())) {
-      return new ResponseEntity(new Mensaje("El nombre ya existe"), HttpStatus.BAD_REQUEST);
+        tipoBoletaRequest.getTipoBoletaDenominacion())) {
+      return new ResponseEntity(new Message("El nombre ya existe"), HttpStatus.BAD_REQUEST);
     }
     ModelMapper modelMapper = new ModelMapper();
-    TipoBoleta tipoBoleta = modelMapper.map(tipoBoletaDTO, TipoBoleta.class);
-    try {
-      tipoBoletaServiceImpl.Save(tipoBoleta);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return new ResponseEntity(new Mensaje("Tipo de Boleta creado"), HttpStatus.OK);
+    TipoBoleta tipoBoleta = modelMapper.map(tipoBoletaRequest, TipoBoleta.class);
+
+    tipoBoletaServiceImpl.save(tipoBoleta);
+
+    return new ResponseEntity(new Message("Tipo de Boleta creado"), HttpStatus.OK);
   }
 
-  public ResponseEntity<?> update(Long id, TipoBoletaDTO tipoBoletaDTO) {
-    try {
-      if (tipoBoletaServiceImpl.FindById(id).equals(false)) {
-        return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-      }
-    } catch (Exception e1) {
-      e1.printStackTrace();
+  @Override
+  public ResponseEntity<TipoBoletaResponse> update(Long id, TipoBoletaRequest tipoBoletaRequest)
+      throws Exception {
+
+    if (tipoBoletaServiceImpl.findById(id).equals(false)) {
+      return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     }
-    if (StringUtils.isBlank(tipoBoletaDTO.getTipoBoletaDenominacion())) {
-      return new ResponseEntity(new Mensaje("La denominación del tipo de Boleta es obligatoria"),
+
+    if (StringUtils.isBlank(tipoBoletaRequest.getTipoBoletaDenominacion())) {
+      return new ResponseEntity(new Message("La denominación del tipo de Boleta es obligatoria"),
           HttpStatus.BAD_REQUEST);
     }
-    if (tipoBoletaDTO.getCodigo().length() < 0) {
-      return new ResponseEntity(new Mensaje("El código es obligatorio, o debe ser mayor a 0"),
+    if (tipoBoletaRequest.getCodigo().length() < 0) {
+      return new ResponseEntity(new Message("El código es obligatorio, o debe ser mayor a 0"),
           HttpStatus.BAD_REQUEST);
     }
 
-    try {
-      TipoBoleta tipoBoleta = tipoBoletaServiceImpl.FindById(id);
-      tipoBoleta.setCodigo(tipoBoletaDTO.getCodigo());
-      tipoBoleta.setTipoBoletaDenominacion(tipoBoletaDTO.getTipoBoletaDenominacion());
-      tipoBoleta.setTieneMovilidad(tipoBoletaDTO.isTieneMovilidad());
-      tipoBoleta.setTieneZonaInhospita(tipoBoletaDTO.isTieneZonaInhospita());
-      tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
-      tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaDTO.isPermiteNoFichadaRetorno());
-      tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaDTO.isPermiteNoFichadaSalida());
-      tipoBoletaServiceImpl.Update(id, tipoBoleta);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return new ResponseEntity(new Mensaje("Tipo de Boleta actualizado"), HttpStatus.OK);
+    TipoBoleta tipoBoleta = tipoBoletaServiceImpl.findById(id);
+    tipoBoleta.setCodigo(tipoBoletaRequest.getCodigo());
+    tipoBoleta.setTipoBoletaDenominacion(tipoBoletaRequest.getTipoBoletaDenominacion());
+    tipoBoleta.setTieneMovilidad(tipoBoletaRequest.isTieneMovilidad());
+    tipoBoleta.setTineZonaInhospita(tipoBoletaRequest.isTieneZonaInhospita());
+    tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
+    tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaRequest.isPermiteNoFichadaRetorno());
+    tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaRequest.isPermiteNoFichadaSalida());
+    tipoBoletaServiceImpl.update(id, tipoBoleta);
+
+    return new ResponseEntity(new Message("Tipo de Boleta actualizado"), HttpStatus.OK);
   }
 
-  public ResponseEntity<?> delete(Long id) {
-    try {
-      if (tipoBoletaServiceImpl.FindById(id).equals(false)) {
-        return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-      }
-    } catch (Exception e1) {
-      e1.printStackTrace();
-    }
-    try {
-      tipoBoletaServiceImpl.Delete(id);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return new ResponseEntity(new Mensaje("Tipo de Boleta eliminado"), HttpStatus.OK);
+  @Override
+  public ResponseEntity<?> delete(Long id) throws Exception {
+    tipoBoletaServiceImpl.delete(id);
+    return new ResponseEntity(new Message("Tipo de Boleta eliminado"), HttpStatus.OK);
   }
 
 }

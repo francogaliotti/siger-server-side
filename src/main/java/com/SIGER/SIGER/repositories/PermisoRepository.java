@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.repositories;
 
-import com.SIGER.SIGER.entities.Permiso;
+import com.SIGER.SIGER.model.entities.Permiso;
 import org.springframework.stereotype.Repository;
 
 
