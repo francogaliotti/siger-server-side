@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.security.expert;
 
-import com.SIGER.SIGER.presentation.dto.Mensaje;
+import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.security.dto.JwtDTO;
 import com.SIGER.SIGER.security.dto.LoginUsuario;
 import com.SIGER.SIGER.security.dto.NuevoUsuario;
@@ -46,11 +46,11 @@ public class AuthExpert {
 
   public ResponseEntity<?> register(NuevoUsuario nuevoUsuario, BindingResult bindingResult){
     if(bindingResult.hasErrors())
-      return new ResponseEntity(new Mensaje("Campos o email inválidos"), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity(new Message("Campos o email inválidos"), HttpStatus.BAD_REQUEST);
     if(usuarioService.existsByUsername(nuevoUsuario.getUsername()))
-      return new ResponseEntity(new Mensaje("Nombre de Usuario ya está registrado"), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity(new Message("Nombre de Usuario ya está registrado"), HttpStatus.BAD_REQUEST);
     if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-      return new ResponseEntity(new Mensaje("Correo ya está registrado"), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity(new Message("Correo ya está registrado"), HttpStatus.BAD_REQUEST);
     Usuario usuario = Usuario.builder().nombre(nuevoUsuario.getNombre()).username(nuevoUsuario.getUsername())
         .email(nuevoUsuario.getEmail()).password(passwordEncoder.encode(nuevoUsuario.getPassword())).build();
     Set<Rol> roles = new HashSet<>();
@@ -59,12 +59,12 @@ public class AuthExpert {
       roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
     usuario.setRoles(roles);
     usuarioService.save(usuario);
-    return new ResponseEntity(new Mensaje("Usuario creado satisfactoriamente"), HttpStatus.CREATED);
+    return new ResponseEntity(new Message("Usuario creado satisfactoriamente"), HttpStatus.CREATED);
   }
 
   public ResponseEntity<JwtDTO> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
     if(bindingResult.hasErrors())
-      return new ResponseEntity(new Mensaje("Campos inválidos"), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity(new Message("Campos inválidos"), HttpStatus.BAD_REQUEST);
     Authentication authentication =
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
             (loginUsuario.getUsername(),loginUsuario.getPassword()));

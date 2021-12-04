@@ -1,113 +1,83 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.presentation.dto.Mensaje;
-import org.apache.commons.lang3.StringUtils;
+import com.SIGER.SIGER.BI.ProvinciaExpert;
+import com.SIGER.SIGER.common.Message;
+import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
+import com.SIGER.SIGER.model.entities.Provincia;
+import com.SIGER.SIGER.model.requests.ProvinciaRequest;
+import com.SIGER.SIGER.model.responses.ProvinciaResponse;
+import com.SIGER.SIGER.services.ProvinciaService;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.SIGER.SIGER.entities.Provincia;
-import com.SIGER.SIGER.servicesImpl.ProvinciaServiceImpl;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/provincia")
 @CrossOrigin(origins = "http://localhost:4200")
-public class ProvinciaController extends BaseControllerImpl<Provincia, ProvinciaServiceImpl>{
-	
-	@Autowired
-	ProvinciaServiceImpl provinciaServiceImpl;
+public class ProvinciaController extends
+    AbsBaseController<Provincia, ProvinciaService, ProvinciaRequest, ProvinciaResponse, ProvinciaExpert> {
 
+  @Autowired
+  ProvinciaExpert provinciaExpert;
 
+  @Override
+  @GetMapping("/")
+  public ResponseEntity<List<ProvinciaResponse>> getAll(@RequestParam("page") int page,
+      UriComponentsBuilder uriBuilder,
+      HttpServletResponse response) throws Exception {
+    return provinciaExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
+        response);
+  }
 
-	@GetMapping("/list")
-	public ResponseEntity<List<Provincia>> getAll(){
-		List<Provincia> list= provinciaServiceImpl.list();
-		return new ResponseEntity<List<Provincia>>(list, HttpStatus.OK);
-	}
-	@GetMapping("/detail-den/{denomination}")
-	public ResponseEntity<Provincia> getByDenominacion(@PathVariable("denominacion") String den){
-		if(!provinciaServiceImpl.existByDenominacion(den))
-			return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		Provincia provincia = provinciaServiceImpl.getByDenominacion(den).get();
-		return new ResponseEntity(provincia, HttpStatus.OK);
-	}
-	@GetMapping("/detail/{id}")
-	public ResponseEntity<Provincia> getOne(@PathVariable("id") Long id){
-		if(!provinciaServiceImpl.existsById(id))
-			return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		Provincia provincia = provinciaServiceImpl.getById(id).get();
-		return new ResponseEntity(provincia, HttpStatus.OK);
-	}
+  /*@GetMapping("/detail-den/{denomination}")
+  public ResponseEntity<Provincia> getByDenominacion(@PathVariable("denominacion") String den) {
+    if (!provinciaExpert.existByDenominacion(den)) {
+      return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
+    }
+    Provincia provincia = provinciaExpert.getByDenominacion(den).get();
+    return new ResponseEntity(provincia, HttpStatus.OK);
+  }*/
 
-	@Override
-	public ResponseEntity<?> getAll(Pageable pageable) {
+  @Override
+  @GetMapping("/{id}")
+  public ResponseEntity<ProvinciaResponse> getById(@PathVariable("id") Long id) throws Exception {
+    return provinciaExpert.findById(id);
+  }
 
-		return null;
-	}
+  @Override
+  @PostMapping("/")
+  public ResponseEntity<ProvinciaResponse> post(@RequestBody ProvinciaRequest provinciaRequest)
+      throws Exception {
+    provinciaExpert.save(provinciaRequest);
+    return new ResponseEntity(new Message("Provincia creada"), HttpStatus.OK);
+  }
 
+  @Override
+  @PutMapping("/{id}")
+  public ResponseEntity<ProvinciaResponse> put(@PathVariable("id") Long id,
+      @RequestBody ProvinciaRequest provinciaRequest)
+      throws Exception {
+    provinciaExpert.save(provinciaRequest);
+    return new ResponseEntity(new Message("Provincia actualizada"), HttpStatus.OK);
+  }
 
-
-	@Override
-	@PostMapping("/create")
-	public ResponseEntity<?> save(Provincia entity) {
-		if(StringUtils.isBlank(entity.getDenominacion()))
-			return new ResponseEntity(new Mensaje("La denominacion es obligatoria"), HttpStatus.BAD_REQUEST);
-		if(entity.getCodigo().length() < 0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-
-		try {
-			entity = provinciaServiceImpl.Save(entity);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Provincia creada"), HttpStatus.OK);
-	}
-
-	@Override
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(Long id, Provincia entity) {
-		try {
-			if(provinciaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if(StringUtils.isBlank(entity.getDenominacion()))
-			return new ResponseEntity(new Mensaje("La denominacion es obligatoria"), HttpStatus.BAD_REQUEST);
-		if(entity.getCodigo().length() < 0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-
-		try {
-			entity = provinciaServiceImpl.Save(entity);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Provincia actualizada"), HttpStatus.OK);
-	}
-
-	@Override
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> delete(Long id) {
-		try {
-			if(provinciaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			provinciaServiceImpl.Delete(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Provincia eliminada"), HttpStatus.OK);
-	}
+  @Override
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> delete(@PathVariable("id") Long id) throws Exception {
+    provinciaExpert.delete(id);
+    return new ResponseEntity(new Message("Provincia eliminada"), HttpStatus.OK);
+  }
 }

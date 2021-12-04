@@ -1,6 +1,6 @@
 /*package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.presentation.dto.Mensaje;
+import com.SIGER.SIGER.presentation.dto.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.SIGER.SIGER.entities.Rol;
+import com.SIGER.SIGER.model.entities.Rol;
 import com.SIGER.SIGER.services.RolServiceImpl;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rol")
 @CrossOrigin(origins = "http://localhost:4200")
-public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
+public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 	
 	@Autowired
 	RolServiceImpl rolServiceImpl;
@@ -30,14 +30,14 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 	@GetMapping("/detail-name/{nombre}")
 	public ResponseEntity<Rol> getByNombre(@PathVariable("nombre") String nombreRol){
 		if(!rolServiceImpl.existByNombreRol(nombreRol))
-			return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
 		Rol rol = rolServiceImpl.getByNombreRol(nombreRol).get();
 		return new ResponseEntity(rol, HttpStatus.OK);
 	}
 	@GetMapping("/detail/{id}")
 	public ResponseEntity<Rol> getOne(@PathVariable("id") Long id){
 		if(!rolServiceImpl.existsById(id))
-			return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
 		Rol rol = rolServiceImpl.getById(id).get();
 		return new ResponseEntity(rol, HttpStatus.OK);
 	}
@@ -52,9 +52,9 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 	@PostMapping("/create")
 	public ResponseEntity<?> save(Rol entity) {
 		if(StringUtils.isBlank(entity.getNombreRol()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new Message("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		if(entity.getCodigoRol().length()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
 		try {
 			entity = rolServiceImpl.Save(entity);
@@ -62,7 +62,7 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ResponseEntity(new Mensaje("Rol creado"), HttpStatus.OK);
+		return new ResponseEntity(new Message("Rol creado"), HttpStatus.OK);
 	}
 
 	@Override
@@ -70,15 +70,15 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 	public ResponseEntity<?> update(Long id, Rol entity) {
 		try {
 			if(rolServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+				return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		if(StringUtils.isBlank(entity.getNombreRol()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new Message("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
 		if(entity.getCodigoRol().length()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
 		try {
 			rolServiceImpl.Save(entity);
@@ -86,7 +86,7 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ResponseEntity(new Mensaje("Rol actualizado"), HttpStatus.OK);
+		return new ResponseEntity(new Message("Rol actualizado"), HttpStatus.OK);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 	public ResponseEntity<?> delete(Long id) {
 		try {
 			if(rolServiceImpl.getById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
+				return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -105,7 +105,7 @@ public class RolController extends BaseControllerImpl<Rol, RolServiceImpl>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ResponseEntity(new Mensaje("Rol eliminado"), HttpStatus.OK);
+		return new ResponseEntity(new Message("Rol eliminado"), HttpStatus.OK);
 	}
 
 }*/
