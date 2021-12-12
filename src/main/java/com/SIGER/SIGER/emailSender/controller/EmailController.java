@@ -38,8 +38,8 @@ public class EmailController {
   @Value("${spring.mail.username}")
   private String mailFrom;
 
-  @Value("${mail.subject}")
-  private String subject;
+  @Value("${mail.subject-Change-Password}")
+  private String subject_Change_Password;
 
   @PostMapping("/send-email")
   public ResponseEntity<?> sendEmail(@RequestBody EmailValuesDTO valuesDTO){
@@ -52,7 +52,7 @@ public class EmailController {
     Usuario usuario = usuarioOptional.get();
     valuesDTO.setMailFrom(mailFrom);
     valuesDTO.setMailTo(usuario.getEmail());
-    valuesDTO.setSubject(subject);
+    valuesDTO.setSubject(subject_Change_Password);
     valuesDTO.setUsername(usuario.getUsername());
 
     UUID uuid = UUID.randomUUID();

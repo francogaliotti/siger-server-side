@@ -22,8 +22,8 @@ public class EmailService {
   @Autowired
   TemplateEngine templateEngine;
 
-  @Value("${mail.urlFront}")
-  String urlFront;
+  @Value("${mail.url-Change-Password}")
+  String url_Change_Password;
 
   public void sendEmail(EmailValuesDTO emailValuesDTO){
     MimeMessage message = javaMailSender.createMimeMessage();
@@ -32,7 +32,7 @@ public class EmailService {
       Context context = new Context();
       Map<String, Object> model = new HashMap<>();
       model.put("username", emailValuesDTO.getUsername());
-      model.put("url", urlFront + emailValuesDTO.getTokenPassword());
+      model.put("url-Change-Password", url_Change_Password + emailValuesDTO.getTokenPassword());
       context.setVariables(model);
 
       String htmlText = templateEngine.process("email-template", context);
