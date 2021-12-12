@@ -47,6 +47,7 @@ public class TipoBoletaController extends
     return tipoBoletaExpert.findById(id);
   }
 
+  @Override
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/")
   public ResponseEntity<TipoBoletaResponse> post(@RequestBody TipoBoletaRequest tipoBoletaRequest)
@@ -54,6 +55,7 @@ public class TipoBoletaController extends
     return tipoBoletaExpert.save(tipoBoletaRequest);
   }
 
+  @Override
   @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/{id}")
   public ResponseEntity<TipoBoletaResponse> put(@PathVariable("id") Long id,
