@@ -1,7 +1,5 @@
 package com.SIGER.SIGER.model.requests;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class TipoLicenciaRequest extends BaseRequest{
 
-  @Id
-  @Column(name = "id", nullable = false)
   private String codigo;
 
   private String denominacion;
