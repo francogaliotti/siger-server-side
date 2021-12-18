@@ -22,7 +22,7 @@ public class TipoBoleta extends BaseEntity{
 	
 	private boolean tieneMovilidad;
 	
-	private boolean tineZonaInhospita;
+	private boolean tieneZonaInhospita;
 	
 	private boolean tieneViatico;
 	

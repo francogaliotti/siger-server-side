@@ -112,7 +112,7 @@ public class TipoBoletaExpert extends
     tipoBoleta.setCodigo(tipoBoletaRequest.getCodigo());
     tipoBoleta.setTipoBoletaDenominacion(tipoBoletaRequest.getTipoBoletaDenominacion());
     tipoBoleta.setTieneMovilidad(tipoBoletaRequest.isTieneMovilidad());
-    tipoBoleta.setTineZonaInhospita(tipoBoletaRequest.isTieneZonaInhospita());
+    tipoBoleta.setTieneZonaInhospita(tipoBoletaRequest.isTieneZonaInhospita());
     tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
     tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaRequest.isPermiteNoFichadaRetorno());
     tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaRequest.isPermiteNoFichadaSalida());

@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class TipoBoletaRequest extends BaseRequest{
 
+  private Long id;
+
   private String codigo;
 
   @NotBlank
