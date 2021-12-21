@@ -120,6 +120,10 @@ public class TipoLicenciaExpert extends
         .setTipoRequerimientoDenominacion(tipoLicenciaRequest.getTipoRequerimientoDenominacion());
     tipoLicencia.getTipoRequerimiento()
         .setCantNiveles(tipoLicenciaRequest.getTipoRequerimientoCantNiveles());
+    tipoLicencia.getTipoRequerimiento()
+            .setAprobadores(tipoLicenciaRequest.getTipoRequerimientoAprobadores());
+    tipoLicencia.getTipoRequerimiento()
+            .setAprueban(tipoLicenciaRequest.getTipoRequerimientoAprueban());
     tipoLicenciaServiceImpl.update(id, tipoLicencia);
 
     return new ResponseEntity(new Message("Tipo de Licencia actualizado"), HttpStatus.OK);
