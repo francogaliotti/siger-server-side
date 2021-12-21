@@ -1,10 +1,14 @@
 package com.SIGER.SIGER.model.entities;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -19,10 +23,17 @@ public class TipoRequerimiento extends BaseEntity{
 	
 	//Relations
 	
-	/*@OneToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "tipo_requerimiento_sector",
+			joinColumns = @JoinColumn(name = "tipo_requerimiento_id"),
+			inverseJoinColumns = @JoinColumn(name = "sector_id"))
 	private List<Sector> aprueban = new ArrayList<Sector>();
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Empleado> aprobadores = new ArrayList<Empleado>();*/
+
+
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "tipo_requerimiento_empleado",
+			joinColumns = @JoinColumn(name = "tipo_requerimiento_id"),
+			inverseJoinColumns = @JoinColumn(name = "empleado_id"))
+	private List<Empleado> aprobadores = new ArrayList<Empleado>();
 
 }
