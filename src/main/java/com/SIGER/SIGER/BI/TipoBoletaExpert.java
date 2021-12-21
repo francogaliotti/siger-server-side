@@ -116,6 +116,14 @@ public class TipoBoletaExpert extends
     tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
     tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaRequest.isPermiteNoFichadaRetorno());
     tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaRequest.isPermiteNoFichadaSalida());
+    tipoBoleta.getTipoRequerimiento()
+            .setTipoRequerimientoDenominacion(tipoBoletaRequest.getTipoRequerimientoDenominacion());
+    tipoBoleta.getTipoRequerimiento()
+            .setCantNiveles(tipoBoletaRequest.getTipoRequerimientoCantNiveles());
+    tipoBoleta.getTipoRequerimiento()
+            .setAprobadores(tipoBoletaRequest.getTipoRequerimientoAprobadores());
+    tipoBoleta.getTipoRequerimiento()
+            .setAprueban(tipoBoletaRequest.getTipoRequerimientoAprueban());
     tipoBoletaServiceImpl.update(id, tipoBoleta);
 
     return new ResponseEntity(new Message("Tipo de Boleta actualizado"), HttpStatus.OK);
