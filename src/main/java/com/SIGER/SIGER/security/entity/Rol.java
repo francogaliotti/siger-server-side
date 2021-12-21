@@ -19,12 +19,12 @@ public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private RolNombre rolNombre;
+    //@Enumerated(EnumType.STRING)
+    private String rolNombre;
 
-    public Rol(RolNombre rolNombre) {
+    public Rol(String rolNombre) {
         this.rolNombre = rolNombre;
     }
 }
