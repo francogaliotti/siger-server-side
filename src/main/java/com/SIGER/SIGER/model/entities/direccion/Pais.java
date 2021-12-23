@@ -1,17 +1,18 @@
-package com.SIGER.SIGER.model.entities;
+package com.SIGER.SIGER.model.entities.direccion;
 
+import com.SIGER.SIGER.model.entities.BaseEntity;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "paises")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Pais extends BaseEntity{
+public class Pais extends BaseEntity {
 
   private String nombre;
 

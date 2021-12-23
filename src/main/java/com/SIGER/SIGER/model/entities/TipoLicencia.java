@@ -19,14 +19,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TipoLicencia extends BaseEntity {
 
-	private Date fechaAlta;
-
-	private Date fechaBaja;
-
 	private int cantidadMaximaAnual;
-	
+
 	private int cantidadMaximaDiaria;
-	
+
 	private int cantidadMaximaMensual;
 
 	private String codigo;
@@ -34,23 +30,15 @@ public class TipoLicencia extends BaseEntity {
 	private String denominacion;
 
 	private boolean justificaPresentismo;
-	
-	private char generaRequerimiento;
-	
-	private char justificaRequerimiento;
-	
+
 	private int limiteRangoDias;
-	
-	private String modalidadLicencia;
-	
+
+	private boolean goceSueldo;
+
 	private String observaciones;
-	
-	private char permiteSolapamiento;
-	
-	private String tipoCalculo;
-	
+
 	//Relation
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_tipoRequerimiento")
 	private TipoRequerimiento tipoRequerimiento;
