@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class TipoLicenciaExpert extends
-    AbsBaseExpert<TipoLicencia, TipoLicenciaService, TipoLicenciaRequest, TipoLicenciaResponse> {
+        AbsBaseExpert<TipoLicencia, TipoLicenciaService, TipoLicenciaRequest, TipoLicenciaResponse> {
 
   @Autowired
   TipoLicenciaService tipoLicenciaServiceImpl;
@@ -29,14 +29,14 @@ public class TipoLicenciaExpert extends
 
   @Override
   public ResponseEntity<List<TipoLicenciaResponse>> findAll(int page, int size,
-      UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
+                                                            UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
 
     Page<TipoLicencia> tipoLicenciaPage = tipoLicenciaServiceImpl.findAll(page, size);
     paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
-        tipoLicenciaPage.getTotalPages(), "/tipo-licencia");
+            tipoLicenciaPage.getTotalPages(), "/tipo-licencia");
 
     List<TipoLicenciaResponse> tipoLicenciaResponses = converterPageToList(
-        tipoLicenciaPage.getContent());
+            tipoLicenciaPage.getContent());
     return new ResponseEntity(tipoLicenciaResponses, HttpStatus.OK);
   }
 
@@ -45,7 +45,7 @@ public class TipoLicenciaExpert extends
     List<TipoLicenciaResponse> tipoLicenciaResponses = new ArrayList<>();
     for (int i = 0; i < tipoLicencias.size(); i++) {
       tipoLicenciaResponses.add(
-          modelMapper.map(tipoLicencias.get(i), TipoLicenciaResponse.class));
+              modelMapper.map(tipoLicencias.get(i), TipoLicenciaResponse.class));
     }
     return tipoLicenciaResponses;
   }
@@ -54,26 +54,26 @@ public class TipoLicenciaExpert extends
   public ResponseEntity<TipoLicenciaResponse> findById(Long id) throws Exception {
     TipoLicencia tipoLicencia = tipoLicenciaServiceImpl.findById(id);
     TipoLicenciaResponse tipoLicenciaResponse = modelMapper.map(tipoLicencia,
-        TipoLicenciaResponse.class);
+            TipoLicenciaResponse.class);
     return new ResponseEntity(tipoLicenciaResponse, HttpStatus.OK);
   }
 
   @Override
   public ResponseEntity<TipoLicenciaResponse> save(TipoLicenciaRequest tipoLicenciaRequest)
-      throws Exception {
+          throws Exception {
     if (StringUtils.isBlank(tipoLicenciaRequest.getDenominacion())) {
       return new ResponseEntity(new Message("El nombre es obligatorio"),
-          HttpStatus.BAD_REQUEST);
+              HttpStatus.BAD_REQUEST);
     }
     if (tipoLicenciaRequest.getCodigo().length() < 0) {
       return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"),
-          HttpStatus.BAD_REQUEST);
+              HttpStatus.BAD_REQUEST);
     }
         /*if(StringUtils.isBlank(tipoLicenciaDTO.getTipoRequerimientoDenominacion()))
             return new ResponseEntity(new Message("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);*/
     if (tipoLicenciaServiceImpl.existsByNombreTipoLicencia(tipoLicenciaRequest.getDenominacion())) {
       return new ResponseEntity(new Message("El nombre del tipo ya existe"),
-          HttpStatus.BAD_REQUEST);
+              HttpStatus.BAD_REQUEST);
     }
 
     TipoLicencia tipoLicencia = modelMapper.map(tipoLicenciaRequest, TipoLicencia.class);
@@ -85,8 +85,8 @@ public class TipoLicenciaExpert extends
 
   @Override
   public ResponseEntity<TipoLicenciaResponse> update(Long id,
-      TipoLicenciaRequest tipoLicenciaRequest)
-      throws Exception {
+                                                     TipoLicenciaRequest tipoLicenciaRequest)
+          throws Exception {
 
     if (tipoLicenciaServiceImpl.findById(id).equals(false)) {
       return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
@@ -94,11 +94,11 @@ public class TipoLicenciaExpert extends
 
     if (StringUtils.isBlank(tipoLicenciaRequest.getDenominacion())) {
       return new ResponseEntity(new Message("El nombre es obligatorio"),
-          HttpStatus.BAD_REQUEST);
+              HttpStatus.BAD_REQUEST);
     }
     if (tipoLicenciaRequest.getCodigo().length() < 0) {
       return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"),
-          HttpStatus.BAD_REQUEST);
+              HttpStatus.BAD_REQUEST);
     }
         /*if(StringUtils.isBlank(tipoLicenciaDTO.getTipoRequerimientoDenominacion()))
             return new ResponseEntity(new Message("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);*/
@@ -112,9 +112,9 @@ public class TipoLicenciaExpert extends
     tipoLicencia.setLimiteRangoDias(tipoLicenciaRequest.getLimiteRangoDias());
     tipoLicencia.setObservaciones(tipoLicenciaRequest.getObservaciones());
     tipoLicencia.getTipoRequerimiento()
-        .setTipoRequerimientoDenominacion(tipoLicenciaRequest.getTipoRequerimientoDenominacion());
+            .setTipoRequerimientoDenominacion(tipoLicenciaRequest.getTipoRequerimientoDenominacion());
     tipoLicencia.getTipoRequerimiento()
-        .setCantNiveles(tipoLicenciaRequest.getTipoRequerimientoCantNiveles());
+            .setCantNiveles(tipoLicenciaRequest.getTipoRequerimientoCantNiveles());
     tipoLicencia.getTipoRequerimiento()
             .setAprobadores(tipoLicenciaRequest.getTipoRequerimientoAprobadores());
     tipoLicencia.getTipoRequerimiento()

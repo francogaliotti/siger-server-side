@@ -18,25 +18,23 @@ public class TipoLicenciaResponse extends BaseResponse{
 
   @Id
   @Column(name = "id", nullable = false)
+  private int cantidadMaximaAnual;
+
+  private int cantidadMaximaDiaria;
+
+  private int cantidadMaximaMensual;
+
   private String codigo;
 
   private String denominacion;
 
   private boolean justificaPresentismo;
 
-  private char generaRequerimiento;
-
-  private char justificaRequerimiento;
-
   private int limiteRangoDias;
 
-  private String modalidadLicencia;
+  private boolean goceSueldo;
 
   private String observaciones;
-
-  private char permiteSolapamiento;
-
-  private String tipoCalculo;
 
   public int tipoRequerimientoCantNiveles;
 
