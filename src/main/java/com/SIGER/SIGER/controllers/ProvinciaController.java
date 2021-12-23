@@ -1,12 +1,11 @@
-package com.SIGER.SIGER.controllers;
+/*package com.SIGER.SIGER.controllers;
 
 import com.SIGER.SIGER.BI.ProvinciaExpert;
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
-import com.SIGER.SIGER.model.entities.Provincia;
+import com.SIGER.SIGER.model.entities.direccion.Provincia;
 import com.SIGER.SIGER.model.requests.ProvinciaRequest;
 import com.SIGER.SIGER.model.responses.ProvinciaResponse;
-import com.SIGER.SIGER.services.ProvinciaService;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class ProvinciaController extends
     return new ResponseEntity(provincia, HttpStatus.OK);
   }*/
 
-  @Override
+  /*@Override
   @GetMapping("/{id}")
   public ResponseEntity<ProvinciaResponse> getById(@PathVariable("id") Long id) throws Exception {
     return provinciaExpert.findById(id);
@@ -81,3 +80,4 @@ public class ProvinciaController extends
     return new ResponseEntity(new Message("Provincia eliminada"), HttpStatus.OK);
   }
 }
+*/

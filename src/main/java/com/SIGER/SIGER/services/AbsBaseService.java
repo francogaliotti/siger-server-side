@@ -48,8 +48,8 @@ public abstract class AbsBaseService<E extends BaseEntity, ID extends Serializab
   @Transactional
   public E findById(ID id) throws Exception {
     Optional<E> entityOptional = baseRepository.findById(id);
-    E entity = validateEntityExists(entityOptional);
-    validateEntity(entity);
+    validateEntityExists(entityOptional);
+    E entity = validateEntity(entityOptional);
     return entity;
   }
 
@@ -63,33 +63,35 @@ public abstract class AbsBaseService<E extends BaseEntity, ID extends Serializab
   @Transactional
   public E update(ID id, E entity) throws Exception {
     Optional<E> entityOptional = baseRepository.findById(id);
-    E entityUpdate = validateEntityExists(entityOptional);
-    validateEntity(entityUpdate);
-    entityUpdate = entity;
-    return baseRepository.save(entityUpdate);
+    validateEntityExists(entityOptional);
+    validateEntity(entityOptional);
+    E entityToUpdate = entity;
+    entityToUpdate.setId(entityOptional.get().getId());
+    return baseRepository.save(entityToUpdate);
   }
 
   @Override
   @Transactional
   public void delete(ID id) throws Exception {
     Optional<E> entityOptional = baseRepository.findById(id);
-    E entity = validateEntityExists(entityOptional);
-    validateEntity(entity);
+    validateEntityExists(entityOptional);
+    E entity =  validateEntity(entityOptional);
     entity.setSoftDelete(true);
     baseRepository.save(entity);
   }
 
-  private E validateEntityExists(Optional<E> entityOptional) {
+  private void validateEntityExists(Optional<E> entityOptional) {
     if (!entityOptional.isPresent()) {
       throw new EntityNotFoundException("The requested resource could not be found.");
     }
-    return entityOptional.get();
+
   }
 
-  private void validateEntity(E entity) {
-    if (entity == null || entity.isSoftDelete()) {
+  private E validateEntity(Optional<E> entityOptional) {
+    if (entityOptional == null || entityOptional.get().isSoftDelete()) {
       throw new EntityNotFoundException("The requested resource could not be found.");
     }
+    return entityOptional.get();
   }
 
 

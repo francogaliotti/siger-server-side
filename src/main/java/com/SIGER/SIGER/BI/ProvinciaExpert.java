@@ -1,11 +1,10 @@
-package com.SIGER.SIGER.BI;
+/*package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
-import com.SIGER.SIGER.model.entities.Provincia;
+import com.SIGER.SIGER.model.entities.direccion.Provincia;
 import com.SIGER.SIGER.model.requests.ProvinciaRequest;
 import com.SIGER.SIGER.model.responses.ProvinciaResponse;
-import com.SIGER.SIGER.services.ProvinciaService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -103,3 +102,4 @@ public class ProvinciaExpert extends
   }
 
 }
+*/

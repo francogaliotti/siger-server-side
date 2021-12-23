@@ -54,21 +54,21 @@ public class SectorController extends
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
-  @PostMapping("/create")
+  @PostMapping("/")
   public ResponseEntity<SectorResponse> post(@RequestBody SectorRequest sectorRequest) throws Exception {
     return sectorExpert.save(sectorRequest);
   }
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
-  @PutMapping("/update/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<SectorResponse> put(@PathVariable Long id, @RequestBody SectorRequest sectorRequest) throws Exception {
     return sectorExpert.update(id, sectorRequest);
   }
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
     return sectorExpert.delete(id);
   }
