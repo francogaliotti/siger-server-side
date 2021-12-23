@@ -109,13 +109,14 @@ public class TipoLicenciaExpert extends
     tipoLicencia.setCodigo(tipoLicenciaRequest.getCodigo());
     tipoLicencia.setDenominacion(tipoLicenciaRequest.getDenominacion());
     tipoLicencia.setJustificaPresentismo(tipoLicenciaRequest.isJustificaPresentismo());
-    tipoLicencia.setGeneraRequerimiento(tipoLicenciaRequest.getGeneraRequerimiento());
-    tipoLicencia.setJustificaRequerimiento(tipoLicenciaRequest.getJustificaRequerimiento());
+    tipoLicencia.setCantidadMaximaAnual(tipoLicenciaRequest.getCantidadMaximaAnual());
+    tipoLicencia.setCantidadMaximaMensual(tipoLicenciaRequest.getCantidadMaximaMensual());
+    tipoLicencia.setCantidadMaximaDiaria(tipoLicenciaRequest.getCantidadMaximaDiaria());
     tipoLicencia.setLimiteRangoDias(tipoLicenciaRequest.getLimiteRangoDias());
-    tipoLicencia.setModalidadLicencia(tipoLicenciaRequest.getModalidadLicencia());
+
     tipoLicencia.setObservaciones(tipoLicenciaRequest.getObservaciones());
-    tipoLicencia.setPermiteSolapamiento(tipoLicenciaRequest.getPermiteSolapamiento());
-    tipoLicencia.setTipoCalculo(tipoLicenciaRequest.getTipoCalculo());
+    tipoLicencia.setGoceSueldo(tipoLicenciaRequest.isGoceSueldo());
+
     tipoLicencia.getTipoRequerimiento()
         .setTipoRequerimientoDenominacion(tipoLicenciaRequest.getTipoRequerimientoDenominacion());
     tipoLicencia.getTipoRequerimiento()

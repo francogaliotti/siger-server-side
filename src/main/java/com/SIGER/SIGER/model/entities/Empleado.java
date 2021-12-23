@@ -48,8 +48,6 @@ public class Empleado extends BaseEntity{
 
 	private Date fechaNacimiento;
 	
-	private int diasLicenciaAnualFija;
-	
 	private Date fechaIngreso;
 	
 	private boolean rompeReglaComisionDia;

@@ -19,9 +19,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TipoLicencia extends BaseEntity {
 
-	private Date fechaAlta;
-
-	private Date fechaBaja;
 
 	private int cantidadMaximaAnual;
 	
@@ -34,20 +31,12 @@ public class TipoLicencia extends BaseEntity {
 	private String denominacion;
 
 	private boolean justificaPresentismo;
-	
-	private char generaRequerimiento;
-	
-	private char justificaRequerimiento;
-	
+
 	private int limiteRangoDias;
 	
-	private String modalidadLicencia;
+	private boolean goceSueldo;
 	
 	private String observaciones;
-	
-	private char permiteSolapamiento;
-	
-	private String tipoCalculo;
 	
 	//Relation
 	
