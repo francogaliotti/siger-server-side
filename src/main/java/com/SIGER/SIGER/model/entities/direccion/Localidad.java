@@ -27,9 +27,10 @@ public class Localidad {
 	@Column(name = "centroide_lon", nullable = false)
 	private String longitud;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "departamento_id", nullable = false)
-	private Departamento departamento;
+	//@ManyToOne(cascade = CascadeType.PERSIST)
+	//@JoinColumn(name = "departamento_id", nullable = false)
+	@Column(name = "departamento_id", nullable = false)
+	private String departamento;
 
 	@Column(name = "departamento_nombre")
 	private String departamentoNombre;
@@ -47,9 +48,10 @@ public class Localidad {
 	@Column(name = "localidad_censal_nombre", nullable = false)
 	private String localidadCensalNombre;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "municipio_id", nullable = false)
-	private Municipio municipio;
+	//@ManyToOne(cascade = CascadeType.PERSIST)
+	//@JoinColumn(name = "municipio_id", nullable = false)
+	@Column(name = "municipio_id", nullable = false)
+	private String municipio;
 
 	@Column(name = "municipio_nombre", nullable = false)
 	private String municipioNombre;
@@ -57,9 +59,10 @@ public class Localidad {
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "provincia_id", nullable = false)
-	private Provincia provincia;
+	//@ManyToOne(cascade = CascadeType.PERSIST)
+	//@JoinColumn(name = "provincia_id", nullable = false)
+	@Column(name = "provincia_id", nullable = false)
+	private String provincia;
 
 	@Column(name = "provincia_nombre", nullable = false)
 	private String provinciaNombre;

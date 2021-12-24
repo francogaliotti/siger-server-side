@@ -1,12 +1,9 @@
 package com.SIGER.SIGER.model.entities;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
