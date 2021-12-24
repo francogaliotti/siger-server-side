@@ -40,9 +40,10 @@ public class Municipio {
   @Column(name = "nombre_completo", nullable = false)
   private String nombre_completo;
 
-  @ManyToOne(cascade = CascadeType.PERSIST)
-  @JoinColumn(name = "provincia_id", nullable = false)
-  private Provincia provincia;
+  //@ManyToOne(cascade = CascadeType.PERSIST)
+  //@JoinColumn(name = "provincia_id", nullable = false)
+  @Column(name = "provincia_id", nullable = false)
+  private String provincia;
 
   @Column(name = "provincia_interseccion", nullable = false)
   private String provinciaInterseccion;

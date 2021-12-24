@@ -1,9 +1,6 @@
 package com.SIGER.SIGER.security.entity;
 
-import com.SIGER.SIGER.security.enums.RolNombre;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +19,9 @@ public class Rol {
     private Long id;
 
     //@Enumerated(EnumType.STRING)
-    private String rolNombre;
+    private String name;
 
-    public Rol(String rolNombre) {
-        this.rolNombre = rolNombre;
+    public Rol(String name) {
+        this.name = name;
     }
 }
