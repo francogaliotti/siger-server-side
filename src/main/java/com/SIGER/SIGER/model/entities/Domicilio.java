@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.model.entities;
 
-import com.SIGER.SIGER.model.entities.direccion.Localidad;
+import com.SIGER.SIGER.model.entities.Datos_gob_ar.Localidad;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

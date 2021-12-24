@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.model.entities.direccion;
+package com.SIGER.SIGER.model.entities.Datos_gob_ar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

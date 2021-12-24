@@ -1,6 +1,7 @@
 package com.SIGER.SIGER.security.service;
 
 import com.SIGER.SIGER.security.entity.Rol;
+import com.SIGER.SIGER.security.enums.RolNombre;
 import com.SIGER.SIGER.security.repository.RolRepository;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -14,8 +15,8 @@ public class RolService {
     @Autowired
     RolRepository rolRepository;
 
-    public Optional<Rol> getByRolNombre(String name){
-        return rolRepository.findByName(name);
+    public Optional<Rol> getByRolNombre(RolNombre rolNombre){
+        return rolRepository.findByRolNombre(rolNombre);
     }
 
     public void save (Rol rol){

@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.seerders;
 
-import com.SIGER.SIGER.model.entities.direccion.Provincia;
+import com.SIGER.SIGER.model.entities.Datos_gob_ar.Provincia;
 import com.SIGER.SIGER.repositories.ProvinciaRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;

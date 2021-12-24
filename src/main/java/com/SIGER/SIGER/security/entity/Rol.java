@@ -19,9 +19,9 @@ public class Rol {
     private Long id;
 
     //@Enumerated(EnumType.STRING)
-    private String name;
+    private String rolNombre;
 
-    public Rol(String name) {
-        this.name = name;
+    public Rol(String rolNombre) {
+        this.rolNombre = rolNombre;
     }
 }
