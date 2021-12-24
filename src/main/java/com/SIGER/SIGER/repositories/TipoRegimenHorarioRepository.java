@@ -7,4 +7,6 @@ import com.SIGER.SIGER.model.entities.TipoRegimenHorario;
 @Repository
 public interface TipoRegimenHorarioRepository extends BaseRepository<TipoRegimenHorario, Long>{
 
+  boolean existsByDenominacionTipoRegimenHorario(String denominacionTipoRegimenHorario);
+
 }
