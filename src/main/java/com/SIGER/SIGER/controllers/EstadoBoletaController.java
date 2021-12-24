@@ -33,7 +33,6 @@ public class EstadoBoletaController extends
   @Autowired
   EstadoBoletaExpert estadoBoletaExpert;
 
-
   @Override
   @GetMapping("/")
   public ResponseEntity<List<EstadoBoletaResponse>> getAll(@RequestParam("page") int page,
