@@ -35,6 +35,8 @@ public class Usuario extends BaseEntity {
     @NotNull
     private String password;
 
+    private String image;
+
     private String tokenPassword;
 
     @ManyToMany(fetch = FetchType.EAGER)
