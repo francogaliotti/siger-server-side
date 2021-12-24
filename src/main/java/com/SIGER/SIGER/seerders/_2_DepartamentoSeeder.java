@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.seerders;
 
-import com.SIGER.SIGER.model.entities.direccion.Departamento;
+import com.SIGER.SIGER.model.entities.Datos_gob_ar.Departamento;
 import com.SIGER.SIGER.repositories.DepartamentoRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;

@@ -1,22 +1,19 @@
-package com.SIGER.SIGER.model.entities.direccion;
+package com.SIGER.SIGER.model.entities.Datos_gob_ar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "localidades")
+@Entity(name = "departamentos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Localidad {
+public class Departamento {
 
 	@Column(name = "categoria", nullable = false)
 	private String categoria;
@@ -27,14 +24,6 @@ public class Localidad {
 	@Column(name = "centroide_lon", nullable = false)
 	private String longitud;
 
-	//@ManyToOne(cascade = CascadeType.PERSIST)
-	//@JoinColumn(name = "departamento_id", nullable = false)
-	@Column(name = "departamento_id", nullable = false)
-	private String departamento;
-
-	@Column(name = "departamento_nombre")
-	private String departamentoNombre;
-
 	@Column(name = "fuente", nullable = false)
 	private String fuente;
 
@@ -42,27 +31,19 @@ public class Localidad {
 	@Column(name = "id", nullable = false)
 	private String id;
 
-	@Column(name = "localidad_censal_id", nullable = false)
-	private String localidadCensalId;
-
-	@Column(name = "localidad_censal_nombre", nullable = false)
-	private String localidadCensalNombre;
-
-	//@ManyToOne(cascade = CascadeType.PERSIST)
-	//@JoinColumn(name = "municipio_id", nullable = false)
-	@Column(name = "municipio_id", nullable = false)
-	private String municipio;
-
-	@Column(name = "municipio_nombre", nullable = false)
-	private String municipioNombre;
-
 	@Column(name = "nombre", nullable = false)
 	private String nombre;
 
+	@Column(name = "nombre_completo", nullable = false)
+	private String nombre_completo;
+	
 	//@ManyToOne(cascade = CascadeType.PERSIST)
 	//@JoinColumn(name = "provincia_id", nullable = false)
 	@Column(name = "provincia_id", nullable = false)
 	private String provincia;
+
+	@Column(name = "provincia_interseccion", nullable = false)
+	private String provinciaInterseccion;
 
 	@Column(name = "provincia_nombre", nullable = false)
 	private String provinciaNombre;
