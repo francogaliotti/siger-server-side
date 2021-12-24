@@ -2,9 +2,10 @@ package com.SIGER.SIGER.security.seeder;
 
 import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.security.entity.Usuario;
+import com.SIGER.SIGER.security.enums.RolNombre;
 import com.SIGER.SIGER.security.repository.RolRepository;
 import com.SIGER.SIGER.security.repository.UsuarioRepository;
-import com.SIGER.SIGER.security.seeder.config.ApplicationRole;
+//import com.SIGER.SIGER.security.seeder.config.ApplicationRole;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,12 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UsersSeeder implements CommandLineRunner {
+public class RolesAndUsersSeeder implements CommandLineRunner {
 
-  private static final String PHOTO = "https://foo.jpg";
+  //private static final String PHOTO = "https://foo.jpg";
   private static final long ROLE_USER = 1L;
   private static final long ROLE_ADMIN = 2L;
-  private static final String PASSWORD_GENERIC = "foo12345";
+  private static final String PASSWORD_GENERIC = "siger1234";
 
   @Autowired
   UsuarioRepository usuarioRepository;
@@ -36,21 +37,20 @@ public class UsersSeeder implements CommandLineRunner {
 
   private void loadRoles() {
     if (rolRepository.count() == 0) {
-      rolRepository.save(buildRole(ApplicationRole.USER));
-      rolRepository.save(buildRole(ApplicationRole.ADMIN));
+      rolRepository.save(buildRole(RolNombre.USER));
+      rolRepository.save(buildRole(RolNombre.ADMIN));
     }
   }
 
-  private Rol buildRole(ApplicationRole applicationRole) {
-    Rol rol = new Rol();
-    rol.setId(getRoleId(applicationRole));
-    rol.setName(applicationRole.getFullRoleName());
-    return rol;
+  private Rol buildRole(RolNombre applicationRole) {
+    Rol role = new Rol();
+    role.setRolNombre(applicationRole.getFullRoleName());
+    return role;
   }
 
-  private long getRoleId(ApplicationRole applicationRole) {
+  /*private long getRoleId(ApplicationRole applicationRole) {
     return applicationRole == ApplicationRole.USER ? ROLE_USER : ROLE_ADMIN;
-  }
+  }*/
 
   private void loadUsers() {
     if (usuarioRepository.count() == 0) {

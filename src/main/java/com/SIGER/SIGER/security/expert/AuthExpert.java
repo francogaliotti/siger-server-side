@@ -6,8 +6,8 @@ import com.SIGER.SIGER.security.dto.LoginUsuario;
 import com.SIGER.SIGER.security.dto.NuevoUsuario;
 import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.security.entity.Usuario;
+import com.SIGER.SIGER.security.enums.RolNombre;
 import com.SIGER.SIGER.security.jwt.JwtProvider;
-import com.SIGER.SIGER.security.seeder.config.ApplicationRole;
 import com.SIGER.SIGER.security.service.RolService;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import java.text.ParseException;
@@ -54,9 +54,9 @@ public class AuthExpert {
     Usuario usuario = Usuario.builder().nombre(nuevoUsuario.getNombre()).username(nuevoUsuario.getUsername())
         .email(nuevoUsuario.getEmail()).password(passwordEncoder.encode(nuevoUsuario.getPassword())).build();
     Set<Rol> roles = new HashSet<>();
-    roles.add(rolService.getByRolNombre("USER").get());
+    roles.add(rolService.getByRolNombre(RolNombre.USER).get());
     if(nuevoUsuario.getRoles().contains("admin"))
-      roles.add(rolService.getByRolNombre("ADMIN").get());
+      roles.add(rolService.getByRolNombre(RolNombre.ADMIN).get());
     usuario.setRoles(roles);
     usuarioService.save(usuario);
     return new ResponseEntity(new Message("Usuario creado satisfactoriamente"), HttpStatus.CREATED);
