@@ -1,8 +1,8 @@
 /*package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.presentation.dto.DTORegister;
-import com.SIGER.SIGER.presentation.dto.Mensaje;
-import com.SIGER.SIGER.sendgrid.EmailService;
+import com.SIGER.SIGER.presentation.dto.Message;
+import com.SIGER.SIGER.sendgrid.EmailSendGridService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,9 +14,9 @@ import java.io.IOException;
 
 public class UsuarioExpert {
 
-    public ResponseEntity<?> register(DTORegister dtoRegister, UsuarioServiceImpl usuarioServiceImpl, EmailService emailService) throws IOException {
+    public ResponseEntity<?> register(DTORegister dtoRegister, UsuarioServiceImpl usuarioServiceImpl, EmailSendGridService emailService) throws IOException {
 
-        Mensaje mensaje = new Mensaje("Usuario registrado exitosamente");
+        Message mensaje = new Message("Usuario registrado exitosamente");
         HttpStatus httpStatus = HttpStatus.OK;
 
         if (dtoRegister.getUsername().equals(null)){
@@ -45,7 +45,7 @@ public class UsuarioExpert {
 
     }
 
-    public void sendEmail(Usuario usuario, EmailService emailService) throws IOException {
+    public void sendEmail(Usuario usuario, EmailSendGridService emailService) throws IOException {
 
         emailService.setDestinatario(usuario.getCorreoInstitucional());
         emailService.sendWelcomeEmail();

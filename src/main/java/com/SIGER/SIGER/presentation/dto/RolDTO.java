@@ -1,7 +1,7 @@
 package com.SIGER.SIGER.presentation.dto;
 
 
-import com.SIGER.SIGER.entities.Permiso;
+import com.SIGER.SIGER.model.entities.Permiso;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

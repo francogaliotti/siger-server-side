@@ -1,120 +1,73 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.presentation.dto.Mensaje;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.SIGER.SIGER.entities.EstadoLicencia;
-import com.SIGER.SIGER.servicesImpl.EstadoLicenciaServiceImpl;
-
+import com.SIGER.SIGER.BI.EstadoLicenciaExpert;
+import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
+import com.SIGER.SIGER.model.entities.EstadoLicencia;
+import com.SIGER.SIGER.model.requests.EstadoLicenciaRequest;
+import com.SIGER.SIGER.model.responses.EstadoLicenciaResponse;
+import com.SIGER.SIGER.services.EstadoLicenciaService;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/estadoLicencia")
+@RequestMapping("/estado-licencia")
 @CrossOrigin(origins = "http://localhost:4200")
-public class EstadoLicenciaController extends BaseControllerImpl<EstadoLicencia, EstadoLicenciaServiceImpl>{
-	
-	@Autowired
-	EstadoLicenciaServiceImpl estadoLicenciaServiceImpl;
+public class EstadoLicenciaController extends
+    AbsBaseController<EstadoLicencia, EstadoLicenciaService, EstadoLicenciaRequest, EstadoLicenciaResponse, EstadoLicenciaExpert> {
 
-	@Override
-	@GetMapping("/list")
-	public ResponseEntity<?> getAll() {
-		List<EstadoLicencia>list = null;
-		try{
-			list = estadoLicenciaServiceImpl.FindAll();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return new ResponseEntity(list, HttpStatus.OK);
-	}
+  @Autowired
+  EstadoLicenciaExpert estadoLicenciaExpert;
 
-	@Override
-	public ResponseEntity<?> getAll(Pageable pageable) {
-		List<EstadoLicencia> estadosLicencia = null;
-		try {
-			estadosLicencia = estadoLicenciaServiceImpl.FindAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new ResponseEntity(estadosLicencia, HttpStatus.OK);
-	}
+  @Override
+  @GetMapping("/")
+  public ResponseEntity<List<EstadoLicenciaResponse>> getAll(@RequestParam("page") int page,
+      UriComponentsBuilder uriBuilder,
+      HttpServletResponse response) throws Exception {
+    return estadoLicenciaExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
+        response);
+  }
 
-	@Override
-	@GetMapping("/detail/{id}")
-	public ResponseEntity<?> getOne(Long id) {
-		try {
-			if(estadoLicenciaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		EstadoLicencia estadoLicencia = null;
+  @Override
+  @GetMapping("/{id}")
+  public ResponseEntity<EstadoLicenciaResponse> getById(@PathVariable Long id) {
+    return estadoLicenciaExpert.findById(id);
+  }
 
-		try{
-			estadoLicencia = estadoLicenciaServiceImpl.FindById(id);
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		return new ResponseEntity(estadoLicencia, HttpStatus.OK);
-	}
+  @Override
+  @PreAuthorize("hasRole('ADMIN')")
+  @PostMapping("/")
+  public ResponseEntity<EstadoLicenciaResponse> post(@RequestBody EstadoLicenciaRequest estadoLicenciaRequest)
+      throws Exception {
+    return estadoLicenciaExpert.save(estadoLicenciaRequest);
+  }
 
-	@Override
-	@PostMapping("/create")
-	public ResponseEntity<?> save(EstadoLicencia estadoLicencia) {
-		try{
-			estadoLicencia = estadoLicenciaServiceImpl.Save(estadoLicencia);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Licencia creado"), HttpStatus.OK);
-	}
+  @Override
+  @PreAuthorize("hasRole('ADMIN')")
+  @PutMapping("/{id}")
+  public ResponseEntity<EstadoLicenciaResponse> put(@PathVariable Long id,
+      @RequestBody EstadoLicenciaRequest estadoLicenciaRequest)
+      throws Exception {
+    return estadoLicenciaExpert.update(id, estadoLicenciaRequest);
+  }
 
-	@Override
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(Long id, EstadoLicencia estadoLicencia) {
-		try {
-			if(estadoLicenciaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if(StringUtils.isBlank(estadoLicencia.getNombreEstadoLicencia()))
-			return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(estadoLicencia.getCodEstadoLicencia().length()<0)
-			return new ResponseEntity(new Mensaje("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
-
-		try {
-			estadoLicenciaServiceImpl.Update(id, estadoLicencia);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Licencia actualizado"), HttpStatus.OK);
-	}
-
-	@Override
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> delete(Long id) {
-		try {
-			if(estadoLicenciaServiceImpl.FindById(id).equals(false))
-				return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			estadoLicenciaServiceImpl.Delete(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new ResponseEntity(new Mensaje("Estado de Licencia eliminado"), HttpStatus.OK);
-	}
-
+  @Override
+  @PreAuthorize("hasRole('ADMIN')")
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
+    return estadoLicenciaExpert.delete(id);
+  }
 }

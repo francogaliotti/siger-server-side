@@ -1,29 +1,27 @@
 package com.SIGER.SIGER.security.entity;
 
-import com.SIGER.SIGER.entities.BaseEntity;
-import com.SIGER.SIGER.security.enums.RolNombre;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Entity
-//@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-public class Rol extends BaseEntity {
+public class Rol {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;*/
+    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private RolNombre rolNombre;
+    //@Enumerated(EnumType.STRING)
+    private String rolNombre;
 
-    public Rol(RolNombre rolNombre) {
+    public Rol(String rolNombre) {
         this.rolNombre = rolNombre;
     }
 }

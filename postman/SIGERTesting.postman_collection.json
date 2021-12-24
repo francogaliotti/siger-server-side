@@ -1,0 +1,1722 @@
+{
+	"info": {
+		"_postman_id": "2a997747-effb-44b5-98e6-08cdf27120af",
+		"name": "SIGERTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SignIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Alexis Bahi\",\r\n    \"username\": \"ABahi\",\r\n    \"email\": \"alexbahi.99@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"roles\": [\r\n        \"admin\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/auth/register",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Alexis.Bahi\",\r\n    \"password\": \"siger1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYzNTE3NDM5NiwiZXhwIjoxNjM1MTc0NzU2fQ.uWqD1t995DiPQYjcmKdo_2zZLW2QAmy_THqLTMRcEQZYVmdFc6Hwu_ZwH70QXrjZo-I8v-STMzdfwkL68Z5GRA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/auth/refresh",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaWF0IjoxNjM1MDEyNzMzLCJleHAiOjE2MzUwMTI3NTN9.NqpN0GGjDN80w81Mmad9e63bl319TVqIppNYWukRhVqlySMDUnikBOXVGnigeMRDXhwgLnWerUodPKuVBeLQIQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mailTo\": \"diegovillautnfrm@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/email-password/send-email",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"email-password",
+								"send-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"yo\",\r\n    \"confirmPassword\": \"yo\",\r\n    \"tokenPassword\": \"d726a5a4-f133-4060-bab1-5cd192590974\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/email-password/change-password",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"email-password",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empleado",
+			"item": [
+				{
+					"name": "List Empleado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/empleado/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"empleado",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Empleado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/empleado/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"empleado",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Empleado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan Pablo\",\r\n    \"apellido\": \"Morales\",\r\n    \"nroTelefonoFijo\": \"4229863\",\r\n    \"nroTelefonoCelular\": \"261789136\",\r\n    \"correoPersonal\": \"juanpablomorales@siger.gov.ar\",\r\n    \"fechaNacimiento\": \"1967-01-01\",\r\n    \"estadoCivil\": \"2\",\r\n    \"nacionalidad\": \"Argentina\",\r\n    \"tipoDocumento\": \"1\",\r\n    \"nroIdentificacionPersonal\": \"16489647\",\r\n    \"cuil\": \"20-16489647-1\",\r\n    \"legajo\": \"99958\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/empleado/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"empleado",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Empleado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Armando Esteban\",\r\n    \"apellido\": \"Quito\",\r\n    \"nroTelefonoFijo\": \"4589631\",\r\n    \"nroTelefonoCelular\": \"2619874631\",\r\n    \"correoPersonal\": \"armandoestebanquito@siger.gov.ar\",\r\n    \"fechaNacimiento\": \"2000-01-01\",\r\n    \"estadoCivil\": \"1\",\r\n    \"nacionalidad\": \r\n    {\r\n        \"id\": \"1\"\r\n    },\r\n    \"tipoDocumento\": \"1\",\r\n    \"nroIdentificacionPersonal\": \"42654987\",\r\n    \"cuil\": \"20-42654987-1\",\r\n    \"legajo\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/empleado/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"empleado",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Empleado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/empleado/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"empleado",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EstadoBoleta",
+			"item": [
+				{
+					"name": "List Estado Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/estado-boleta/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-boleta",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Estado Boleta Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/estado-boleta/16",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-boleta",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Estado Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codEstadoBoleta\": 98,\r\n    \"nombreEstadoBoleta\": \"Cualquiera999\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Estado Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codEstadoBoleta\": 16,\r\n    \"nombreEstadoBoleta\": \"Cancelado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/estado-boleta/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-boleta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Estado Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/estado-boleta//1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-boleta",
+								"",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EstadoLicencia",
+			"item": [
+				{
+					"name": "List Estado Boletas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/estado-licencia/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-licencia",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Estado Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/estado-licencia//1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-licencia",
+								"",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Estado Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codEstadoBoleta\": 98,\r\n    \"nombreEstadoBoleta\": \"Cualquiera\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/estado-licencia/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-licencia",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Estado Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codEstadoBoleta\": 988,\r\n    \"nombreEstadoBoleta\": \"Cancelado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/estado-licencia/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-licencia",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Estado Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/estado-licencia/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"estado-licencia",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sector",
+			"item": [
+				{
+					"name": "List Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/sector/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"sector",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/sector/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"sector",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"codigo\": \"AAA\",\r\n\r\n\t  \"denominacion\": \"Sector 1\",\r\n\t\r\n\t  \"validaFueraDeHorario\":\"S\",\r\n\t\r\n\t  \"permiteTrabajarHorasExtras\": \"false\",\r\n\t\r\n\t  \"permiteTrabajarFinDeSemana\": \"false\",\r\n\t\r\n\t  \"maximoSerenoDiurno\": \"1\",\r\n\t\r\n\t  \"maximoSerenoNocturno\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/sector/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"sector",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"codigo\": \"A1\",\r\n        \"denominacion\": \"Sector 2\",\r\n        \"fechaBaja\": null,\r\n        \"validaFueraDeHorario\": \"S\",\r\n        \"detenerCargaBoletas\":\"N\",\r\n        \"permiteTrabajarHorasExtras\": false,\r\n        \"permiteTrabajarFinDeSemana\": false,\r\n        \"maximoSerenoDiurno\": 1,\r\n        \"maximoSerenoNocturno\": 1,\r\n        \"sectorSuperior\": null,\r\n        \"tipoSector\": null,\r\n        \"domicilio\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/sector/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"sector",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/sector/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"sector",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TipoBoleta",
+			"item": [
+				{
+					"name": "List Tipo Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-boleta/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-boleta",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Tipo Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-boleta/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-boleta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tipo Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\": \"CV47\",\r\n    \"tipoBoletaDenominacion\": \"asdfkjñll\",\r\n    \"tieneMovilidad\": \"false\",\r\n    \"tineZonaInhospita\": \"false\",\r\n    \"tieneViatico\": \"false\",\r\n    \"permiteNoFichadaRetorno\": \"false\",\r\n    \"permiteNoFichadaSalida\": \"false\"\r\n    ,\"tipoRequerimientoCantNiveles\": 3,\r\n    \"tipoRequerimientoDenominacion\": \"Tipo Req20\",\r\n    \"tipoRequerimientoAprueban\":[{\"id\":1}],\r\n    \"tipoRequerimientoAprobadores\":[{\"id\":2},{\"id\":1},{\"id\":3}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-boleta/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-boleta",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tipo Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\": \"16\",\r\n\r\n    \"tipoBoletaDenominacion\": \"TipoBoleta\",\r\n\r\n    \"tieneMovilidad\": \"false\",\r\n\r\n    \"tineZonaInhospita\": \"false\",\r\n\r\n    \"tieneViatico\": \"false\",\r\n\r\n    \"permiteNoFichadaRetorno\": \"false\",\r\n\r\n    \"permiteNoFichadaSalida\": \"false\",\r\n\r\n    \"tipoRequerimientoDenominacion\": \"req\",\r\n\r\n    \"tipoRequerimientoCantNiveles\": \"2\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-boleta/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-boleta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tipo Boleta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-boleta/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-boleta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TipoLicencia",
+			"item": [
+				{
+					"name": "List Tipo Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-licencia/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-licencia",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Tipo Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-licencia/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-licencia",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tipo Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\":\"24\",\r\n    \"denominacion\":\"Sexto Tipo\",\r\n    \"generaRequerimiento\":\"A\",\r\n    \"justificaRequerimiento\":\"A\",\r\n    \"limiteRangoDias\":\"5\",\r\n    \"modalidadLicencia\":\"modal\",\r\n    \"observaciones\":\"de prueba\",\r\n    \"permiteSolapamiento\":\"A\",\r\n    \"tipoCalculo\":\"tipo calc\",\r\n    \"tipoRequerimientoCantNiveles\": 3,\r\n    \"tipoRequerimientoDenominacion\": \"Clqr tipo req\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-licencia/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-licencia",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tipo Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\":\"005\",\r\n    \"denominacion\":\"Tipo Modificado\",\r\n    \"generaRequerimiento\":\"A\",\r\n    \"justificaRequerimiento\":\"A\",\r\n    \"limiteRangoDias\":\"5\",\r\n    \"modalidadLicencia\":\"modal\",\r\n    \"observaciones\":\"de prueba\",\r\n    \"permiteSolapamiento\":\"A\",\r\n    \"tipoCalculo\":\"tipo calc\",\r\n    \"tipoRequerimientoCantNiveles\": 4,\r\n    \"tipoRequerimientoDenominacion\": \"Clqr tipo req\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-licencia/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-licencia",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tipo Licencia",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-licencia/3",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-licencia",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TipoSector",
+			"item": [
+				{
+					"name": "List Tipo Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-sector/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-sector",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Tipo Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-sector/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-sector",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tipo Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codTipoSector\": \"01A\",\r\n\r\n\t\"nombreTipoSector\": \"Sistemas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-sector/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-sector",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tipo Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codTipoSector\": \"01AB\",\r\n\r\n\t\"nombreTipoSector\": \"Sistemas Informaticos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-sector/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-sector",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tipo Sector",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-sector/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-sector",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Viatico",
+			"item": [
+				{
+					"name": "List Viatico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/viatico/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"viatico",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Viatico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/viatico/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"viatico",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Viatico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"codViatico\": \"ABC\",\r\n\r\n\t \"denominacionViatico\": \"Cqra\",\r\n\t\r\n\t \"importe\": \"500\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/viatico/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"viatico",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Viatico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"codViatico\": \"123\",\r\n\r\n\t \"denominacionViatico\": \"Test\",\r\n\t\r\n\t \"importe\": \"5000\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/viatico/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"viatico",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Viatico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/viatico/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"viatico",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ZonaInhospita",
+			"item": [
+				{
+					"name": "List Zona Inhospita",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/zona-inhospita/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"zona-inhospita",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail by Id Zona Inhospita",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/zona-inhospita/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"zona-inhospita",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Zona Inhospita",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"codZona\": \"087\",\r\n        \"denominacionZona\": \"Lulunta\",\r\n        \"precio\": 2500.0\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/zona-inhospita/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"zona-inhospita",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Zona Inhospita",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"codZona\": \"088\",\r\n        \"denominacionZona\": \"Caucete\",\r\n        \"precio\": 2700.0\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/zona-inhospita//1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"zona-inhospita",
+								"",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Zona Inhospita",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/zona-inhospita/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"zona-inhospita",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt-admin}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "root",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "jwt-admin",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZXN0dXNlciIsInJvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaWF0IjoxNjM2NDE2OTg4LCJleHAiOjE2MzY0MTczNDh9.n_Bb4NN8AASUUWQLAmgb6N7eZqFGq0chxbeAlMjp090CG_dyUGKvIGalgD97PBfYkcoQUMkPDhXxhT2H7Bowhg"
+		},
+		{
+			"key": "jwt-user",
+			"value": ""
+		}
+	]
+}

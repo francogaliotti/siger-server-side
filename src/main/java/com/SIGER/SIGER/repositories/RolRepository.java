@@ -2,7 +2,7 @@
 
 import org.springframework.stereotype.Repository;
 
-import com.SIGER.SIGER.entities.Rol;
+import com.SIGER.SIGER.model.entities.Rol;
 
 import java.util.Optional;
 

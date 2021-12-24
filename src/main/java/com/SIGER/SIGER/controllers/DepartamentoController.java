@@ -1,5 +1,6 @@
-package com.SIGER.SIGER.controllers;
+/*package com.SIGER.SIGER.controllers;
 
+import com.SIGER.SIGER.services.DepartamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -7,31 +8,31 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SIGER.SIGER.entities.Departamento;
-import com.SIGER.SIGER.servicesImpl.DepartamentoServiceImpl;
+import com.SIGER.SIGER.model.entities.direccion.Departamento;
 
 @RestController
 @RequestMapping
 @CrossOrigin
-public class DepartamentoController extends BaseControllerImpl<Departamento, DepartamentoServiceImpl>{
+public class DepartamentoController extends
+		AbsBaseController<Departamento, DepartamentoService> {
 	
 	@Autowired
-	DepartamentoServiceImpl departamentoServiceImpl;
+	DepartamentoService departamentoServiceImpl;
 
 	@Override
-	public ResponseEntity<?> getAll() {
+	public ResponseEntity<?> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> getAll(Pageable pageable) {
+	public ResponseEntity<?> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> getOne(Long id) {
+	public ResponseEntity<?> findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -54,4 +55,4 @@ public class DepartamentoController extends BaseControllerImpl<Departamento, Dep
 		return null;
 	}
 
-}
+}*/

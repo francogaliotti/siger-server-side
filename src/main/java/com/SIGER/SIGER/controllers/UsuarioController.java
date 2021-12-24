@@ -2,27 +2,27 @@
 
 import com.SIGER.SIGER.BI.UsuarioExpert;
 import com.SIGER.SIGER.presentation.dto.DTORegister;
-import com.SIGER.SIGER.sendgrid.EmailService;
+import com.SIGER.SIGER.sendgrid.EmailSendGridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
-import com.SIGER.SIGER.entities.Usuario;
+import com.SIGER.SIGER.model.entities.Usuario;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UsuarioController extends BaseControllerImpl<Usuario, UsuarioServiceImpl>{
+public class UsuarioController extends AbsBaseController<Usuario, UsuarioServiceImpl>{
 
 	@Autowired
 	UsuarioServiceImpl usuarioServiceImpl;
 
 	@Autowired
-	EmailService emailService;
+	EmailSendGridService emailService;
 
 	private final AuthenticationManager authenticationManager;
 
