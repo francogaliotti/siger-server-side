@@ -7,4 +7,6 @@ import com.SIGER.SIGER.model.entities.TipoMovilidad;
 @Repository
 public interface TipoMovilidadRepository extends BaseRepository<TipoMovilidad, Long>{
 
+  boolean existsByDenominacion(String denominacion);
+
 }
