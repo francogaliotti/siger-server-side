@@ -7,4 +7,6 @@ import com.SIGER.SIGER.model.entities.Movilidad;
 @Repository
 public interface MovilidadRepository extends BaseRepository<Movilidad, Long>{
 
+  boolean existsByPatente(String patente);
+
 }
