@@ -39,6 +39,9 @@ public class Usuario extends BaseEntity {
 
     private String tokenPassword;
 
+    @NotNull
+    private boolean isFirstSignin;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_rol",
             joinColumns = @JoinColumn(name = "usuario_id"),

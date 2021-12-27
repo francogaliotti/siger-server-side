@@ -3,6 +3,7 @@ package com.SIGER.SIGER.BI;
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Empleado;
+import com.SIGER.SIGER.model.entities.Nacionalidad;
 import com.SIGER.SIGER.model.requests.EmpleadoRequest;
 import com.SIGER.SIGER.model.responses.EmpleadoResponse;
 import com.SIGER.SIGER.services.EmpleadoService;
@@ -81,15 +82,17 @@ public class EmpleadoExpert extends
           HttpStatus.BAD_REQUEST);
     }
 
+    Nacionalidad nationality = Nacionalidad.builder().nombre(empleadoRequest.getNacionalidad()).build();
+
     Empleado empleado1 = Empleado.builder()
         .nombre(empleadoRequest.getNombre())
         .apellido(empleadoRequest.getApellido())
         .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
         .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
         .correoPersonal(empleadoRequest.getCorreoPersonal())
+        .nacionalidad(nationality)
         .fechaNacimiento(empleadoRequest.getFechaNacimiento())
         .estadoCivil(empleadoRequest.getEstadoCivil())
-        .nacionalidad(empleadoRequest.getNacionalidad())
         .tipoDocumento(empleadoRequest.getTipoDocumento())
         .nroIdentificacionPersonal(empleadoRequest.getNroIdentificacionPersonal())
         .cuil(empleadoRequest.getCuil())
