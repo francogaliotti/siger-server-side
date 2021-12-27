@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/tipo_movilidad")
+@RequestMapping("/tipo-movilidad")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TipoMovilidadController extends
     AbsBaseController<TipoMovilidad, TipoMovilidadService, TipoMovilidadRequest, TipoMovilidadResponse, TipoMovilidadExpert> {
