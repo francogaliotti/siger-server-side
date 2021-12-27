@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.services;
+/*package com.SIGER.SIGER.services;
 
 import com.SIGER.SIGER.servicesInterfaces.IJornadaLaboralService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +24,4 @@ public class JornadaLaboralService extends
       super(baseRepository);
   }
 
-}
+}*/

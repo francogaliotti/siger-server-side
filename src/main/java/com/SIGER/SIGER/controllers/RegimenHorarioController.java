@@ -1,11 +1,11 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.BI.TipoMovilidadExpert;
+import com.SIGER.SIGER.BI.RegimenHorarioExpert;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
-import com.SIGER.SIGER.model.entities.TipoMovilidad;
-import com.SIGER.SIGER.model.requests.TipoMovilidadRequest;
-import com.SIGER.SIGER.model.responses.TipoMovilidadResponse;
-import com.SIGER.SIGER.services.TipoMovilidadService;
+import com.SIGER.SIGER.model.entities.RegimenHorario;
+import com.SIGER.SIGER.model.requests.RegimenHorarioRequest;
+import com.SIGER.SIGER.model.responses.RegimenHorarioResponse;
+import com.SIGER.SIGER.services.RegimenHorarioService;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,53 +24,52 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/tipo-movilidad")
+@RequestMapping("/regimen-horario")
 @CrossOrigin(origins = "http://localhost:4200")
-public class TipoMovilidadController extends
-    AbsBaseController<TipoMovilidad, TipoMovilidadService, TipoMovilidadRequest, TipoMovilidadResponse, TipoMovilidadExpert> {
+public class RegimenHorarioController extends
+    AbsBaseController<RegimenHorario, RegimenHorarioService, RegimenHorarioRequest, RegimenHorarioResponse, RegimenHorarioExpert> {
 
   @Autowired
-  TipoMovilidadExpert tipoMovilidadExpert;
+  RegimenHorarioExpert regimenHorarioExpert;
 
   @Override
   @GetMapping("/")
-  public ResponseEntity<List<TipoMovilidadResponse>> getAll(@RequestParam("page") int page,
+  public ResponseEntity<List<RegimenHorarioResponse>> getAll(@RequestParam("page") int page,
       UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws Exception {
-    return tipoMovilidadExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
+    return regimenHorarioExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
         response);
   }
 
   @Override
   @GetMapping("/{id}")
-  public ResponseEntity<TipoMovilidadResponse> getById(@PathVariable("id") Long id)
+  public ResponseEntity<RegimenHorarioResponse> getById(@PathVariable("id") Long id)
       throws Exception {
-    return tipoMovilidadExpert.findById(id);
+    return regimenHorarioExpert.findById(id);
   }
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/")
-  public ResponseEntity<TipoMovilidadResponse> post(
-      @RequestBody TipoMovilidadRequest tipoMovilidadRequest)
+  public ResponseEntity<RegimenHorarioResponse> post(
+      @RequestBody RegimenHorarioRequest regimenHorarioRequest)
       throws Exception {
-    return tipoMovilidadExpert.save(tipoMovilidadRequest);
+    return regimenHorarioExpert.save(regimenHorarioRequest);
   }
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/{id}")
-  public ResponseEntity<TipoMovilidadResponse> put(@PathVariable("id") Long id,
-      @RequestBody TipoMovilidadRequest tipoMovilidadRequest)
+  public ResponseEntity<RegimenHorarioResponse> put(@PathVariable("id") Long id,
+      @RequestBody RegimenHorarioRequest regimenHorarioRequest)
       throws Exception {
-    return tipoMovilidadExpert.update(id, tipoMovilidadRequest);
+    return regimenHorarioExpert.update(id, regimenHorarioRequest);
   }
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Long id) throws Exception {
-    return tipoMovilidadExpert.delete(id);
+    return regimenHorarioExpert.delete(id);
   }
-
 }

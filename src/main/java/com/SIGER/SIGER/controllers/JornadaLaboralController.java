@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SIGER.SIGER.model.entities.RegimenHorario;
+import com.SIGER.SIGER.model.entities.RegimenHorarioResponse;
 
 @RestController
 @RequestMapping
 @CrossOrigin
 public class JornadaLaboralController extends
-    AbsBaseController<RegimenHorario, JornadaLaboralService> {
+    AbsBaseController<RegimenHorarioResponse, JornadaLaboralService> {
 	
 	@Autowired
 	JornadaLaboralService jornadaLaboralServiceImpl;
@@ -38,13 +38,13 @@ public class JornadaLaboralController extends
 	}
 
 	@Override
-	public ResponseEntity<?> save(RegimenHorario entity) {
+	public ResponseEntity<?> save(RegimenHorarioResponse entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<?> update(Long id, RegimenHorario entity) {
+	public ResponseEntity<?> update(Long id, RegimenHorarioResponse entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,6 +1,7 @@
 package com.SIGER.SIGER.services;
 
 import com.SIGER.SIGER.servicesInterfaces.IMovilidadService;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,16 @@ public class MovilidadService extends AbsBaseService<Movilidad, Long> implements
 		IMovilidadService {
 	
 	@Autowired
-	private MovilidadRepository movilidadRepository;
+	MovilidadRepository movilidadRepository;
 	
 	
-	public MovilidadService(BaseRepository<Movilidad, Long> baseRepository) {
+	/*public MovilidadService(BaseRepository<Movilidad, Long> baseRepository) {
       super(baseRepository);
-  }
+  }*/
+
+	@Transactional
+	public boolean existsByPatente(String patente) {
+		return movilidadRepository.existsByPatente(patente);
+	}
 
 }

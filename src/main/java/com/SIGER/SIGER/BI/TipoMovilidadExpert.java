@@ -112,13 +112,13 @@ public class TipoMovilidadExpert extends
         .denominacion(tipoMovilidadRequest.getDenominacion()).build();
     tipoMovilidadService.update(id, tipoMovilidad);
 
-    return new ResponseEntity(new Message("Estado de Boleta actualizado"), HttpStatus.OK);
+    return new ResponseEntity(new Message("Tipo de Movilidad actualizado"), HttpStatus.OK);
   }
 
   @Override
   public ResponseEntity<?> delete(Long id) throws Exception {
     tipoMovilidadService.delete(id);
-    return new ResponseEntity(new Message("Estado de Boleta eliminado"), HttpStatus.NO_CONTENT);
+    return new ResponseEntity(new Message("Tipo de Movilidad eliminado"), HttpStatus.NO_CONTENT);
   }
 
 }
