@@ -12,6 +12,7 @@ import com.SIGER.SIGER.security.service.RolService;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,16 @@ public class AuthExpert {
     String token = jwtProvider.refreshToken(jwtDTO);
     JwtDTO jwt = new JwtDTO(token);
     return new ResponseEntity<>(jwt, HttpStatus.OK);
+  }
+
+  public Boolean getSigninStatus(String username){
+    Optional<Usuario> optionalUser = usuarioService.getByUsername(username);
+    Usuario user = null;
+    if(optionalUser.isPresent()){
+      user = optionalUser.get();
+    }
+
+    return user.isFirstSignin();
   }
 
 }

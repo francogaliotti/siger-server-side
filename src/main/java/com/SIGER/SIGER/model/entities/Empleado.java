@@ -34,8 +34,6 @@ public class Empleado extends BaseEntity{
 
 	private int estadoCivil;
 
-	private String nacionalidad;
-
 	private int legajo;
 
 	private String cuil;
@@ -65,7 +63,9 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
-	
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Nacionalidad nacionalidad;
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Remuneracion> remuneraciones = new ArrayList<Remuneracion>();
 	
