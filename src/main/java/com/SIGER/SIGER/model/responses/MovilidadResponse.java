@@ -18,4 +18,7 @@ public class MovilidadResponse extends BaseResponse {
 
   private String patente;
 
+  private TipoMovilidadResponse tipoMovilidad;
+
+
 }

@@ -3,12 +3,8 @@ package com.SIGER.SIGER.BI;
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Movilidad;
-import com.SIGER.SIGER.model.entities.TipoRegimenHorario;
 import com.SIGER.SIGER.model.requests.MovilidadRequest;
-import com.SIGER.SIGER.model.requests.TipoRegimenHorarioRequest;
-import com.SIGER.SIGER.model.responses.EstadoBoletaResponse;
 import com.SIGER.SIGER.model.responses.MovilidadResponse;
-import com.SIGER.SIGER.model.responses.TipoRegimenHorarioResponse;
 import com.SIGER.SIGER.services.MovilidadService;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +53,9 @@ public class MovilidadExpert extends
   @Override
   public ResponseEntity<MovilidadResponse> findById(Long id) throws Exception {
     Movilidad movilidad = movilidadService.findById(id);
-    EstadoBoletaResponse estadoBoletaResponse = modelMapper.map(movilidad,
-        EstadoBoletaResponse.class);
-    return new ResponseEntity(estadoBoletaResponse, HttpStatus.OK);
+    MovilidadResponse movilidadResponse = modelMapper.map(movilidad,
+        MovilidadResponse.class);
+    return new ResponseEntity(movilidadResponse, HttpStatus.OK);
   }
 
   @Override
@@ -115,6 +111,7 @@ public class MovilidadExpert extends
         .codigo(movilidadRequest.getCodigo())
         .patente(movilidadRequest.getPatente())
         .tipoMovilidad(movilidadRequest.getTipoMovilidad()).build();
+    movilidadService.update(id,movilidad);
 
     return new ResponseEntity(new Message("Movilidad actualizada"), HttpStatus.OK);
   }

@@ -28,7 +28,7 @@ public class Movilidad extends BaseEntity{
 	
 	// Relation
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_tipoMovilidad")
 	private TipoMovilidad tipoMovilidad;
 	
