@@ -17,12 +17,8 @@ public class TipoMovilidadResponse extends BaseResponse{
 
   private Date fechaBaja;
 
-  @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
-  @Size(max = 250, message = ValidationMessages.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String codigo;
 
-  @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
-  @Size(max = 250, message = ValidationMessages.REQUEST_PARAM_MAX_ERROR_MESSAGE)
   private String denominacion;
 
 }

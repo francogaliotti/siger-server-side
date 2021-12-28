@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping
+@RequestMapping("/movilidad")
 @CrossOrigin
 public class MovilidadController extends
     AbsBaseController<Movilidad, MovilidadService, MovilidadRequest, MovilidadResponse, MovilidadExpert> {
