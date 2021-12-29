@@ -51,9 +51,9 @@ public class RegimenHorarioExpert extends
   @Override
   public ResponseEntity<RegimenHorarioResponse> findById(Long id) throws Exception {
     RegimenHorario regimenHorario = regimenHorarioService.findById(id);
-    RegimenHorarioResponse estadoBoletaResponse = modelMapper.map(regimenHorario,
+    RegimenHorarioResponse regimenHorarioResponse = modelMapper.map(regimenHorario,
         RegimenHorarioResponse.class);
-    return new ResponseEntity(estadoBoletaResponse, HttpStatus.OK);
+    return new ResponseEntity(regimenHorarioResponse, HttpStatus.OK);
   }
 
   @Override
