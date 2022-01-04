@@ -36,12 +36,6 @@ public class Empleado extends BaseEntity{
 
 	private int legajo;
 
-	private String cuil;
-
-	private int tipoDocumento;
-
-	private String nroIdentificacionPersonal;
-	
 	private Date fechaLimiteReemplazo;
 
 	private Date fechaNacimiento;
@@ -63,6 +57,9 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
+	@OneToMany(cascade = CascadeType.MERGE)
+	private DocumentoIdentidad documentoIdentidad;
+
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Nacionalidad nacionalidad;
 

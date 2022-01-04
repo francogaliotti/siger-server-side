@@ -4,6 +4,8 @@ import com.SIGER.SIGER.model.entities.Empleado;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
+
 @Repository
 public interface EmpleadoRepository extends BaseRepository<Empleado, Long>{
 
@@ -21,5 +23,7 @@ public interface EmpleadoRepository extends BaseRepository<Empleado, Long>{
 
   Optional<Empleado> findByNroIdentificacionPersonal(String nroIdentificacionPersonal);
   boolean existsByNroIdentificacionPersonal(String nroIdentificacionPersonal);
+
+  Empleado findByfk_usuario(Long id);
 
 }

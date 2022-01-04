@@ -1,7 +1,10 @@
 package com.SIGER.SIGER.model.responses;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,20 +21,38 @@ public class EmpleadoResponse extends BaseResponse{
 
   private int estadoCivil;
 
-  private String nacionalidad;
-
   private int legajo;
 
-  private String cuil;
-
-  private int tipoDocumento;
+  private DocumentoIdentidadResponse documentoIdentidad;
 
   private String nroIdentificacionPersonal;
 
+  private Date fechaLimiteReemplazo;
+
   private Date fechaNacimiento;
+
+  private Date fechaIngreso;
+
+  private boolean rompeReglaComisionDia;
+
+  private boolean rompeReglaFichadaReloj;
+
+  private boolean puedeAprobarRequerimiento;
+
+  private boolean rompeReglaFichadaSupervisor;
+
+  private boolean esEncargado;
 
   private String nroTelefonoFijo;
 
   private String nroTelefonoCelular;
+
+  private NacionalidadResponse nacionalidad;
+
+  private UsuarioResponse usuario;
+
+  private DomicilioResponse domicilio;
+
+  private List<HistorialSectorEmpleadoResponse> historialSectorEmpleado;
 
 }

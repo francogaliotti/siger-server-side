@@ -65,4 +65,8 @@ public class EmpleadoService extends AbsBaseService<Empleado, Long> implements
     return empleadoRepository.existsByNroIdentificacionPersonal(nroIdentificacionPersonal);
   }
 
+  public Empleado getByfk_usuario(Long id){
+    return empleadoRepository.findByfk_usuario(id);
+  }
+
 }

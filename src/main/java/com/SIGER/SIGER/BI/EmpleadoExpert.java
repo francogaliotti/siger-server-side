@@ -2,13 +2,18 @@ package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
+import com.SIGER.SIGER.model.entities.DocumentoIdentidad;
 import com.SIGER.SIGER.model.entities.Empleado;
 import com.SIGER.SIGER.model.entities.Nacionalidad;
+import com.SIGER.SIGER.model.entities.TipoDocumento;
 import com.SIGER.SIGER.model.requests.EmpleadoRequest;
 import com.SIGER.SIGER.model.responses.EmpleadoResponse;
+import com.SIGER.SIGER.security.entity.Usuario;
+import com.SIGER.SIGER.security.service.UsuarioService;
 import com.SIGER.SIGER.services.EmpleadoService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.thymeleaf.standard.processor.StandardIfTagProcessor;
 
 @Component
 public class EmpleadoExpert extends
@@ -27,6 +33,9 @@ public class EmpleadoExpert extends
 
   @Autowired
   PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
+
+  @Autowired
+  UsuarioService userService;
 
   @Override
   public ResponseEntity<List<EmpleadoResponse>> findAll(int page, int size,
@@ -71,10 +80,7 @@ public class EmpleadoExpert extends
       return new ResponseEntity(new Message("El legajo del Empleado ya existe"),
           HttpStatus.BAD_REQUEST);
     }
-    if (empleadoService.existsByCuil(empleadoRequest.getCuil())) {
-      return new ResponseEntity(new Message("El CUIL del Empleado ya existe"),
-          HttpStatus.BAD_REQUEST);
-    }
+
     if (empleadoService.existsByNroIdentificacionPersonal(
         empleadoRequest.getNroIdentificacionPersonal())) {
       return new ResponseEntity(
@@ -82,7 +88,12 @@ public class EmpleadoExpert extends
           HttpStatus.BAD_REQUEST);
     }
 
-    Nacionalidad nationality = Nacionalidad.builder().nombre(empleadoRequest.getNacionalidad()).build();
+    Nacionalidad nationality = new Nacionalidad();
+    nationality.setId(empleadoRequest.getNacionalidad().getId());
+    DocumentoIdentidad identityCard = DocumentoIdentidad.builder().nroIdentidad(empleadoRequest.getNroIdentificacionPersonal()).build();
+    TipoDocumento typeOfDocument = new TipoDocumento();
+    typeOfDocument.setId(empleadoRequest.getDocumentoIdentidad().getTipoDocumento().getId());
+    identityCard.setTipoDocumento(typeOfDocument);
 
     Empleado empleado1 = Empleado.builder()
         .nombre(empleadoRequest.getNombre())
@@ -93,10 +104,8 @@ public class EmpleadoExpert extends
         .nacionalidad(nationality)
         .fechaNacimiento(empleadoRequest.getFechaNacimiento())
         .estadoCivil(empleadoRequest.getEstadoCivil())
-        .tipoDocumento(empleadoRequest.getTipoDocumento())
-        .nroIdentificacionPersonal(empleadoRequest.getNroIdentificacionPersonal())
-        .cuil(empleadoRequest.getCuil())
         .legajo(empleadoRequest.getLegajo())
+         .documentoIdentidad(identityCard)
         .build();
 
     empleadoService.save(empleado1);
@@ -126,12 +135,7 @@ public class EmpleadoExpert extends
     empleado.setCorreoPersonal(empleadoRequest.getCorreoPersonal());
     empleado.setNroTelefonoCelular(empleado.getNroTelefonoCelular());
     empleado.setNroTelefonoFijo(empleado.getNroTelefonoFijo());
-    //empleado.setDomicilio(empleadoRequest.getDomicilio());
     empleado.setEstadoCivil(empleado.getEstadoCivil());
-    //empleado.setFechaLimiteReemplazo(empleadoRequest.getFechaLimiteReemplazo());
-    //empleado.setDiasLicenciaAnualFija(empleadoRequest.getDiasLicenciaAnualFija());
-    //empleado.setRompeReglaComisionDia(empleadoRequest.isRompeReglaComisionDia());
-    //empleado.setRompeReglaFichadaReloj(empleado.isRompeReglaFichadaReloj());
     empleado.setRompeReglaFichadaSupervisor(empleado.isRompeReglaFichadaSupervisor());
     empleado.setPuedeAprobarRequerimiento(empleado.isPuedeAprobarRequerimiento());
     empleado.setEsEncargado(empleado.isEsEncargado());
@@ -145,6 +149,17 @@ public class EmpleadoExpert extends
   public ResponseEntity<?> delete(Long id) throws Exception {
     empleadoService.delete(id);
     return new ResponseEntity(new Message("Empleado eliminado"), HttpStatus.OK);
+  }
+
+  public ResponseEntity<EmpleadoResponse> getByUserName(String username) throws Exception {
+
+    Optional<Usuario> optionalUser = userService.getByUsername(username);
+    Usuario user = null;
+    if(optionalUser.isPresent()) user = optionalUser.get();
+
+    Empleado empleado = empleadoService.getByfk_usuario(user.getId());
+    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
   }
 
 }
