@@ -1,24 +1,25 @@
 package com.SIGER.SIGER.model.entities;
+
+import com.SIGER.SIGER.security.entity.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import com.SIGER.SIGER.security.entity.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Empleado extends BaseEntity{
 	
@@ -67,10 +68,10 @@ public class Empleado extends BaseEntity{
 	private Nacionalidad nacionalidad;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Remuneracion> remuneraciones = new ArrayList<Remuneracion>();
+	private List<Remuneracion> remuneraciones = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RegimenHorario> regimenesHorario = new ArrayList<RegimenHorario>();
+	private List<RegimenHorario> regimenesHorario = new ArrayList<>();
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_usuario")
@@ -81,15 +82,15 @@ public class Empleado extends BaseEntity{
 	private Domicilio domicilio;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<HistorialSectorEmpleado>();
+	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Planilla> planillas = new ArrayList<Planilla>();
+	private List<Planilla> planillas = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<ComputoDiasLicencia>();
+	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RemanenteDiasLicencia>remanenteDiasLicencias = new ArrayList<RemanenteDiasLicencia>();
+	private List<RemanenteDiasLicencia>remanenteDiasLicencias = new ArrayList<>();
 
 }

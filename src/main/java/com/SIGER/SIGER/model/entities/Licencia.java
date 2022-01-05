@@ -3,23 +3,23 @@ package com.SIGER.SIGER.model.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Licencia extends BaseEntity{
 	
@@ -44,10 +44,10 @@ public class Licencia extends BaseEntity{
 	//Relations
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Comentario> comentarios = new ArrayList<Comentario>();
+	private List<Comentario> comentarios = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<DocumentoAdjuntoLicencia> documentosAdjuntosLicencia = new ArrayList<DocumentoAdjuntoLicencia>();
+	private List<DocumentoAdjuntoLicencia> documentosAdjuntosLicencia = new ArrayList<>();
 	
 	@NonNull
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -55,7 +55,7 @@ public class Licencia extends BaseEntity{
 	private TipoLicencia tipoLicencia;
 	
 	@OneToMany(/*mappedBy = "licencia",*/cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<FechaCambioEstadoLicencia> fechasCambioEstadoLicencia = new ArrayList<FechaCambioEstadoLicencia>();
+	private List<FechaCambioEstadoLicencia> fechasCambioEstadoLicencia = new ArrayList<>();
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "fk_empleado")
