@@ -4,7 +4,6 @@ import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.TipoRegimenHorario;
 import com.SIGER.SIGER.model.requests.TipoRegimenHorarioRequest;
-import com.SIGER.SIGER.model.responses.EstadoBoletaResponse;
 import com.SIGER.SIGER.model.responses.TipoRegimenHorarioResponse;
 import com.SIGER.SIGER.services.TipoRegimenHorarioService;
 import java.util.ArrayList;
@@ -54,9 +53,9 @@ public class TipoRegimenHorarioExpert extends
   @Override
   public ResponseEntity<TipoRegimenHorarioResponse> findById(Long id) throws Exception {
     TipoRegimenHorario tipoRegimenHorario = tipoRegimenHorarioService.findById(id);
-    EstadoBoletaResponse estadoBoletaResponse = modelMapper.map(tipoRegimenHorario,
-        EstadoBoletaResponse.class);
-    return new ResponseEntity(estadoBoletaResponse, HttpStatus.OK);
+    TipoRegimenHorarioResponse tipoRegimenHorarioResponse = modelMapper.map(tipoRegimenHorario,
+        TipoRegimenHorarioResponse.class);
+    return new ResponseEntity(tipoRegimenHorarioResponse, HttpStatus.OK);
   }
 
   @Override
@@ -111,6 +110,7 @@ public class TipoRegimenHorarioExpert extends
         .codigoTipoRegimenHorario(tipoRegimenHorarioRequest.getCodigoTipoRegimenHorario())
         .denominacionTipoRegimenHorario(
             tipoRegimenHorarioRequest.getDenominacionTipoRegimenHorario()).build();
+    tipoRegimenHorarioService.update(id,tipoRegimenHorario);
 
     return new ResponseEntity(new Message("Tipo de Regimen Horario actualizado"), HttpStatus.OK);
   }

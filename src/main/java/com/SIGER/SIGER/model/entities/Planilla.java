@@ -1,21 +1,22 @@
 package com.SIGER.SIGER.model.entities;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Planilla extends BaseEntity{
 
@@ -43,9 +44,9 @@ public class Planilla extends BaseEntity{
 	private List<Boleta> boletas = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Asistencia> asistencias = new ArrayList<Asistencia>();
+	private List<Asistencia> asistencias = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Licencia> licencias = new ArrayList<Licencia>();
+	private List<Licencia> licencias = new ArrayList<>();
 
 }

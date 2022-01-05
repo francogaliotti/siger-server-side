@@ -1,6 +1,7 @@
 package com.SIGER.SIGER.model.requests;
 
 import com.SIGER.SIGER.model.entities.TipoRegimenHorario;
+import java.time.LocalTime;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,13 +10,15 @@ import lombok.Setter;
 @Setter
 public class RegimenHorarioRequest extends BaseRequest{
 
-  private Date fechaInicioVigenciaRegimenHorario;
+  /*private Date fechaInicioVigenciaRegimenHorario;
 
-  private Date fechaFinVigenciaRegimenHorario;
+  private Date fechaFinVigenciaRegimenHorario;*/
 
-  private Date horaMinutoInicioJornadaLaboral;
+  private boolean isActive;
 
-  private Date horaMinutoFinJornadaLaboral;
+  private LocalTime horaMinutoInicioJornadaLaboral;
+
+  private LocalTime horaMinutoFinJornadaLaboral;
 
   private TipoRegimenHorario tipoRegimenHorario;
 

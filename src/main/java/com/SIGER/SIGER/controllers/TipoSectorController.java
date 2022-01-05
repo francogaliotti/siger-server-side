@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/estado-sector")
+@RequestMapping("/tipo-sector")
 @CrossOrigin(origins = "http://localhost:4200")
 public class TipoSectorController extends
     AbsBaseController<TipoSector, TipoSectorService, TipoSectorRequest, TipoSectorResponse, TipoSectorExpert> {
@@ -33,7 +33,7 @@ public class TipoSectorController extends
   TipoSectorExpert tipoSectorExpert;
 
   @Override
-  @GetMapping("/list")
+  @GetMapping("/")
   public ResponseEntity<List<TipoSectorResponse>> getAll(@RequestParam("page") int page,
       UriComponentsBuilder uriBuilder,
       HttpServletResponse response) throws Exception {
@@ -62,7 +62,7 @@ public class TipoSectorController extends
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
-  @PutMapping("/update/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<TipoSectorResponse> put(@PathVariable Long id,
       @RequestBody TipoSectorRequest tipoSectorRequest)
       throws Exception {
@@ -71,7 +71,7 @@ public class TipoSectorController extends
 
   @Override
   @PreAuthorize("hasRole('ADMIN')")
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
     return tipoSectorExpert.delete(id);
   }

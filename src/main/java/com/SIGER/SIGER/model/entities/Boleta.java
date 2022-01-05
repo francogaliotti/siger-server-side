@@ -1,8 +1,8 @@
 package com.SIGER.SIGER.model.entities;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,17 +11,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Boleta extends BaseEntity{
 	
@@ -68,16 +69,16 @@ public class Boleta extends BaseEntity{
 	private Empleado empleado;
 	
 	@OneToMany(/*mappedBy = "boleta",*/ cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<FechaCambioEstadoBoleta> fechasCambioEstadoBoleta = new ArrayList<FechaCambioEstadoBoleta>();
+	private List<FechaCambioEstadoBoleta> fechasCambioEstadoBoleta = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<DocumentoAdjuntoBoleta> documentosAdjuntosBoleta = new ArrayList<DocumentoAdjuntoBoleta>();
+	private List<DocumentoAdjuntoBoleta> documentosAdjuntosBoleta = new ArrayList<>();
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "boleta_movilidad",
 	joinColumns = @JoinColumn(name = "boleta_id"), 
 	inverseJoinColumns = @JoinColumn(name = "movilidad_id"))
-	private List<Movilidad> movilidades = new ArrayList<Movilidad>();
+	private List<Movilidad> movilidades = new ArrayList<>();
 	
 	@NonNull
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -85,6 +86,6 @@ public class Boleta extends BaseEntity{
 	private TipoBoleta tipoBoleta;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Comentario> comentarios = new ArrayList<Comentario>();
+	private List<Comentario> comentarios = new ArrayList<>();
 
 }

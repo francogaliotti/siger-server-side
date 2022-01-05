@@ -15,9 +15,9 @@ public class RegimenHorarioResponse extends BaseResponse{
 
   private Date fechaFinVigenciaRegimenHorario;
 
-  private Date horaMinutoInicioJornadaLaboral;
+  private String horaMinutoInicioJornadaLaboral;
 
-  private Date horaMinutoFinJornadaLaboral;
+  private String horaMinutoFinJornadaLaboral;
 
   private TipoRegimenHorario tipoRegimenHorario;
 
