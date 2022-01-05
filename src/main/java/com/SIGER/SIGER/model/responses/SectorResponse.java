@@ -1,5 +1,8 @@
 package com.SIGER.SIGER.model.responses;
 
+import com.SIGER.SIGER.model.entities.Domicilio;
+import com.SIGER.SIGER.model.entities.Sector;
+import com.SIGER.SIGER.model.entities.TipoSector;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.Date;
 import lombok.Getter;
@@ -16,7 +19,7 @@ public class SectorResponse extends BaseResponse{
 
   private Date fechaBaja;
 
-  private char validaFueraDeHorario;
+  private boolean validaFueraDeHorario;
 
   private char detenerCargaBoletas;
 
@@ -27,5 +30,11 @@ public class SectorResponse extends BaseResponse{
   private int maximoSerenoDiurno;
 
   private int maximoSerenoNocturno;
+
+  private Sector sectorSuperior;
+
+  private TipoSector tipoSector;
+
+  //private Domicilio domicilio;
 
 }

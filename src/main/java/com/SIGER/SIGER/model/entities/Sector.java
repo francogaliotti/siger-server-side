@@ -25,7 +25,7 @@ public class Sector extends BaseEntity{
 	
 	private Date fechaBaja;
 	
-	private char validaFueraDeHorario;
+	private boolean validaFueraDeHorario;
 	
 	private char detenerCargaBoletas;
 	
