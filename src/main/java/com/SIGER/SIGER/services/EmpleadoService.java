@@ -45,28 +45,8 @@ public class EmpleadoService extends AbsBaseService<Empleado, Long> implements
     return empleadoRepository.existsByLegajo(legajo);
   }
 
-  @Transactional
-  public Optional<Empleado> getByCuil(String cuil) {
-    return empleadoRepository.findByCuil(cuil);
-  }
-
-  @Transactional
-  public boolean existsByCuil(String cuil) {
-    return empleadoRepository.existsByCuil(cuil);
-  }
-
-  @Transactional
-  public Optional<Empleado> getByNroIdentificacionPersonal(String nroIdentificacionPersonal) {
-    return empleadoRepository.findByNroIdentificacionPersonal(nroIdentificacionPersonal);
-  }
-
-  @Transactional
-  public boolean existsByNroIdentificacionPersonal(String nroIdentificacionPersonal) {
-    return empleadoRepository.existsByNroIdentificacionPersonal(nroIdentificacionPersonal);
-  }
-
   public Empleado getByfk_usuario(Long id){
-    return empleadoRepository.findByfk_usuario(id);
+    return empleadoRepository.findByUsuario(id);
   }
 
 }

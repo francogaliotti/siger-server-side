@@ -57,8 +57,8 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
-	@OneToMany(cascade = CascadeType.MERGE)
-	private DocumentoIdentidad documentoIdentidad;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<DocumentoIdentidad> documentoIdentidad;
 
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Nacionalidad nacionalidad;

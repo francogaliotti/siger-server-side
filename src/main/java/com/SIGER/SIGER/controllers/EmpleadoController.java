@@ -47,7 +47,7 @@ public class EmpleadoController extends
     return empleadoExpert.findById(id);
   }
 
-  @GetMapping("/{username}")
+  @GetMapping("/employee/{username}")
   public ResponseEntity<EmpleadoResponse> getByUserName(@PathVariable String username) throws Exception {
     return empleadoExpert.getByUserName(username);
   }

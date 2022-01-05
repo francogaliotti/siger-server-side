@@ -7,6 +7,6 @@ import lombok.Setter;
 @JsonRootName("Nacionalidad")
 @Getter
 @Setter
-public class NacionalidadResponse {
+public class NacionalidadResponse extends  BaseResponse{
     private String nombre;
 }

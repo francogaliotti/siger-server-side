@@ -4,6 +4,7 @@ import com.SIGER.SIGER.model.entities.BaseEntity;
 import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.servicesInterfaces.BaseService;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -42,6 +43,12 @@ public abstract class AbsBaseService<E extends BaseEntity, ID extends Serializab
     Pageable pageable = PageRequest.of(page, size);
     return baseRepository.findBySoftDeleteFalse(pageable);
 
+  }
+
+  @Override
+  @Transactional
+  public List<E> findAll() throws Exception{
+    return baseRepository.findAll();
   }
 
   @Override

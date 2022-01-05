@@ -22,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.thymeleaf.standard.processor.StandardIfTagProcessor;
 
 @Component
 public class EmpleadoExpert extends
@@ -81,13 +80,6 @@ public class EmpleadoExpert extends
           HttpStatus.BAD_REQUEST);
     }
 
-    if (empleadoService.existsByNroIdentificacionPersonal(
-        empleadoRequest.getNroIdentificacionPersonal())) {
-      return new ResponseEntity(
-          new Message("El Número de Identificación personal del Empleado ya existe"),
-          HttpStatus.BAD_REQUEST);
-    }
-
     Nacionalidad nationality = new Nacionalidad();
     nationality.setId(empleadoRequest.getNacionalidad().getId());
     DocumentoIdentidad identityCard = DocumentoIdentidad.builder().nroIdentidad(empleadoRequest.getNroIdentificacionPersonal()).build();
@@ -105,8 +97,9 @@ public class EmpleadoExpert extends
         .fechaNacimiento(empleadoRequest.getFechaNacimiento())
         .estadoCivil(empleadoRequest.getEstadoCivil())
         .legajo(empleadoRequest.getLegajo())
-         .documentoIdentidad(identityCard)
         .build();
+
+    empleado1.getDocumentoIdentidad().add(identityCard);
 
     empleadoService.save(empleado1);
 

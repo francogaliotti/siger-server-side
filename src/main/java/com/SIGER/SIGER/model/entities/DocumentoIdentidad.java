@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 @AllArgsConstructor
@@ -15,5 +17,6 @@ import javax.persistence.Entity;
 public class DocumentoIdentidad extends BaseEntity {
     private String nroIdentidad;
 
+    @OneToOne(cascade = CascadeType.MERGE)
     private TipoDocumento tipoDocumento;
 }

@@ -2,12 +2,14 @@ package com.SIGER.SIGER.servicesInterfaces;
 
 import com.SIGER.SIGER.model.entities.BaseEntity;
 import java.io.Serializable;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 
 public interface BaseService<E extends BaseEntity, ID extends Serializable> {
 
-  //List<E> findAll() throws Exception;
+  List<E> findAll() throws Exception;
 
   Page<E> findAll(int page, int size) throws Exception;
 
