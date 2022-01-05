@@ -1,21 +1,22 @@
 package com.SIGER.SIGER.model.entities;
 
+import java.time.LocalTime;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
+import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class RegimenHorario extends BaseEntity{
 
@@ -23,13 +24,15 @@ public class RegimenHorario extends BaseEntity{
 
 	private Date fechaFinVigenciaRegimenHorario;
 
-	private Date horaMinutoInicioJornadaLaboral;
+	private LocalTime horaMinutoInicioJornadaLaboral;
 
-	private Date horaMinutoFinJornadaLaboral;
+	private LocalTime horaMinutoFinJornadaLaboral;
+
+	private boolean isActive;
 
 	//Relation
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_tipoRegimenHorario")
 	private TipoRegimenHorario tipoRegimenHorario;
 

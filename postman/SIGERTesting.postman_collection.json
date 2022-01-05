@@ -660,6 +660,175 @@
 			]
 		},
 		{
+			"name": "Movilidad",
+			"item": [
+				{
+					"name": "List Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/movilidad/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"movilidad",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/movilidad/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"movilidad",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaAlta\": \"2012-04-21T18:25:43-05:00\",\r\n    \"fechaBaja\": \"\",\r\n    \"codigo\": \"98\",\r\n    \"patente\": \"Movilidad de prueba3\",\r\n    \"tipoMovilidadRequest\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/movilidad/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"movilidad",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"fechaAlta\": \"2012-04-21T23:25:43.000+00:00\",\r\n    \"fechaBaja\": \"2021-12-27T23:25:43.000+00:00\",\r\n    \"codigo\": \"98\",\r\n    \"patente\": \"Tipo Movilidad de prueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/movilidad/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"movilidad",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/movilidad/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"movilidad",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Sector",
 			"item": [
 				{
@@ -1079,7 +1248,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"codigo\":\"24\",\r\n    \"denominacion\":\"Sexto Tipo\",\r\n    \"generaRequerimiento\":\"A\",\r\n    \"justificaRequerimiento\":\"A\",\r\n    \"limiteRangoDias\":\"5\",\r\n    \"modalidadLicencia\":\"modal\",\r\n    \"observaciones\":\"de prueba\",\r\n    \"permiteSolapamiento\":\"A\",\r\n    \"tipoCalculo\":\"tipo calc\",\r\n    \"tipoRequerimientoCantNiveles\": 3,\r\n    \"tipoRequerimientoDenominacion\": \"Clqr tipo req\"\r\n}",
+							"raw": "{\r\n    \"cantidadMaximaAnual\":1,\r\n    \"cantidadMaximaMensual\":2,\r\n    \"cantidadMaximaDiaria\":1,\r\n    \"codigo\":\"27\",\r\n    \"denominacion\":\"El Tipo Definitivo\",\r\n    \"justificaPresentismo\": \"true\",\r\n    \"limiteRangoDias\":\"5\",\r\n    \"goceSueldo\": \"true\",\r\n    \"observaciones\":\"de prueba\",\r\n    \"tipoRequerimientoCantNiveles\": 3,\r\n    \"tipoRequerimientoDenominacion\": \"Tipo Req10\",\r\n    \"tipoRequerimientoAprueban\":[{\"id\":1},{\"id\":2}],\r\n    \"tipoRequerimientoAprobadores\":[{\"id\":2},{\"id\":1},{\"id\":3}]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1159,6 +1328,175 @@
 							"path": [
 								"tipo-licencia",
 								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tipo Movilidad",
+			"item": [
+				{
+					"name": "List Tipo Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-movilidad/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-movilidad",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Tipo Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-movilidad/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-movilidad",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tipo Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaAlta\": \"2012-04-21T18:25:43-05:00\",\r\n    \"fechaBaja\": \"\",\r\n    \"codigo\":\"98\",\r\n    \"denominacion\":\"Tipo Movilidad de prueba\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-movilidad/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-movilidad",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tipo Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"fechaAlta\": \"2012-04-21T23:25:43.000+00:00\",\r\n    \"fechaBaja\": \"2021-12-27T23:25:43.000+00:00\",\r\n    \"codigo\": \"98\",\r\n    \"denominacion\": \"Tipo Movilidad de prueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-movilidad/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-movilidad",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tipo Movilidad",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-movilidad/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-movilidad",
+								"1"
 							]
 						}
 					},
@@ -1666,6 +2004,344 @@
 							],
 							"path": [
 								"zona-inhospita",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TipoRegimenHorario",
+			"item": [
+				{
+					"name": "List Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigoTipoRegimenHorario\": \"AAA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquiera2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Estandar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/3",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RegimenHorario",
+			"item": [
+				{
+					"name": "List Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/regimen-horario/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"horaMinutoInicioJornadaLaboral\": \"06:00\",\r\n    \"horaMinutoFinJornadaLaboral\": \"14:00\",\r\n    \"tipoRegimenHorario\":{\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/regimen-horario/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquieras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
 								"1"
 							]
 						}

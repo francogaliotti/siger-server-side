@@ -7,6 +7,7 @@ import com.SIGER.SIGER.model.requests.RegimenHorarioRequest;
 import com.SIGER.SIGER.model.responses.RegimenHorarioResponse;
 import com.SIGER.SIGER.services.RegimenHorarioService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,22 +52,22 @@ public class RegimenHorarioExpert extends
   @Override
   public ResponseEntity<RegimenHorarioResponse> findById(Long id) throws Exception {
     RegimenHorario regimenHorario = regimenHorarioService.findById(id);
-    RegimenHorarioResponse estadoBoletaResponse = modelMapper.map(regimenHorario,
+    RegimenHorarioResponse regimenHorarioResponse = modelMapper.map(regimenHorario,
         RegimenHorarioResponse.class);
-    return new ResponseEntity(estadoBoletaResponse, HttpStatus.OK);
+    return new ResponseEntity(regimenHorarioResponse, HttpStatus.OK);
   }
 
   @Override
   public ResponseEntity<RegimenHorarioResponse> save(RegimenHorarioRequest regimenHorarioRequest)
       throws Exception {
-    if (regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario() == null) {
+    /*if (regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario() == null) {
       return new ResponseEntity(new Message("La fecha de inicio es obligatoria"),
           HttpStatus.BAD_REQUEST);
     }
     if (regimenHorarioRequest.getFechaFinVigenciaRegimenHorario() == null) {
       return new ResponseEntity(new Message("La fecha de fin es obligatoria"),
           HttpStatus.BAD_REQUEST);
-    }
+    }*/
     if (regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral() == null) {
       return new ResponseEntity(new Message("La hora de inicio es obligatoria"),
           HttpStatus.BAD_REQUEST);
@@ -77,9 +78,8 @@ public class RegimenHorarioExpert extends
     }
 
     RegimenHorario regimenHorario = RegimenHorario.builder()
-        .fechaInicioVigenciaRegimenHorario(
-            regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario())
-        .fechaFinVigenciaRegimenHorario(regimenHorarioRequest.getFechaFinVigenciaRegimenHorario())
+        .fechaInicioVigenciaRegimenHorario(new Date())
+      //  .fechaFinVigenciaRegimenHorario(regimenHorarioRequest.getFechaFinVigenciaRegimenHorario())
         .horaMinutoInicioJornadaLaboral(regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral())
         .horaMinutoFinJornadaLaboral(regimenHorarioRequest.getHoraMinutoFinJornadaLaboral())
         .tipoRegimenHorario(regimenHorarioRequest.getTipoRegimenHorario()).build();
@@ -97,14 +97,14 @@ public class RegimenHorarioExpert extends
       return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     }
 
-    if (regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario() == null) {
+    /*if (regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario() == null) {
       return new ResponseEntity(new Message("La fecha de inicio es obligatoria"),
           HttpStatus.BAD_REQUEST);
     }
     if (regimenHorarioRequest.getFechaFinVigenciaRegimenHorario() == null) {
       return new ResponseEntity(new Message("La fecha de fin es obligatoria"),
           HttpStatus.BAD_REQUEST);
-    }
+    }*/
     if (regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral() == null) {
       return new ResponseEntity(new Message("La hora de inicio es obligatoria"),
           HttpStatus.BAD_REQUEST);
@@ -115,9 +115,9 @@ public class RegimenHorarioExpert extends
     }
 
     RegimenHorario regimenHorario = RegimenHorario.builder()
-        .fechaInicioVigenciaRegimenHorario(
-            regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario())
-        .fechaFinVigenciaRegimenHorario(regimenHorarioRequest.getFechaFinVigenciaRegimenHorario())
+       // .fechaInicioVigenciaRegimenHorario(
+       //     regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario())
+       // .fechaFinVigenciaRegimenHorario(regimenHorarioRequest.getFechaFinVigenciaRegimenHorario())
         .horaMinutoInicioJornadaLaboral(regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral())
         .horaMinutoFinJornadaLaboral(regimenHorarioRequest.getHoraMinutoFinJornadaLaboral())
         .tipoRegimenHorario(regimenHorarioRequest.getTipoRegimenHorario()).build();
