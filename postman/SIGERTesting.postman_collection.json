@@ -327,7 +327,7 @@
 			]
 		},
 		{
-			"name": "EstadoBoleta",
+			"name": "Estado Boleta",
 			"item": [
 				{
 					"name": "List Estado Boleta",
@@ -490,7 +490,7 @@
 			]
 		},
 		{
-			"name": "EstadoLicencia",
+			"name": "Estado Licencia",
 			"item": [
 				{
 					"name": "List Estado Boletas",
@@ -829,6 +829,344 @@
 			]
 		},
 		{
+			"name": "Regimen Horario",
+			"item": [
+				{
+					"name": "List Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/regimen-horario/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"horaMinutoInicioJornadaLaboral\": \"06:00\",\r\n    \"horaMinutoFinJornadaLaboral\": \"14:00\",\r\n    \"tipoRegimenHorario\":{\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/regimen-horario/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquieras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Remuneracion",
+			"item": [
+				{
+					"name": "List Remuneracion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/remuneracion/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"remuneracion",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Remuneracion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/remuneracion/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"remuneracion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Remuneracion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"horaMinutoInicioJornadaLaboral\": \"06:00\",\r\n    \"horaMinutoFinJornadaLaboral\": \"14:00\",\r\n    \"tipoRegimenHorario\":{\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/remuneracion/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"remuneracion",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Remuneracion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquieras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/remuneracion/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"remuneracion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Remuneracion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/remuneracion/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"remuneracion",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Sector",
 			"item": [
 				{
@@ -998,7 +1336,7 @@
 			]
 		},
 		{
-			"name": "TipoBoleta",
+			"name": "Tipo Boleta",
 			"item": [
 				{
 					"name": "List Tipo Boleta",
@@ -1167,7 +1505,7 @@
 			]
 		},
 		{
-			"name": "TipoLicencia",
+			"name": "Tipo Licencia",
 			"item": [
 				{
 					"name": "List Tipo Licencia",
@@ -1505,7 +1843,176 @@
 			]
 		},
 		{
-			"name": "TipoSector",
+			"name": "Tipo Regimen Horario",
+			"item": [
+				{
+					"name": "List Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/?page=0",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/2",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigoTipoRegimenHorario\": \"AAA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquiera2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Estandar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/1",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tipo Regimen Horario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt-admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/tipo-regimen-horario/3",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"tipo-regimen-horario",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tipo Sector",
 			"item": [
 				{
 					"name": "List Tipo Sector",
@@ -1843,7 +2350,7 @@
 			]
 		},
 		{
-			"name": "ZonaInhospita",
+			"name": "Zona Inhospita",
 			"item": [
 				{
 					"name": "List Zona Inhospita",
@@ -2013,10 +2520,10 @@
 			]
 		},
 		{
-			"name": "TipoRegimenHorario",
+			"name": "datos.gob.ar",
 			"item": [
 				{
-					"name": "List Tipo Regimen Horario",
+					"name": "Provincias",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -2031,12 +2538,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/tipo-regimen-horario/?page=0",
+							"raw": "{{root}}/datos-gob-ar/provincias/?page=0",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tipo-regimen-horario",
+								"datos-gob-ar",
+								"provincias",
 								""
 							],
 							"query": [
@@ -2050,168 +2558,28 @@
 					"response": []
 				},
 				{
-					"name": "Detail Tipo Regimen Horario",
+					"name": "Departamentos",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/tipo-regimen-horario/2",
+							"raw": "{{root}}/datos-gob-ar/departamentos/?page=0&id=50",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"tipo-regimen-horario",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Tipo Regimen Horario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"codigoTipoRegimenHorario\": \"AAA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquiera2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{root}}/tipo-regimen-horario/",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"tipo-regimen-horario",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Tipo Regimen Horario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Estandar\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{root}}/tipo-regimen-horario/1",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"tipo-regimen-horario",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Tipo Regimen Horario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{root}}/tipo-regimen-horario/3",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"tipo-regimen-horario",
-								"3"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "RegimenHorario",
-			"item": [
-				{
-					"name": "List Regimen Horario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{root}}/regimen-horario/?page=0",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"regimen-horario",
+								"datos-gob-ar",
+								"departamentos",
 								""
 							],
 							"query": [
 								{
 									"key": "page",
 									"value": "0"
+								},
+								{
+									"key": "id",
+									"value": "50"
 								}
 							]
 						}
@@ -2219,130 +2587,58 @@
 					"response": []
 				},
 				{
-					"name": "Detail Regimen Horario",
+					"name": "Municipios",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{root}}/regimen-horario/1",
+							"raw": "{{root}}/datos-gob-ar/municipios/?page=0&id=50",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"regimen-horario",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Regimen Horario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"horaMinutoInicioJornadaLaboral\": \"06:00\",\r\n    \"horaMinutoFinJornadaLaboral\": \"14:00\",\r\n    \"tipoRegimenHorario\":{\r\n        \"id\": 1\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{root}}/regimen-horario/",
-							"host": [
-								"{{root}}"
-							],
-							"path": [
-								"regimen-horario",
+								"datos-gob-ar",
+								"municipios",
 								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "id",
+									"value": "50"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Regimen Horario",
+					"name": "Localidades",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"codigoTipoRegimenHorario\": \"AA\",\r\n    \"denominacionTipoRegimenHorario\": \"Cualquieras\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{root}}/regimen-horario/1",
+							"raw": "{{root}}/datos-gob-ar/localidades/?page=0&id=50",
 							"host": [
 								"{{root}}"
 							],
 							"path": [
-								"regimen-horario",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Regimen Horario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt-admin}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{root}}/regimen-horario/1",
-							"host": [
-								"{{root}}"
+								"datos-gob-ar",
+								"localidades",
+								""
 							],
-							"path": [
-								"regimen-horario",
-								"1"
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "id",
+									"value": "50"
+								}
 							]
 						}
 					},
