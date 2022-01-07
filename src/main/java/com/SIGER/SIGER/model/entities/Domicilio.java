@@ -23,9 +23,13 @@ public class Domicilio extends BaseEntity{
 	
 	private int nroCalle;
 	
-	private int nroDepartamento;
+	private String departamento;
 	
 	private int nroPiso;
+	private String barrio;
+	private String manzana;
+	private String casa;
+
 	
 	//Relation
 	

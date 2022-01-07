@@ -1,4 +1,4 @@
-package com.SIGER.SIGER.presentation.dto;
+package com.SIGER.SIGER.model.requests;
 
 import com.SIGER.SIGER.model.responses.BaseResponse;
 import com.SIGER.SIGER.security.entity.Rol;
@@ -6,7 +6,7 @@ import com.SIGER.SIGER.security.entity.Rol;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioResponse extends BaseResponse {
+public class UsuarioRequest extends BaseResponse {
 
      String username;
 
@@ -26,7 +26,7 @@ public class UsuarioResponse extends BaseResponse {
 
      List<Rol> roles = new ArrayList<Rol>();
 
-     public UsuarioResponse(){
+     public UsuarioRequest(){
          super();
      }
 
