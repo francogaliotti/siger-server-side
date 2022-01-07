@@ -1,7 +1,7 @@
-package com.SIGER.SIGER.seerders;
+package com.SIGER.SIGER.datos_gob_ar.seerders;
 
-import com.SIGER.SIGER.model.entities.Datos_gob_ar.Departamento;
-import com.SIGER.SIGER.repositories.DepartamentoRepository;
+import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
+import com.SIGER.SIGER.datos_gob_ar.repositories.DepartamentoRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.File;

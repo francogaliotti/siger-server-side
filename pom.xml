@@ -148,11 +148,6 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.5.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-csv</artifactId>
-			<version>1.8</version>
-		</dependency>
 	</dependencies>
 
 	<build>
