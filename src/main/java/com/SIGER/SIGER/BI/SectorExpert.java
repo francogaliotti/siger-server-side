@@ -86,9 +86,9 @@ public class SectorExpert extends
         .maximoSerenoDiurno(sectorRequest.getMaximoSerenoDiurno())
         .maximoSerenoNocturno(sectorRequest.getMaximoSerenoNocturno())
         .sectorSuperior(sectorRequest.getSectorSuperior())
-        .tipoSector(sectorRequest.getTipoSector())
+        .tipoSector(sectorRequest.getTipoSector()).build();
         //.domicilio(sectorRequest.getDomicilio())
-        .build();
+
 
     sectorServiceImpl.save(sector);
 
