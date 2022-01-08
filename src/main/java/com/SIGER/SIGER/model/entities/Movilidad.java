@@ -1,10 +1,8 @@
 package com.SIGER.SIGER.model.entities;
 
 import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +27,7 @@ public class Movilidad extends BaseEntity{
 	
 	// Relation
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "fk_tipoMovilidad")
 	private TipoMovilidad tipoMovilidad;
 	

@@ -4,6 +4,10 @@ import com.SIGER.SIGER.common.ValidationMessages;
 import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.SIGER.SIGER.model.entities.Domicilio;
+import com.SIGER.SIGER.model.entities.Sector;
+import com.SIGER.SIGER.model.entities.TipoSector;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +25,7 @@ public class SectorRequest extends BaseRequest{
 
   private Date fechaBaja;
 
-  private char validaFueraDeHorario;
+  private boolean validaFueraDeHorario;
 
   private char detenerCargaBoletas;
 
@@ -32,5 +36,11 @@ public class SectorRequest extends BaseRequest{
   private int maximoSerenoDiurno;
 
   private int maximoSerenoNocturno;
+
+  private Sector sectorSuperior;
+
+  private TipoSector tipoSector;
+
+  //private Domicilio domicilio;
 
 }

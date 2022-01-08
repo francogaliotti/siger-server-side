@@ -26,7 +26,7 @@ public class Sector extends BaseEntity{
 	
 	private Date fechaBaja;
 	
-	private char validaFueraDeHorario;
+	private boolean validaFueraDeHorario;
 	
 	private char detenerCargaBoletas;
 	
@@ -40,11 +40,11 @@ public class Sector extends BaseEntity{
 	
 	//Relations
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "fk_sectorSuperior")
 	private Sector sectorSuperior;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "fk_tipoSector")
 	private TipoSector tipoSector;
 	
