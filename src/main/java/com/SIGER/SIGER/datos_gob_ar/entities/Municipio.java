@@ -1,17 +1,19 @@
-package com.SIGER.SIGER.model.entities.Datos_gob_ar;
+package com.SIGER.SIGER.datos_gob_ar.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "municipios")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Municipio {
 

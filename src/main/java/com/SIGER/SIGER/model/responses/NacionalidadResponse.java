@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.Setter;
 
-@JsonRootName("Provincia")
+@JsonRootName("Nacionalidad")
 @Getter
 @Setter
-public class ProvinciaResponse extends BaseResponse {
-
-  private String codigo;
-
-  private String denominacion;
-
+public class NacionalidadResponse extends  BaseResponse{
+    private String nombre;
 }

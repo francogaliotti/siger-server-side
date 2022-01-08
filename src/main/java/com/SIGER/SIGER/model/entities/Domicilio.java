@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.model.entities;
 
-import com.SIGER.SIGER.model.entities.Datos_gob_ar.Localidad;
+import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -23,9 +23,13 @@ public class Domicilio extends BaseEntity{
 	
 	private int nroCalle;
 	
-	private int nroDepartamento;
+	private String departamento;
 	
 	private int nroPiso;
+	private String barrio;
+	private String manzana;
+	private String casa;
+
 	
 	//Relation
 	
