@@ -10,10 +10,6 @@ import lombok.Setter;
 @Setter
 public class RegimenHorarioRequest extends BaseRequest{
 
-  /*private Date fechaInicioVigenciaRegimenHorario;
-
-  private Date fechaFinVigenciaRegimenHorario;*/
-
   private boolean isActive;
 
   private LocalTime horaMinutoInicioJornadaLaboral;
