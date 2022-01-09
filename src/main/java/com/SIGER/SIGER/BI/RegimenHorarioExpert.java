@@ -60,14 +60,7 @@ public class RegimenHorarioExpert extends
   @Override
   public ResponseEntity<RegimenHorarioResponse> save(RegimenHorarioRequest regimenHorarioRequest)
       throws Exception {
-    /*if (regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario() == null) {
-      return new ResponseEntity(new Message("La fecha de inicio es obligatoria"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (regimenHorarioRequest.getFechaFinVigenciaRegimenHorario() == null) {
-      return new ResponseEntity(new Message("La fecha de fin es obligatoria"),
-          HttpStatus.BAD_REQUEST);
-    }*/
+
     if (regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral() == null) {
       return new ResponseEntity(new Message("La hora de inicio es obligatoria"),
           HttpStatus.BAD_REQUEST);
@@ -79,7 +72,6 @@ public class RegimenHorarioExpert extends
 
     RegimenHorario regimenHorario = RegimenHorario.builder()
         .fechaInicioVigenciaRegimenHorario(new Date())
-      //  .fechaFinVigenciaRegimenHorario(regimenHorarioRequest.getFechaFinVigenciaRegimenHorario())
         .horaMinutoInicioJornadaLaboral(regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral())
         .horaMinutoFinJornadaLaboral(regimenHorarioRequest.getHoraMinutoFinJornadaLaboral())
         .tipoRegimenHorario(regimenHorarioRequest.getTipoRegimenHorario()).build();
@@ -97,14 +89,6 @@ public class RegimenHorarioExpert extends
       return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     }
 
-    /*if (regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario() == null) {
-      return new ResponseEntity(new Message("La fecha de inicio es obligatoria"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (regimenHorarioRequest.getFechaFinVigenciaRegimenHorario() == null) {
-      return new ResponseEntity(new Message("La fecha de fin es obligatoria"),
-          HttpStatus.BAD_REQUEST);
-    }*/
     if (regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral() == null) {
       return new ResponseEntity(new Message("La hora de inicio es obligatoria"),
           HttpStatus.BAD_REQUEST);
@@ -115,9 +99,6 @@ public class RegimenHorarioExpert extends
     }
 
     RegimenHorario regimenHorario = RegimenHorario.builder()
-       // .fechaInicioVigenciaRegimenHorario(
-       //     regimenHorarioRequest.getFechaInicioVigenciaRegimenHorario())
-       // .fechaFinVigenciaRegimenHorario(regimenHorarioRequest.getFechaFinVigenciaRegimenHorario())
         .horaMinutoInicioJornadaLaboral(regimenHorarioRequest.getHoraMinutoInicioJornadaLaboral())
         .horaMinutoFinJornadaLaboral(regimenHorarioRequest.getHoraMinutoFinJornadaLaboral())
         .tipoRegimenHorario(regimenHorarioRequest.getTipoRegimenHorario()).build();
@@ -128,6 +109,9 @@ public class RegimenHorarioExpert extends
 
   @Override
   public ResponseEntity<?> delete(Long id) throws Exception {
+    RegimenHorario regimenHorario = regimenHorarioService.findById(id);
+    regimenHorario.setFechaFinVigenciaRegimenHorario(new Date());
+    regimenHorarioService.update(id, regimenHorario);
     regimenHorarioService.delete(id);
     return new ResponseEntity(new Message("Regimen Horario eliminado"), HttpStatus.NO_CONTENT);
   }

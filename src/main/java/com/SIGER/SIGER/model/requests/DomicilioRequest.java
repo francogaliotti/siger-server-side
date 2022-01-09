@@ -1,7 +1,6 @@
 package com.SIGER.SIGER.model.requests;
 
-import com.SIGER.SIGER.model.entities.Datos_gob_ar.Localidad;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
 import lombok.Getter;
 import lombok.Setter;
 
