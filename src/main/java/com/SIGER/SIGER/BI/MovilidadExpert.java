@@ -101,16 +101,12 @@ public class MovilidadExpert extends
       return new ResponseEntity(new Message("El código es obligatorio, o debe ser mayor a 0"),
           HttpStatus.BAD_REQUEST);
     }
-    if (movilidadService.existsByPatente(
-        movilidadRequest.getPatente())) {
-      return new ResponseEntity(new Message("La denominación ya existe"), HttpStatus.BAD_REQUEST);
-    }
 
-    Movilidad movilidad = Movilidad.builder()
-        .fechaAlta(movilidadRequest.getFechaAlta())
-        .codigo(movilidadRequest.getCodigo())
-        .patente(movilidadRequest.getPatente())
-        .tipoMovilidad(movilidadRequest.getTipoMovilidad()).build();
+
+    Movilidad movilidad = movilidadService.findById(id);
+    movilidad.setPatente(movilidadRequest.getPatente());
+    movilidad.setCodigo(movilidadRequest.getCodigo());
+    movilidad.setTipoMovilidad(movilidadRequest.getTipoMovilidad());
     movilidadService.update(id,movilidad);
 
     return new ResponseEntity(new Message("Movilidad actualizada"), HttpStatus.OK);

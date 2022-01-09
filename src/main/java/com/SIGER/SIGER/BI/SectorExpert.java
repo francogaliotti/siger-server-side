@@ -80,15 +80,15 @@ public class SectorExpert extends
     }
     Sector sector = Sector.builder().codigo(sectorRequest.getCodigo())
         .denominacion(sectorRequest.getDenominacion())
-        .validaFueraDeHorario(sectorRequest.getValidaFueraDeHorario())
+        .validaFueraDeHorario(sectorRequest.isValidaFueraDeHorario())
         .permiteTrabajarHorasExtras(sectorRequest.isPermiteTrabajarHorasExtras())
         .permiteTrabajarFinDeSemana(sectorRequest.isPermiteTrabajarFinDeSemana())
         .maximoSerenoDiurno(sectorRequest.getMaximoSerenoDiurno())
         .maximoSerenoNocturno(sectorRequest.getMaximoSerenoNocturno())
-        //.sectorSuperior(sectorRequest.getSectorSuperior())
-        //.tipoSector(sectorRequest.getTipoSector())
+        .sectorSuperior(sectorRequest.getSectorSuperior())
+        .tipoSector(sectorRequest.getTipoSector()).build();
         //.domicilio(sectorRequest.getDomicilio())
-        .build();
+
 
     sectorServiceImpl.save(sector);
 
@@ -117,13 +117,13 @@ public class SectorExpert extends
     Sector sector = sectorServiceImpl.findById(id);
     sector.setCodigo(sectorRequest.getCodigo());
     sector.setDenominacion(sectorRequest.getDenominacion());
-    sector.setValidaFueraDeHorario(sectorRequest.getValidaFueraDeHorario());
+    sector.setValidaFueraDeHorario(sectorRequest.isValidaFueraDeHorario());
     sector.setPermiteTrabajarHorasExtras(sectorRequest.isPermiteTrabajarHorasExtras());
     sector.setPermiteTrabajarFinDeSemana(sectorRequest.isPermiteTrabajarFinDeSemana());
     sector.setMaximoSerenoDiurno(sectorRequest.getMaximoSerenoDiurno());
     sector.setMaximoSerenoNocturno(sectorRequest.getMaximoSerenoNocturno());
-    //sector.setSectorSuperior(sectorRequest.getSectorSuperior());
-    //sector.setTipoSector(sectorRequest.getTipoSector());
+    sector.setSectorSuperior(sectorRequest.getSectorSuperior());
+    sector.setTipoSector(sectorRequest.getTipoSector());
     //sector.setDomicilio(sectorRequest.getDomicilio());
     sectorServiceImpl.update(id, sector);
 
