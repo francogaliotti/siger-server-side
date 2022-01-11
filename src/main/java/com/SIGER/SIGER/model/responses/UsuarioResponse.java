@@ -25,7 +25,7 @@ public class UsuarioResponse extends BaseResponse {
      private  boolean requiereAutorizacion;
      private boolean recordarme;
 
-     private List<Rol> roles = new ArrayList<Rol>();
+     private List<Rol> roles = new ArrayList<>();
 
      public UsuarioResponse(){
          super();

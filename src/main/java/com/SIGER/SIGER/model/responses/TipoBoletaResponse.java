@@ -34,8 +34,8 @@ public class TipoBoletaResponse extends BaseResponse{
 
   public String tipoRequerimientoDenominacion;
 
-  public List<Sector> tipoRequerimientoAprueban = new ArrayList<Sector>();
+  public List<Sector> tipoRequerimientoAprueban = new ArrayList<>();
 
-  public List<Empleado> tipoRequerimientoAprobadores = new ArrayList<Empleado>();
+  public List<Empleado> tipoRequerimientoAprobadores = new ArrayList<>();
 
 }
