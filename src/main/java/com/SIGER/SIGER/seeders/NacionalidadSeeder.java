@@ -21,8 +21,9 @@ public class NacionalidadSeeder  implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    nacionalidadSeeder();
-
+    if (nacionalidadRepository.count() == 0) {
+      nacionalidadSeeder();
+    }
   }
 
   private void nacionalidadSeeder() throws IOException, CsvValidationException {
