@@ -75,7 +75,7 @@ public class RolesAndUsersSeeder implements CommandLineRunner {
     return Usuario.builder()
         .nombre(nombre)
         .username(username)
-        .email(email)
+        .correoInstitucional(email)
         .password(bCryptPasswordEncoder.encode(PASSWORD_GENERIC))
         .roles(Set.of(rolRepository.findById(ROLE_USER).get()))
         .build();
@@ -85,7 +85,7 @@ public class RolesAndUsersSeeder implements CommandLineRunner {
     return Usuario.builder()
         .nombre(nombre)
         .username(username)
-        .email(email)
+        .correoInstitucional(email)
         .password(bCryptPasswordEncoder.encode(PASSWORD_GENERIC))
         .roles(Set.of(rolRepository.findById(ROLE_ADMIN).get()))
         .build();

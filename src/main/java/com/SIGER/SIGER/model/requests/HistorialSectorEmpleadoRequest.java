@@ -1,6 +1,5 @@
 package com.SIGER.SIGER.model.requests;
 
-import com.SIGER.SIGER.model.responses.SectorResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +15,5 @@ public class HistorialSectorEmpleadoRequest extends BaseRequest{
 
     private boolean vigente;
 
-    private SectorResponse sector;
+    private SectorRequest sector;
 }

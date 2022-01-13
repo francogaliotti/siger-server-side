@@ -66,5 +66,4 @@ public class Localidad {
 	@Column(name = "provincia_nombre", nullable = false)
 	private String provinciaNombre;
 
-
 }

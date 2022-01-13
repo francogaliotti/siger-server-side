@@ -13,13 +13,13 @@ public class MapperToDTOTest {
     @Test
     void contextLoads() {
 
-        Usuario user = Usuario.builder().username("jperez").password("jperez1234").email("jperez@dpv.com.ar").build();
+        Usuario user = Usuario.builder().username("jperez").password("jperez1234").correoInstitucional("jperez@dpv.com.ar").build();
 
         UsuarioResponse dto_user = (UsuarioResponse) MapperDTO.MapperToDTO(user, new UsuarioResponse());
 
         Assert.isTrue(user.getUsername().equals(dto_user.getUsername()), "");
         Assert.isTrue(user.getPassword().equals(dto_user.getPassword()), "");
-        Assert.isTrue(user.getEmail().equals(dto_user.getCorreoInstitucional()),"");
+        Assert.isTrue(user.getCorreoInstitucional().equals(dto_user.getCorreoInstitucional()),"");
 
     }
 

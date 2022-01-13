@@ -43,7 +43,7 @@ public class EmailController {
 
   @PostMapping("/send-email")
   public ResponseEntity<?> sendEmail(@RequestBody EmailValuesDTO valuesDTO){
-    Optional<Usuario> usuarioOptional = usuarioService.getByUsernameOrEmail(valuesDTO.getMailTo());
+    Optional<Usuario> usuarioOptional = usuarioService.getByUsernameOrCorreoInstitucional(valuesDTO.getMailTo());
     if(!usuarioOptional.isPresent()){
       return new ResponseEntity<>(new Message("No existe ningún usuario con esas credenciales"),
           HttpStatus.NOT_FOUND);
@@ -51,7 +51,7 @@ public class EmailController {
 
     Usuario usuario = usuarioOptional.get();
     valuesDTO.setMailFrom(mailFrom);
-    valuesDTO.setMailTo(usuario.getEmail());
+    valuesDTO.setMailTo(usuario.getCorreoInstitucional());
     valuesDTO.setSubject(subject_Change_Password);
     valuesDTO.setUsername(usuario.getUsername());
 

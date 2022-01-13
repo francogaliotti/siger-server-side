@@ -2,23 +2,35 @@ package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
+import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
+import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
+import com.SIGER.SIGER.datos_gob_ar.entities.Municipio;
+import com.SIGER.SIGER.datos_gob_ar.entities.Provincia;
 import com.SIGER.SIGER.emailSender.controller.EmailController;
 import com.SIGER.SIGER.emailSender.dto.EmailValuesDTO;
 import com.SIGER.SIGER.model.entities.DocumentoIdentidad;
+import com.SIGER.SIGER.model.entities.Domicilio;
 import com.SIGER.SIGER.model.entities.Empleado;
+import com.SIGER.SIGER.model.entities.HistorialSectorEmpleado;
 import com.SIGER.SIGER.model.entities.Nacionalidad;
+import com.SIGER.SIGER.model.entities.RegimenHorario;
+import com.SIGER.SIGER.model.entities.Remuneracion;
+import com.SIGER.SIGER.model.entities.Sector;
 import com.SIGER.SIGER.model.entities.TipoDocumento;
 import com.SIGER.SIGER.model.requests.EmpleadoRequest;
 import com.SIGER.SIGER.model.responses.EmpleadoResponse;
+import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import com.SIGER.SIGER.services.EmpleadoService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -112,26 +124,178 @@ public class EmpleadoExpert extends
 
     Nacionalidad nationality = new Nacionalidad();
     nationality.setId(empleadoRequest.getNacionalidad().getId());
+
     DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
         .nroIdentidad(empleadoRequest.getNroIdentificacionPersonal()).build();
+
     TipoDocumento typeOfDocument = new TipoDocumento();
     typeOfDocument.setId(empleadoRequest.getDocumentoIdentidad().getTipoDocumento().getId());
     identityCard.setTipoDocumento(typeOfDocument);
 
+    List<Remuneracion> remuneracionList = new ArrayList<>();
+
+    for (int i = 0; i < empleadoRequest.getRemuneraciones().size(); i++) {
+
+      Remuneracion remuneracion = Remuneracion.builder()
+          .valorHora(empleadoRequest.getRemuneraciones().get(i).getValorHora())
+          .valorViaticoDia(empleadoRequest.getRemuneraciones().get(i).getValorViaticoDia())
+          .importeHorasAdicionales(empleadoRequest.getRemuneraciones().get(i).getImporteHorasAdicionales())
+          .importeZonaDesarraigo(empleadoRequest.getRemuneraciones().get(i).getImporteZonaDesarraigo())
+          .build();
+      remuneracionList.add(remuneracion);
+    }
+
+    List<RegimenHorario> regimenHorarioList = new ArrayList<>();
+
+    for (int i = 0; i < empleadoRequest.getRegimenesHorario().size(); i++) {
+
+      RegimenHorario regimenHorario = RegimenHorario.builder()
+          .isActive(empleadoRequest.getRegimenesHorario().get(i).isActive())
+          .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenesHorario().get(i).getHoraMinutoInicioJornadaLaboral())
+          .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenesHorario().get(i).getHoraMinutoFinJornadaLaboral())
+          .tipoRegimenHorario(empleadoRequest.getRegimenesHorario().get(i).getTipoRegimenHorario())
+          .build();
+
+      regimenHorarioList.add(regimenHorario);
+    }
+    Provincia provincia = Provincia.builder()
+        .categoria(empleadoRequest.getDomicilio().getProvincia().getCategoria())
+        .latitud(empleadoRequest.getDomicilio().getProvincia().getLatitud())
+        .longitud(empleadoRequest.getDomicilio().getProvincia().getLongitud())
+        .fuente(empleadoRequest.getDomicilio().getProvincia().getFuente())
+        .id(empleadoRequest.getDomicilio().getProvincia().getFuente())
+        .iso_id(empleadoRequest.getDomicilio().getProvincia().getIso_id())
+        .iso_nombre(empleadoRequest.getDomicilio().getProvincia().getIso_nombre())
+        .nombre(empleadoRequest.getDomicilio().getProvincia().getNombre())
+        .nombre_completo(empleadoRequest.getDomicilio().getProvincia().getNombre_completo())
+        .build();
+
+    Departamento departamento = Departamento.builder()
+        .categoria(empleadoRequest.getDomicilio().getDepartamento().getCategoria())
+        .latitud(empleadoRequest.getDomicilio().getDepartamento().getLatitud())
+        .longitud(empleadoRequest.getDomicilio().getDepartamento().getLongitud())
+        .fuente(empleadoRequest.getDomicilio().getDepartamento().getFuente())
+        .id(empleadoRequest.getDomicilio().getDepartamento().getId())
+        .nombre(empleadoRequest.getDomicilio().getDepartamento().getNombre())
+        .nombre_completo(empleadoRequest.getDomicilio().getDepartamento().getNombre_completo())
+        .provincia(empleadoRequest.getDomicilio().getDepartamento().getProvincia())
+        .provinciaInterseccion(
+            empleadoRequest.getDomicilio().getDepartamento().getProvinciaInterseccion())
+        .provinciaNombre(empleadoRequest.getDomicilio().getDepartamento().getProvinciaNombre())
+        .build();
+
+    Municipio municipio = Municipio.builder()
+        .categoria(empleadoRequest.getDomicilio().getMunicipio().getCategoria())
+        .latitud(empleadoRequest.getDomicilio().getMunicipio().getLatitud())
+        .longitud(empleadoRequest.getDomicilio().getMunicipio().getLongitud())
+        .fuente(empleadoRequest.getDomicilio().getMunicipio().getFuente())
+        .id(empleadoRequest.getDomicilio().getMunicipio().getFuente())
+        .nombre(empleadoRequest.getDomicilio().getMunicipio().getNombre())
+        .nombre_completo(empleadoRequest.getDomicilio().getMunicipio().getNombre_completo())
+        .provincia(empleadoRequest.getDomicilio().getMunicipio().getProvincia())
+        .provinciaInterseccion(
+            empleadoRequest.getDomicilio().getMunicipio().getProvinciaInterseccion())
+        .provinciaNombre(empleadoRequest.getDomicilio().getMunicipio().getProvinciaNombre())
+        .build();
+
+    Localidad localidad = Localidad.builder()
+        .categoria(empleadoRequest.getDomicilio().getLocalidad().getCategoria())
+        .latitud(empleadoRequest.getDomicilio().getLocalidad().getLatitud())
+        .longitud(empleadoRequest.getDomicilio().getLocalidad().getLongitud())
+        .departamento(empleadoRequest.getDomicilio().getLocalidad().getDepartamento())
+        .departamentoNombre(empleadoRequest.getDomicilio().getLocalidad().getDepartamentoNombre())
+        .fuente(empleadoRequest.getDomicilio().getLocalidad().getFuente())
+        .id(empleadoRequest.getDomicilio().getLocalidad().getId())
+        .localidadCensalId(empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalId())
+        .localidadCensalNombre(
+            empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalNombre())
+        .municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())
+        .municipioNombre(empleadoRequest.getDomicilio().getLocalidad().getMunicipioNombre())
+        .nombre(empleadoRequest.getDomicilio().getLocalidad().getNombre())
+        .provincia(empleadoRequest.getDomicilio().getLocalidad().getProvincia())
+        .provinciaNombre(empleadoRequest.getDomicilio().getLocalidad().getProvinciaNombre())
+        .build();
+
+    Set<Rol> roles = new HashSet<>();
+    roles.addAll(empleadoRequest.getUsuario().getRoles());
+
+    Usuario usuario = Usuario.builder()
+        .username(empleadoRequest.getUsuario().getUsername())
+        .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
+        .password(empleadoRequest.getUsuario().getPassword())
+        .image(empleadoRequest.getUsuario().getImage())
+        .isFirstSignin(empleadoRequest.getUsuario().isFirstSignin())
+        .enabled(empleadoRequest.getUsuario().isEnabled())
+        .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
+        .recordarme(empleadoRequest.getUsuario().isRecordarme())
+        .roles(roles).build();
+
+    Domicilio domicilio = Domicilio.builder()
+        .calle(empleadoRequest.getDomicilio().getCalle())
+        .nroCalle(empleadoRequest.getDomicilio().getNroCalle())
+        .dpto(empleadoRequest.getDomicilio().getDpto())
+        .nroPiso(empleadoRequest.getDomicilio().getNroPiso())
+        .barrio(empleadoRequest.getDomicilio().getBarrio())
+        .manzana(empleadoRequest.getDomicilio().getManzana())
+        .casa(empleadoRequest.getDomicilio().getCasa())
+        .provincia(provincia)
+        .departamento(departamento)
+        .municipio(municipio)
+        .localidad(localidad).build();
+
+    List<HistorialSectorEmpleado> historialSectorEmpleadoList = new ArrayList<>();
+
+    for (int i = 0; i < empleadoRequest.getHistorialSectorEmpleado().size(); i++) {
+
+      Sector sector = Sector.builder()
+          .codigo(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getCodigo())
+          .denominacion(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getDenominacion())
+          .fechaBaja(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getFechaBaja())
+          .validaFueraDeHorario(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isValidaFueraDeHorario())
+          .detenerCargaBoletas(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getDetenerCargaBoletas())
+          .permiteTrabajarHorasExtras(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isPermiteTrabajarHorasExtras())
+          .maximoSerenoDiurno(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getMaximoSerenoDiurno())
+          .maximoSerenoNocturno(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getMaximoSerenoNocturno())
+          .sectorSuperior(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getSectorSuperior())
+          .tipoSector(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getTipoSector())
+          .build();
+      HistorialSectorEmpleado historialSectorEmpleado = HistorialSectorEmpleado.builder()
+          .fechaIngreso(empleadoRequest.getHistorialSectorEmpleado().get(i).getFechaIngreso())
+          .fechaSalida(empleadoRequest.getHistorialSectorEmpleado().get(i).getFechaSalida())
+          .vigente(empleadoRequest.getHistorialSectorEmpleado().get(i).isVigente())
+          .sector(sector)
+          .build();
+      historialSectorEmpleadoList.add(historialSectorEmpleado);
+    }
+
     Empleado empleado1 = Empleado.builder()
         .nombre(empleadoRequest.getNombre())
         .apellido(empleadoRequest.getApellido())
-        .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
-        .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
         .correoPersonal(empleadoRequest.getCorreoPersonal())
-        .nacionalidad(nationality)
-        .fechaNacimiento(empleadoRequest.getFechaNacimiento())
         .estadoCivil(empleadoRequest.getEstadoCivil())
         .legajo(empleadoRequest.getLegajo())
+        .fechaLimiteReemplazo(empleadoRequest.getFechaLimiteReemplazo())
+        .fechaNacimiento(empleadoRequest.getFechaNacimiento())
+        .fechaIngreso(empleadoRequest.getFechaIngreso())
+        .rompeReglaComisionDia(empleadoRequest.isRompeReglaComisionDia())
+        .rompeReglaFichadaReloj(empleadoRequest.isRompeReglaFichadaReloj())
+        .puedeAprobarRequerimiento(empleadoRequest.isPuedeAprobarRequerimiento())
+        .rompeReglaFichadaSupervisor(empleadoRequest.isRompeReglaFichadaSupervisor())
+        .esEncargado(empleadoRequest.isEsEncargado())
+        .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
+        .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
+        .nacionalidad(nationality)
+        .remuneraciones(remuneracionList)
+        .regimenesHorario(regimenHorarioList)
+        .usuario(usuario)
+        .domicilio(domicilio)
+        .historialSectorEmpleado(historialSectorEmpleadoList)
+        .planillas(empleadoRequest.getPlanillas())
+        .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
+        .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
         .build();
 
     empleado1.getDocumentoIdentidad().add(identityCard);
-
     empleadoService.save(empleado1);
 
     return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
