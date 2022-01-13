@@ -26,7 +26,7 @@ public class AuthControllerTest {
         roles.add("admin");
 
         NuevoUsuario nuevoUsuario = NuevoUsuario.builder().nombre("Administrador").username("Admin").password("1234")
-                .email("alexis.bahi@alumnos.frm.utn.edu.ar").roles(roles).build();
+                .correoInstitucional("alexis.bahi@alumnos.frm.utn.edu.ar").roles(roles).build();
         BindingResult result = new BeanPropertyBindingResult(nuevoUsuario, "nuevoUsuario");
         ResponseEntity<?> response = authController.register(nuevoUsuario,result);
 

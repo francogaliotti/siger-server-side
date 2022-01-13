@@ -5,7 +5,6 @@ import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.enums.RolNombre;
 import com.SIGER.SIGER.security.repository.RolRepository;
 import com.SIGER.SIGER.security.repository.UsuarioRepository;
-//import com.SIGER.SIGER.security.seeder.config.ApplicationRole;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -48,10 +47,6 @@ public class RolesAndUsersSeeder implements CommandLineRunner {
     return role;
   }
 
-  /*private long getRoleId(ApplicationRole applicationRole) {
-    return applicationRole == ApplicationRole.USER ? ROLE_USER : ROLE_ADMIN;
-  }*/
-
   private void loadUsers() {
     if (usuarioRepository.count() == 0) {
       loadUsersWithRoleUser();
@@ -80,7 +75,7 @@ public class RolesAndUsersSeeder implements CommandLineRunner {
     return Usuario.builder()
         .nombre(nombre)
         .username(username)
-        .email(email)
+        .correoInstitucional(email)
         .password(bCryptPasswordEncoder.encode(PASSWORD_GENERIC))
         .roles(Set.of(rolRepository.findById(ROLE_USER).get()))
         .build();
@@ -90,7 +85,7 @@ public class RolesAndUsersSeeder implements CommandLineRunner {
     return Usuario.builder()
         .nombre(nombre)
         .username(username)
-        .email(email)
+        .correoInstitucional(email)
         .password(bCryptPasswordEncoder.encode(PASSWORD_GENERIC))
         .roles(Set.of(rolRepository.findById(ROLE_ADMIN).get()))
         .build();

@@ -1,6 +1,5 @@
 package com.SIGER.SIGER.security.controller;
 
-import com.SIGER.SIGER.model.responses.TipoBoletaResponse;
 import com.SIGER.SIGER.security.dto.JwtDTO;
 import com.SIGER.SIGER.security.dto.LoginUsuario;
 import com.SIGER.SIGER.security.dto.NuevoUsuario;

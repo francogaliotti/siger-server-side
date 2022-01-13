@@ -22,7 +22,7 @@ public class NuevoUsuario {
     private String username;
 
     @Email
-    private String email;
+    private String correoInstitucional;
 
     @NotBlank
     private String password;

@@ -32,7 +32,7 @@ public class Usuario extends BaseEntity {
     private String username;
 
     @NotNull
-    private String email;
+    private String correoInstitucional;
 
     @NotNull
     private String password;
@@ -43,6 +43,12 @@ public class Usuario extends BaseEntity {
 
     @NotNull
     private boolean isFirstSignin;
+
+    boolean	enabled;
+
+    boolean requiereAutorizacion;
+
+    boolean recordarme;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_rol",

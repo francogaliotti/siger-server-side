@@ -22,16 +22,16 @@ public class UsuarioService {
         return usuarioRepository.findByTokenPassword(tokenPassword);
     }
 
-    public Optional<Usuario>getByUsernameOrEmail(String usernameOrEmail){
-        return usuarioRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+    public Optional<Usuario> getByUsernameOrCorreoInstitucional(String usernameOrCorreoInstitucional){
+        return usuarioRepository.findByUsernameOrCorreoInstitucional(usernameOrCorreoInstitucional, usernameOrCorreoInstitucional);
     }
 
     public boolean existsByUsername(String username){
         return usuarioRepository.existsByUsername(username);
     }
 
-    public boolean existsByEmail(String email){
-        return usuarioRepository.existsByEmail(email);
+    public boolean existsByEmail(String correoInstitucional){
+        return usuarioRepository.existsByCorreoInstitucional(correoInstitucional);
     }
     public void save (Usuario usuario){
         usuarioRepository.save(usuario);

@@ -5,18 +5,24 @@ import com.SIGER.SIGER.security.entity.Rol;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class UsuarioRequest extends BaseResponse {
 
      String username;
 
+     String correoInstitucional;
+
      String password;
 
-     String correoInstitucional;
+     private String image;
 
      String rolNecesario;
 
-     boolean esPrimerInicio;
+     private boolean isFirstSignin;
 
      boolean	enabled;
 
