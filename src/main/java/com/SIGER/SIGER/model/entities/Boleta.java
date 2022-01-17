@@ -56,11 +56,11 @@ public class Boleta extends BaseEntity{
 	
 	//Relations
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_zonaInhospita")
 	private ZonaInhospita zonaInhospita;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_viatico")
 	private Viatico viatico;
 	
@@ -81,7 +81,7 @@ public class Boleta extends BaseEntity{
 	private List<Movilidad> movilidades = new ArrayList<>();
 	
 	@NonNull
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_tipoBoleta")
 	private TipoBoleta tipoBoleta;
 	

@@ -19,4 +19,8 @@ public class BoletaService extends AbsBaseService<Boleta, Long> implements
         super(baseRepository);
     }
 
+    public boolean existsById(Long id) {
+        return boletaRepository.existsById(id);
+    }
+
 }
