@@ -6,9 +6,11 @@ import com.SIGER.SIGER.model.entities.Empleado;
 import com.SIGER.SIGER.model.requests.EmpleadoRequest;
 import com.SIGER.SIGER.model.responses.EmpleadoResponse;
 import com.SIGER.SIGER.services.EmpleadoService;
+import java.sql.SQLTimeoutException;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,7 +59,26 @@ public class EmpleadoController extends
   @PostMapping("/")
   public ResponseEntity<EmpleadoResponse> post(@RequestBody EmpleadoRequest empleadoRequest)
       throws Exception {
-    return empleadoExpert.save(empleadoRequest);
+    return this.createUsuario(empleadoRequest);
+  }
+
+  private ResponseEntity<EmpleadoResponse> createUsuario(EmpleadoRequest empleadoRequest) throws Exception {
+    HttpStatus status;
+    String message = "";
+    empleadoExpert.save(empleadoRequest);
+
+    try{
+      empleadoExpert.createUser(empleadoRequest);
+      status = HttpStatus.OK;
+    }catch (NullPointerException ex){
+      status = HttpStatus.BAD_REQUEST;
+    }catch (SQLTimeoutException ex){
+      status = HttpStatus.REQUEST_TIMEOUT;
+    }catch (Exception ex){
+      status = HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+
+    return new ResponseEntity(message, status);
   }
 
   @Override

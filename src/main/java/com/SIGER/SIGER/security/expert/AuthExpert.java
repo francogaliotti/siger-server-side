@@ -50,10 +50,10 @@ public class AuthExpert {
       return new ResponseEntity(new Message("Campos o email inválidos"), HttpStatus.BAD_REQUEST);
     if(usuarioService.existsByUsername(nuevoUsuario.getUsername()))
       return new ResponseEntity(new Message("Nombre de Usuario ya está registrado"), HttpStatus.BAD_REQUEST);
-    if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
+    if(usuarioService.existsByEmail(nuevoUsuario.getCorreoInstitucional()))
       return new ResponseEntity(new Message("Correo ya está registrado"), HttpStatus.BAD_REQUEST);
     Usuario usuario = Usuario.builder().nombre(nuevoUsuario.getNombre()).username(nuevoUsuario.getUsername())
-        .email(nuevoUsuario.getEmail()).password(passwordEncoder.encode(nuevoUsuario.getPassword())).build();
+        .correoInstitucional(nuevoUsuario.getCorreoInstitucional()).password(passwordEncoder.encode(nuevoUsuario.getPassword())).build();
     Set<Rol> roles = new HashSet<>();
     roles.add(rolService.getByRolNombre(RolNombre.USER).get());
     if(nuevoUsuario.getRoles().contains("admin"))
