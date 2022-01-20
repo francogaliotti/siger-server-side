@@ -18,3 +18,12 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+### SWAGGER DOCUMENTATION
+
+If you want to display the API documentation, run the below command and then go
+to: http://localhost:8080/api/docs/swagger-ui/ and look up for: /api/docs.
+
+```
+mvn spring-boot:run
+```
