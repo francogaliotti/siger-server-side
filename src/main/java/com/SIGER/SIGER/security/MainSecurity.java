@@ -22,6 +22,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MainSecurity extends WebSecurityConfigurerAdapter {
 
+    private static final String[] SWAGGER = {
+        "/swagger-resources/**",
+        "/swagger-ui/**", "/v2/api-docs",
+        "/api/docs",
+        "/api/docs/**",
+        "/v3/api-docs/**",
+        "/api/docs/swagger-ui",
+        "/swagger-ui.html"};
+
     @Autowired
     UserDetailsServiceImpl userDetailsServiceImpl;
 
@@ -61,11 +70,10 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                     "/auth/**",
                     "/email-password/**",
-                    "/v2/api-docs/**",
-                    "/swagger-ui/**",
-                    "/swagger-resources/**",
                     "/configuration/**"
                 ).permitAll()
+            .antMatchers(SWAGGER)
+            .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)

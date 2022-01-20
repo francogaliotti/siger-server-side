@@ -70,7 +70,8 @@ public class AuthExpert {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
             (loginUsuario.getUsername(),loginUsuario.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    String jwt = jwtProvider.generateToken(authentication);
+    Optional<Usuario> usuario = usuarioService.getByUsername(loginUsuario.getUsername());
+    String jwt = jwtProvider.generateToken(authentication,usuario.get().getId());
     JwtDTO jwtDTO = new JwtDTO(jwt);
     return new ResponseEntity(jwtDTO, HttpStatus.OK);
   }
