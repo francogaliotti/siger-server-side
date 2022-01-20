@@ -33,12 +33,13 @@ public class JwtProvider {
   @Value("${jwt.expiration}")
   private int expiration;
 
-  public String generateToken(Authentication authentication) {
+  public String generateToken(Authentication authentication, Long id) {
     UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
     List<String> roles = usuarioPrincipal.getAuthorities().stream()
         .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
     return Jwts.builder()
         .setSubject(usuarioPrincipal.getUsername())
+        .setId(String.valueOf(id))
         .claim("roles", roles)
         .setIssuedAt(new Date())
         .setExpiration(new Date(new Date().getTime() + expiration * 100))
