@@ -19,43 +19,46 @@ import java.util.List;
 @RequestMapping("/licencia")
 @CrossOrigin(origins = "http://localhost:4200")
 public class LicenciaController extends
-		AbsBaseController<Licencia, LicenciaService, LicenciaRequest, LicenciaResponse, LicenciaExpert> {
+        AbsBaseController<Licencia, LicenciaService, LicenciaRequest, LicenciaResponse, LicenciaExpert> {
 
-	@Autowired
-	LicenciaExpert licenciaExpert;
+    @Autowired
+    LicenciaExpert licenciaExpert;
 
-	@Override
-	@GetMapping("/")
-	public ResponseEntity<List<LicenciaResponse>> getAll(@RequestParam("page") int page,
-															 UriComponentsBuilder uriBuilder,
-															 HttpServletResponse response) throws Exception {
-		return licenciaExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
-				response);
+    @Override
+    @GetMapping("/")
+    public ResponseEntity<List<LicenciaResponse>> getAll(@RequestParam("page") int page,
+                                                         UriComponentsBuilder uriBuilder,
+                                                         HttpServletResponse response) throws Exception {
+        return licenciaExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
+                response);
 
-	}
+    }
 
-	@Override
-	public ResponseEntity<LicenciaResponse> getById(@PathVariable("id") Long id) throws Exception {
-		return licenciaExpert.findById(id);
-	}
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<LicenciaResponse> getById(@PathVariable("id") Long id) throws Exception {
+        return licenciaExpert.findById(id);
+    }
 
-	@Override
-	@PostMapping("/")
-	public ResponseEntity<LicenciaResponse> post(@RequestBody LicenciaRequest licenciaRequest) throws Exception {
-		return licenciaExpert.save(licenciaRequest);
-	}
+    @Override
+    @PostMapping("/")
+    public ResponseEntity<LicenciaResponse> post(@RequestBody LicenciaRequest licenciaRequest) throws Exception {
+        return licenciaExpert.save(licenciaRequest);
+    }
 
-	@Override
-	public ResponseEntity<LicenciaResponse> put(@PathVariable("id") Long id,
-								 @RequestBody LicenciaRequest licenciaRequest) throws Exception {
-		// TODO Auto-generated method stub
-		return licenciaExpert.update(id, licenciaRequest);
-	}
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<LicenciaResponse> put(@PathVariable("id") Long id,
+                                                @RequestBody LicenciaRequest licenciaRequest) throws Exception {
+        // TODO Auto-generated method stub
+        return licenciaExpert.update(id, licenciaRequest);
+    }
 
-	@Override
-	public ResponseEntity<?> delete(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return licenciaExpert.delete(id);
-	}
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(Long id) throws Exception {
+        // TODO Auto-generated method stub
+        return licenciaExpert.delete(id);
+    }
 
 }

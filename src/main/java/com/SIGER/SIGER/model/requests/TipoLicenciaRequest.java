@@ -12,12 +12,6 @@ import java.util.List;
 @Setter
 public class TipoLicenciaRequest extends BaseRequest{
 
-  private int cantidadMaximaAnual;
-
-  private int cantidadMaximaDiaria;
-
-  private int cantidadMaximaMensual;
-
   private String codigo;
 
   private String denominacion;

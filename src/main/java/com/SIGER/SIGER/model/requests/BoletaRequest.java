@@ -59,4 +59,5 @@ public class BoletaRequest extends BaseRequest{
     private TipoBoleta tipoBoleta;
 
     private List<Comentario> comentarios = new ArrayList<>();
+
 }

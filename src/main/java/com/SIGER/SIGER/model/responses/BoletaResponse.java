@@ -63,4 +63,5 @@ public class BoletaResponse extends BaseResponse{
     private TipoBoleta tipoBoleta;
 
     private List<Comentario> comentarios = new ArrayList<>();
+
 }
