@@ -100,6 +100,13 @@ public class EmpleadoExpert extends
     return empleadoResponses;
   }
 
+
+  public ResponseEntity<EmpleadoResponse> findByUsuarioId(Long id) throws Exception {
+    Empleado empleado = empleadoService.getByfk_usuario(id);
+    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
+  }
+
   @Override
   public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
     Empleado empleado = empleadoService.findById(id);

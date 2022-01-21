@@ -50,14 +50,14 @@ public class Licencia extends BaseEntity{
 	private List<DocumentoAdjuntoLicencia> documentosAdjuntosLicencia = new ArrayList<>();
 	
 	@NonNull
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_tipoLicencia")
 	private TipoLicencia tipoLicencia;
 	
 	@OneToMany(/*mappedBy = "licencia",*/cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FechaCambioEstadoLicencia> fechasCambioEstadoLicencia = new ArrayList<>();
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_empleado")
 	private Empleado empleado;
 
