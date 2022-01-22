@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class EstadoLicenciaResponse extends BaseResponse{
 	
-	private int codEstadoLicencia;
+	private String codEstadoLicencia;
 	
 	private String nombreEstadoLicencia;
 

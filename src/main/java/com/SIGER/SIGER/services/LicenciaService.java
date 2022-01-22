@@ -21,4 +21,8 @@ public class LicenciaService extends AbsBaseService<Licencia, Long> implements
         super(baseRepository);
     }
 
+    public boolean existsById(Long id) {
+        return licenciaRepository.existsById(id);
+    }
+
 }

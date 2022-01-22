@@ -53,18 +53,18 @@ public class Boleta extends BaseEntity{
 	private boolean sinFichadaRetorno;
 
 	private boolean sinFichadaSalida;
-	
+
 	//Relations
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_zonaInhospita")
 	private ZonaInhospita zonaInhospita;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_viatico")
 	private Viatico viatico;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_empleado")
 	private Empleado empleado;
 	
@@ -74,18 +74,19 @@ public class Boleta extends BaseEntity{
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DocumentoAdjuntoBoleta> documentosAdjuntosBoleta = new ArrayList<>();
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.MERGE})
 	@JoinTable(name = "boleta_movilidad",
 	joinColumns = @JoinColumn(name = "boleta_id"), 
 	inverseJoinColumns = @JoinColumn(name = "movilidad_id"))
 	private List<Movilidad> movilidades = new ArrayList<>();
 	
 	@NonNull
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_tipoBoleta")
 	private TipoBoleta tipoBoleta;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comentario> comentarios = new ArrayList<>();
+
 
 }
