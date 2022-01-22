@@ -36,12 +36,12 @@ public class EmpleadoService extends AbsBaseService<Empleado, Long> implements
   }
 
   @Transactional
-  public Optional<Empleado> getByLegajo(int legajo) {
+  public Optional<Empleado> getByLegajo(String legajo) {
     return empleadoRepository.findByLegajo(legajo);
   }
 
   @Transactional
-  public boolean existsByLegajo(int legajo) {
+  public boolean existsByLegajo(String legajo) {
     return empleadoRepository.existsByLegajo(legajo);
   }
 

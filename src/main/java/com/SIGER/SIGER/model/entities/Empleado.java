@@ -35,7 +35,7 @@ public class Empleado extends BaseEntity{
 
 	private int estadoCivil;
 
-	private int legajo;
+	private String legajo;
 
 	private Date fechaLimiteReemplazo;
 
@@ -70,7 +70,7 @@ public class Empleado extends BaseEntity{
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RegimenHorario> regimenesHorario = new ArrayList<>();
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_usuario")
 	private Usuario usuario;
 	
