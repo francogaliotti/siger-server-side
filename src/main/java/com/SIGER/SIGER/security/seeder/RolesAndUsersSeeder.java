@@ -55,38 +55,47 @@ public class RolesAndUsersSeeder implements CommandLineRunner {
   }
 
   private void loadUsersWithRoleUser() {
-    usuarioRepository.save(buildUser("Jeremias Fernandez", "JFernandez", "jfernandez@siger.com"));
-    usuarioRepository.save(buildUser("Alexis Bahi", "ABahi", "abahi@siger.com"));
-    usuarioRepository.save(buildUser("Franco Galiotti", "FGaliotti", "fgaliotti@siger.com"));
-    usuarioRepository.save(buildUser("Diego Villa", "DVilla", "dvilla@siger.com"));
+    usuarioRepository.save(buildUser("Jeremias Fernandez", "JFernandez", "jfernandez@siger.com",
+        "assets/images/Jeremias.Fernandez.jpg"));
+    usuarioRepository.save(buildUser("Alexis Bahi", "ABahi", "abahi@siger.com",
+        "assets/images/Alexis.Bahi.jpg"));
+    usuarioRepository.save(buildUser("Franco Galiotti", "FGaliotti", "fgaliotti@siger.com",
+        "assets/images/Franco.Galiotti.jpeg"));
+    usuarioRepository.save(buildUser("Diego Villa", "DVilla", "dvilla@siger.com",
+        "assets/images/Diego.Villa.png"));
   }
 
   private void loadUsersWithRoleAdmin() {
     usuarioRepository.save(buildUserAdmin("Jeremias Fernandez", "Jeremias.Fernandez",
-        "fernandez.jeremias.daniel@gmail.com"));
-    usuarioRepository.save(buildUserAdmin("Alexis Bahi", "Alexis.Bahi", "abahi.99@gmail.com"));
+        "fernandez.jeremias.daniel@gmail.com", "assets/images/Jeremias.Fernandez.jpg"));
+    usuarioRepository.save(buildUserAdmin("Alexis Bahi", "Alexis.Bahi", "abahi.99@gmail.com",
+        "assets/images/Alexis.Bahi.jpg"));
     usuarioRepository.save(
-        buildUserAdmin("Franco Galiotti", "Franco.Galiotti", "francogaliotti@gmail.com"));
+        buildUserAdmin("Franco Galiotti", "Franco.Galiotti", "francogaliotti@gmail.com",
+            "assets/images/Franco.Galiotti.jpeg"));
     usuarioRepository.save(
-        buildUserAdmin("Diego Villa", "Diego.Villa", "diegovillautnfrm@gmail.com"));
+        buildUserAdmin("Diego Villa", "Diego.Villa", "diegovillautnfrm@gmail.com",
+            "assets/images/Diego.Villa.png"));
   }
 
-  private Usuario buildUser(String nombre, String username, String email) {
+  private Usuario buildUser(String nombre, String username, String email, String image) {
     return Usuario.builder()
         .nombre(nombre)
         .username(username)
         .correoInstitucional(email)
         .password(bCryptPasswordEncoder.encode(PASSWORD_GENERIC))
+        .image(image)
         .roles(Set.of(rolRepository.findById(ROLE_USER).get()))
         .build();
   }
 
-  private Usuario buildUserAdmin(String nombre, String username, String email) {
+  private Usuario buildUserAdmin(String nombre, String username, String email, String image) {
     return Usuario.builder()
         .nombre(nombre)
         .username(username)
         .correoInstitucional(email)
         .password(bCryptPasswordEncoder.encode(PASSWORD_GENERIC))
+        .image(image)
         .roles(Set.of(rolRepository.findById(ROLE_ADMIN).get()))
         .build();
   }
