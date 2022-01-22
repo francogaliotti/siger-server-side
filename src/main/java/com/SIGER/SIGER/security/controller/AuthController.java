@@ -3,6 +3,7 @@ package com.SIGER.SIGER.security.controller;
 import com.SIGER.SIGER.security.dto.JwtDTO;
 import com.SIGER.SIGER.security.dto.LoginUsuario;
 import com.SIGER.SIGER.security.dto.NuevoUsuario;
+import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import java.text.ParseException;
 import javax.validation.Valid;
@@ -37,6 +38,11 @@ public class AuthController {
     @GetMapping("/{username}")
     public Boolean getById(@PathVariable("username") String username) throws Exception {
         return authExpert.getSigninStatus(username);
+    }
+
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<Usuario> getByUserId(@PathVariable("id") Long userId) throws Exception {
+        return authExpert.getByUserId(userId);
     }
 
 }
