@@ -290,7 +290,6 @@ public class EmpleadoExpert extends
         .usuario(usuario)
         .domicilio(domicilio)
         .historialSectorEmpleado(historialSectorEmpleadoList)
-        .planillas(empleadoRequest.getPlanillas())
         .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
         .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
         .build();

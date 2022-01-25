@@ -82,9 +82,6 @@ public class Empleado extends BaseEntity{
 	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Planilla> planillas = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
