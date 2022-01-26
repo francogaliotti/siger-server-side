@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface RolRepository extends JpaRepository<Rol, Long> {
 
     Optional<Rol> findByRolNombre(RolNombre name);
+    //Optional<Rol> findByRolNombre(String rolNombre);
+    boolean existsByRolNombre(String rolNombre);
 }

@@ -1,6 +1,9 @@
-/*package com.SIGER.SIGER.controllers;
+package com.SIGER.SIGER.security.controller;
 
-import com.SIGER.SIGER.presentation.dto.Message;
+import com.SIGER.SIGER.common.Message;
+
+import com.SIGER.SIGER.security.entity.Rol;
+import com.SIGER.SIGER.security.service.RolService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -8,18 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.SIGER.SIGER.model.entities.Rol;
-import com.SIGER.SIGER.services.RolServiceImpl;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/rol")
 @CrossOrigin(origins = "http://localhost:4200")
-public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
+public class RolController{
 	
 	@Autowired
-	RolServiceImpl rolServiceImpl;
+	RolService rolServiceImpl;
 
 	@GetMapping("/list")
 	public ResponseEntity<List<Rol>> getAll(){
@@ -27,13 +27,13 @@ public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 		return new ResponseEntity<List<Rol>>(list, HttpStatus.OK);
 	}
 
-	@GetMapping("/detail-name/{nombre}")
+	/*@GetMapping("/detail-name/{nombre}")
 	public ResponseEntity<Rol> getByNombre(@PathVariable("nombre") String nombreRol){
 		if(!rolServiceImpl.existByNombreRol(nombreRol))
 			return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
 		Rol rol = rolServiceImpl.getByNombreRol(nombreRol).get();
 		return new ResponseEntity(rol, HttpStatus.OK);
-	}
+	}*/
 	@GetMapping("/detail/{id}")
 	public ResponseEntity<Rol> getOne(@PathVariable("id") Long id){
 		if(!rolServiceImpl.existsById(id))
@@ -42,22 +42,20 @@ public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 		return new ResponseEntity(rol, HttpStatus.OK);
 	}
 
-	@Override
+
 	public ResponseEntity<?> getAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+
 	@PostMapping("/create")
 	public ResponseEntity<?> save(Rol entity) {
-		if(StringUtils.isBlank(entity.getNombreRol()))
+		if(StringUtils.isBlank(entity.getRolNombre()))
 			return new ResponseEntity(new Message("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(entity.getCodigoRol().length()<0)
-			return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
 		try {
-			entity = rolServiceImpl.Save(entity);
+			rolServiceImpl.save(entity);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,23 +63,21 @@ public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 		return new ResponseEntity(new Message("Rol creado"), HttpStatus.OK);
 	}
 
-	@Override
+
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> update(Long id, Rol entity) {
 		try {
-			if(rolServiceImpl.FindById(id).equals(false))
+			if(rolServiceImpl.getById(id).equals(false))
 				return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if(StringUtils.isBlank(entity.getNombreRol()))
+		if(StringUtils.isBlank(entity.getRolNombre()))
 			return new ResponseEntity(new Message("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if(entity.getCodigoRol().length()<0)
-			return new ResponseEntity(new Message("El codigo es obligatorio, o debe ser mayor a 0"), HttpStatus.BAD_REQUEST);
 
 		try {
-			rolServiceImpl.Save(entity);
+			rolServiceImpl.save(entity);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,7 +85,7 @@ public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 		return new ResponseEntity(new Message("Rol actualizado"), HttpStatus.OK);
 	}
 
-	@Override
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(Long id) {
 		try {
@@ -100,7 +96,7 @@ public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 			e1.printStackTrace();
 		}
 		try {
-			rolServiceImpl.Delete(id);
+			rolServiceImpl.delete(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -108,4 +104,4 @@ public class RolController extends AbsBaseController<Rol, RolServiceImpl>{
 		return new ResponseEntity(new Message("Rol eliminado"), HttpStatus.OK);
 	}
 
-}*/
+}

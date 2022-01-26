@@ -133,4 +133,14 @@ public class BoletaController extends
     return boletaExpert.delete(id);
   }
 
+  @PutMapping("/authorize/{id}")
+  public ResponseEntity<BoletaResponse> authorize(@PathVariable Long id) throws Exception {
+    return boletaExpert.authorize(id);
+  }
+
+  @PutMapping("/reject/{id}")
+  public ResponseEntity<BoletaResponse> reject(@PathVariable Long id) throws Exception {
+    return boletaExpert.reject(id);
+  }
+
 }

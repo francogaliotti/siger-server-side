@@ -4,6 +4,7 @@ import com.SIGER.SIGER.BI.LicenciaExpert;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Licencia;
 import com.SIGER.SIGER.model.requests.LicenciaRequest;
+import com.SIGER.SIGER.model.responses.BoletaResponse;
 import com.SIGER.SIGER.model.responses.LicenciaResponse;
 import com.SIGER.SIGER.services.LicenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,16 @@ public class LicenciaController extends
         // TODO Auto-generated method stub
         return licenciaExpert.delete(id);
     }
+
+    @PutMapping("/authorize/{id}")
+    public ResponseEntity<LicenciaResponse> authorize(@PathVariable Long id) throws Exception {
+        return licenciaExpert.authorize(id);
+    }
+
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<LicenciaResponse> reject(@PathVariable Long id) throws Exception {
+        return licenciaExpert.reject(id);
+    }
+
 
 }
