@@ -32,7 +32,7 @@ public class EmailService {
       Context context = new Context();
       Map<String, Object> model = new HashMap<>();
       model.put("username", emailValuesDTO.getUsername());
-      model.put("url-Change-Password", url_Change_Password + emailValuesDTO.getTokenPassword());
+      model.put("url", url_Change_Password + emailValuesDTO.getTokenPassword());
       context.setVariables(model);
 
       String htmlText = templateEngine.process("email-template", context);
