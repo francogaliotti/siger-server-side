@@ -1,7 +1,9 @@
-/*package com.SIGER.SIGER.services;
+/*package com.SIGER.SIGER.servicesInterfaces;
 
-import com.SIGER.SIGER.model.entities.Rol;
+import com.SIGER.SIGER.security.entity.Rol;
+import com.SIGER.SIGER.servicesInterfaces.BaseService;
 
-public interface RolService extends BaseService<Rol, Long>{
+public interface IRolService extends BaseService<Rol, Long> {
 
-}*/
+}
+*/

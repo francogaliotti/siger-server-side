@@ -109,8 +109,45 @@ public class BoletaExpert extends
 
     @Override
     public ResponseEntity<?> delete(Long id) throws Exception {
+        Boleta boleta = boletaService.findById(id);
+        boleta.setFechaBaja(new Date());
+        boletaService.update(id, boleta);
         boletaService.delete(id);
         return new ResponseEntity(new Message("Boleta eliminada"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<BoletaResponse> authorize(Long id) throws Exception{
+        Boleta boleta = boletaService.findById(id);
+        boleta.setFechaControl(new Date());
+        for (int i = 0; i<boleta.getFechasCambioEstadoBoleta().size(); i++){
+            if (boleta.getFechasCambioEstadoBoleta().get(i).getFechaFinEstadoBoleta()==null){
+                boleta.getFechasCambioEstadoBoleta().get(i).setFechaFinEstadoBoleta(new Date());
+            }
+        }
+        EstadoBoleta estadoBoleta = estadoBoletaService.findById(2L);
+        FechaCambioEstadoBoleta fechaAprobacion = new FechaCambioEstadoBoleta();
+        fechaAprobacion.setEstadoBoleta(estadoBoleta);
+        fechaAprobacion.setFechaCambioEstadoBoleta(new Date());
+        boleta.getFechasCambioEstadoBoleta().add(fechaAprobacion);
+        boletaService.update(id, boleta);
+        return new ResponseEntity(new Message("Boleta autorizada"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<BoletaResponse> reject(Long id) throws Exception{
+        Boleta boleta = boletaService.findById(id);
+        boleta.setFechaControl(new Date());
+        for (int i = 0; i<boleta.getFechasCambioEstadoBoleta().size(); i++){
+            if (boleta.getFechasCambioEstadoBoleta().get(i).getFechaFinEstadoBoleta()==null){
+                boleta.getFechasCambioEstadoBoleta().get(i).setFechaFinEstadoBoleta(new Date());
+            }
+        }
+        EstadoBoleta estadoBoleta = estadoBoletaService.findById(3L);
+        FechaCambioEstadoBoleta fechaRechazo = new FechaCambioEstadoBoleta();
+        fechaRechazo.setEstadoBoleta(estadoBoleta);
+        fechaRechazo.setFechaCambioEstadoBoleta(new Date());
+        boleta.getFechasCambioEstadoBoleta().add(fechaRechazo);
+        boletaService.update(id, boleta);
+        return new ResponseEntity(new Message("Boleta rechazada"), HttpStatus.OK);
     }
 
 }

@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TipoDocumentoRequest extends BaseRequest {
-    private String tipoDocumente;
+    private String tipoDocumento;
 }

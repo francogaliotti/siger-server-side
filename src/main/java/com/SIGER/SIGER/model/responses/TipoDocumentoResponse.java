@@ -7,5 +7,5 @@ import lombok.*;
 @Getter
 @Setter
 public class TipoDocumentoResponse extends BaseResponse{
-    private String tipoDocumente;
+    private String tipoDocumento;
 }

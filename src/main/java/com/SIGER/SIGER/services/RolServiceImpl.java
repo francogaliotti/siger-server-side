@@ -4,9 +4,10 @@ import com.SIGER.SIGER.model.entities.EstadoBoleta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SIGER.SIGER.model.entities.Rol;
+import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.repositories.RolRepository;
+import com.SIGER.SIGER.servicesInterfaces.IRolService;
 
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Service
 //@Transactional
 @NoArgsConstructor
-public class RolServiceImpl extends AbsBaseService<Rol, Long> implements RolService{
+public class RolServiceImpl extends AbsBaseService<Rol, Long> implements IRolService {
 	
 	@Autowired
 	private RolRepository rolRepository;
@@ -42,4 +43,5 @@ public class RolServiceImpl extends AbsBaseService<Rol, Long> implements RolServ
 	}
 
 
-}*/
+}
+*/
