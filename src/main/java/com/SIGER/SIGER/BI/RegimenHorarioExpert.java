@@ -3,8 +3,10 @@ package com.SIGER.SIGER.BI;
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.RegimenHorario;
+import com.SIGER.SIGER.model.entities.Remuneracion;
 import com.SIGER.SIGER.model.requests.RegimenHorarioRequest;
 import com.SIGER.SIGER.model.responses.RegimenHorarioResponse;
+import com.SIGER.SIGER.model.responses.RemuneracionResponse;
 import com.SIGER.SIGER.services.RegimenHorarioService;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +39,12 @@ public class RegimenHorarioExpert extends
     List<RegimenHorarioResponse> regimenHorarioResponses = converterPageToList(
         regimenHorarioPage.getContent());
     return new ResponseEntity(regimenHorarioResponses, HttpStatus.OK);
+  }
+
+  public ResponseEntity<List<RegimenHorarioResponse>> findAll() throws Exception {
+
+    List<RegimenHorario> regimenHorarioList = regimenHorarioService.findAll();
+    return new ResponseEntity(regimenHorarioList, HttpStatus.OK);
   }
 
   private List<RegimenHorarioResponse> converterPageToList(List<RegimenHorario> regimenHorarios) {

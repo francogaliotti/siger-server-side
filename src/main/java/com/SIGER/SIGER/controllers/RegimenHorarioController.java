@@ -41,6 +41,11 @@ public class RegimenHorarioController extends
         response);
   }
 
+  @GetMapping("/list")
+  public ResponseEntity<List<RegimenHorarioResponse>> getListAll() throws Exception {
+    return regimenHorarioExpert.findAll();
+  }
+
   @Override
   @GetMapping("/{id}")
   public ResponseEntity<RegimenHorarioResponse> getById(@PathVariable("id") Long id)
