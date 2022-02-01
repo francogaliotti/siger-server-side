@@ -53,6 +53,10 @@ public class EmpleadoResponse extends BaseResponse{
 
   private DomicilioResponse domicilio;
 
+  private RemuneracionResponse remuneracion;
+
+  private RegimenHorarioResponse regimenHorario;
+
   private List<HistorialSectorEmpleadoResponse> historialSectorEmpleado;
 
 }

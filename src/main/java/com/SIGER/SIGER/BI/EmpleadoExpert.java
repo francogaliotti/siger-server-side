@@ -24,13 +24,8 @@ import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import com.SIGER.SIGER.services.EmpleadoService;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+
+import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
@@ -133,38 +128,31 @@ public class EmpleadoExpert extends
     nationality.setId(empleadoRequest.getNacionalidad().getId());
 
     DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
-        .nroIdentidad(empleadoRequest.getNroIdentificacionPersonal()).build();
+        .nroIdentidad(empleadoRequest.getDocumentoIdentidad().getNroIdentidad())
+            .tipoDocumento(empleadoRequest.getDocumentoIdentidad().getTipoDocumento()).build();
 
     TipoDocumento typeOfDocument = new TipoDocumento();
     typeOfDocument.setId(empleadoRequest.getDocumentoIdentidad().getTipoDocumento().getId());
     identityCard.setTipoDocumento(typeOfDocument);
 
-    List<Remuneracion> remuneracionList = new ArrayList<>();
 
-    for (int i = 0; i < empleadoRequest.getRemuneraciones().size(); i++) {
 
       Remuneracion remuneracion = Remuneracion.builder()
-          .valorHora(empleadoRequest.getRemuneraciones().get(i).getValorHora())
-          .valorViaticoDia(empleadoRequest.getRemuneraciones().get(i).getValorViaticoDia())
-          .importeHorasAdicionales(empleadoRequest.getRemuneraciones().get(i).getImporteHorasAdicionales())
-          .importeZonaDesarraigo(empleadoRequest.getRemuneraciones().get(i).getImporteZonaDesarraigo())
+          .valorHora(empleadoRequest.getRemuneracion().getValorHora())
+          .valorViaticoDia(empleadoRequest.getRemuneracion().getValorViaticoDia())
+          .importeHorasAdicionales(empleadoRequest.getRemuneracion().getImporteHorasAdicionales())
+          .importeZonaDesarraigo(empleadoRequest.getRemuneracion().getImporteZonaDesarraigo())
           .build();
-      remuneracionList.add(remuneracion);
-    }
 
-    List<RegimenHorario> regimenHorarioList = new ArrayList<>();
 
-    for (int i = 0; i < empleadoRequest.getRegimenesHorario().size(); i++) {
 
       RegimenHorario regimenHorario = RegimenHorario.builder()
-          .isActive(empleadoRequest.getRegimenesHorario().get(i).isActive())
-          .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenesHorario().get(i).getHoraMinutoInicioJornadaLaboral())
-          .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenesHorario().get(i).getHoraMinutoFinJornadaLaboral())
-          .tipoRegimenHorario(empleadoRequest.getRegimenesHorario().get(i).getTipoRegimenHorario())
+          .isActive(empleadoRequest.getRegimenHorario().isActive())
+          .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoInicioJornadaLaboral())
+          .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoFinJornadaLaboral())
+          .tipoRegimenHorario(empleadoRequest.getRegimenHorario().getTipoRegimenHorario())
           .build();
 
-      regimenHorarioList.add(regimenHorario);
-    }
     Provincia provincia = Provincia.builder()
         .categoria(empleadoRequest.getDomicilio().getProvincia().getCategoria())
         .latitud(empleadoRequest.getDomicilio().getProvincia().getLatitud())
@@ -191,7 +179,7 @@ public class EmpleadoExpert extends
         .provinciaNombre(empleadoRequest.getDomicilio().getDepartamento().getProvinciaNombre())
         .build();
 
-    Municipio municipio = Municipio.builder()
+    /*Municipio municipio = Municipio.builder()
         .categoria(empleadoRequest.getDomicilio().getMunicipio().getCategoria())
         .latitud(empleadoRequest.getDomicilio().getMunicipio().getLatitud())
         .longitud(empleadoRequest.getDomicilio().getMunicipio().getLongitud())
@@ -203,7 +191,7 @@ public class EmpleadoExpert extends
         .provinciaInterseccion(
             empleadoRequest.getDomicilio().getMunicipio().getProvinciaInterseccion())
         .provinciaNombre(empleadoRequest.getDomicilio().getMunicipio().getProvinciaNombre())
-        .build();
+        .build();*/
 
     Localidad localidad = Localidad.builder()
         .categoria(empleadoRequest.getDomicilio().getLocalidad().getCategoria())
@@ -216,7 +204,7 @@ public class EmpleadoExpert extends
         .localidadCensalId(empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalId())
         .localidadCensalNombre(
             empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalNombre())
-        .municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())
+        /*.municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())*/
         .municipioNombre(empleadoRequest.getDomicilio().getLocalidad().getMunicipioNombre())
         .nombre(empleadoRequest.getDomicilio().getLocalidad().getNombre())
         .provincia(empleadoRequest.getDomicilio().getLocalidad().getProvincia())
@@ -227,6 +215,7 @@ public class EmpleadoExpert extends
     roles.addAll(empleadoRequest.getUsuario().getRoles());
 
     Usuario usuario = Usuario.builder()
+            .nombre(empleadoRequest.getUsuario().getNombre())
         .username(empleadoRequest.getUsuario().getUsername())
         .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
         .password(empleadoRequest.getUsuario().getPassword())
@@ -240,14 +229,11 @@ public class EmpleadoExpert extends
     Domicilio domicilio = Domicilio.builder()
         .calle(empleadoRequest.getDomicilio().getCalle())
         .nroCalle(empleadoRequest.getDomicilio().getNroCalle())
-        .dpto(empleadoRequest.getDomicilio().getDpto())
+        .nroDepartamento(empleadoRequest.getDomicilio().getNroDepartamento())
         .nroPiso(empleadoRequest.getDomicilio().getNroPiso())
-        .barrio(empleadoRequest.getDomicilio().getBarrio())
-        .manzana(empleadoRequest.getDomicilio().getManzana())
-        .casa(empleadoRequest.getDomicilio().getCasa())
         .provincia(provincia)
         .departamento(departamento)
-        .municipio(municipio)
+        /*.municipio(municipio)*/
         .localidad(localidad).build();
 
     List<HistorialSectorEmpleado> historialSectorEmpleadoList = new ArrayList<>();
@@ -267,9 +253,8 @@ public class EmpleadoExpert extends
           .tipoSector(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getTipoSector())
           .build();
       HistorialSectorEmpleado historialSectorEmpleado = HistorialSectorEmpleado.builder()
-          .fechaIngreso(empleadoRequest.getHistorialSectorEmpleado().get(i).getFechaIngreso())
-          .fechaSalida(empleadoRequest.getHistorialSectorEmpleado().get(i).getFechaSalida())
-          .vigente(empleadoRequest.getHistorialSectorEmpleado().get(i).isVigente())
+          .fechaIngreso(new Date())
+          .vigente(true)
           .sector(sector)
           .build();
       historialSectorEmpleadoList.add(historialSectorEmpleado);
@@ -292,17 +277,17 @@ public class EmpleadoExpert extends
         .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
         .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
         .nacionalidad(nationality)
-        .remuneraciones(remuneracionList)
-        .regimenesHorario(regimenHorarioList)
+        .remuneracion(remuneracion)
+        .regimenHorario(regimenHorario)
         .usuario(usuario)
         .domicilio(domicilio)
         .historialSectorEmpleado(historialSectorEmpleadoList)
         .planillas(empleadoRequest.getPlanillas())
         .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
         .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
+            .documentoIdentidad(identityCard)
         .build();
 
-    empleado1.getDocumentoIdentidad().add(identityCard);
     empleadoService.save(empleado1);
 
     return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);

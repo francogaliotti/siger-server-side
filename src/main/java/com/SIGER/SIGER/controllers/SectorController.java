@@ -41,6 +41,11 @@ public class SectorController extends
         response);
   }
 
+  @GetMapping("/list")
+  public ResponseEntity<List<SectorResponse>> getAll() throws Exception {
+    return sectorExpert.findAll();
+  }
+
   @Override
   @GetMapping("/{id}")
   public ResponseEntity<SectorResponse> getById(@PathVariable Long id) throws Exception {

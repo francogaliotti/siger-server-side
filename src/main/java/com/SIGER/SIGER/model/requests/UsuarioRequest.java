@@ -12,6 +12,8 @@ import lombok.Setter;
 @Setter
 public class UsuarioRequest extends BaseResponse {
 
+     String nombre;
+
      String username;
 
      String correoInstitucional;
