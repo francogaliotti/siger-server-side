@@ -158,7 +158,7 @@ public class EmpleadoExpert extends
         .latitud(empleadoRequest.getDomicilio().getProvincia().getLatitud())
         .longitud(empleadoRequest.getDomicilio().getProvincia().getLongitud())
         .fuente(empleadoRequest.getDomicilio().getProvincia().getFuente())
-        .id(empleadoRequest.getDomicilio().getProvincia().getFuente())
+        .id(empleadoRequest.getDomicilio().getProvincia().getId())
         .iso_id(empleadoRequest.getDomicilio().getProvincia().getIso_id())
         .iso_nombre(empleadoRequest.getDomicilio().getProvincia().getIso_nombre())
         .nombre(empleadoRequest.getDomicilio().getProvincia().getNombre())
@@ -261,6 +261,7 @@ public class EmpleadoExpert extends
     }
 
     Empleado empleado1 = Empleado.builder()
+            .fechaAlta(new Date())
         .nombre(empleadoRequest.getNombre())
         .apellido(empleadoRequest.getApellido())
         .correoPersonal(empleadoRequest.getCorreoPersonal())
@@ -282,9 +283,9 @@ public class EmpleadoExpert extends
         .usuario(usuario)
         .domicilio(domicilio)
         .historialSectorEmpleado(historialSectorEmpleadoList)
-        .planillas(empleadoRequest.getPlanillas())
+        /*.planillas(empleadoRequest.getPlanillas())
         .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
-        .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
+        .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())*/
             .documentoIdentidad(identityCard)
         .build();
 

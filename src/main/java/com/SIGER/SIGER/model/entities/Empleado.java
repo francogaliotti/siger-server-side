@@ -58,16 +58,16 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
 	private DocumentoIdentidad documentoIdentidad;
 
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Nacionalidad nacionalidad;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
 	private Remuneracion remuneracion;
 	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
 	private RegimenHorario regimenHorario;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -78,16 +78,16 @@ public class Empleado extends BaseEntity{
 	@JoinColumn(name = "fk_domicilio")
 	private Domicilio domicilio;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private List<Planilla> planillas = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private List<RemanenteDiasLicencia>remanenteDiasLicencias = new ArrayList<>();
 
 }

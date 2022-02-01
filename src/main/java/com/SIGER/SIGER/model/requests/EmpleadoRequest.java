@@ -68,10 +68,10 @@ public class EmpleadoRequest extends BaseRequest {
 
   private List<HistorialSectorEmpleadoRequest> historialSectorEmpleado;
 
-  private List<Planilla> planillas = new ArrayList<>();
+  //private List<Planilla> planillas = new ArrayList<>();
 
-  private List<ComputoDiasLicencia> computoDiasLicencias = new ArrayList<>();
+  /*private List<ComputoDiasLicencia> computoDiasLicencias = new ArrayList<>();
 
-  private List<RemanenteDiasLicencia> remanenteDiasLicencias = new ArrayList<>();
+  private List<RemanenteDiasLicencia> remanenteDiasLicencias = new ArrayList<>();*/
 
 }
