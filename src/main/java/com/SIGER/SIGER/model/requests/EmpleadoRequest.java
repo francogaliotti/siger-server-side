@@ -58,9 +58,9 @@ public class EmpleadoRequest extends BaseRequest {
 
   private NacionalidadRequest nacionalidad;
 
-  private List<RemuneracionRequest> remuneraciones = new ArrayList<>();
+  private RemuneracionRequest remuneracion;
 
-  private List<RegimenHorarioRequest> regimenesHorario = new ArrayList<>();
+  private RegimenHorarioRequest regimenHorario;
 
   private UsuarioRequest usuario;
 

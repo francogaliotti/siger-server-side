@@ -34,12 +34,22 @@ public class DatosGobArController {
         response);
   }
 
+  @GetMapping("/provincias/list")
+  public ResponseEntity<List<ProvinciaResponse>> getAllProvincias() throws Exception {
+    return datosGobArExpert.findAllProvincias();
+  }
+
   @GetMapping("/departamentos")
   public ResponseEntity<List<DepartamentoResponse>> getAllDepartamentos(@RequestParam("page") int page,
       UriComponentsBuilder uriBuilder,
       HttpServletResponse response, @RequestParam("id") Long id) throws Exception {
     return datosGobArExpert.findAllDepartamentos(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
         response, id);
+  }
+
+  @GetMapping("/departamentos/list")
+  public ResponseEntity<List<DepartamentoResponse>> getAllDepartamentos(@RequestParam("id") Long id) throws Exception {
+    return datosGobArExpert.findAllDepartamentos(id);
   }
 
   @GetMapping("/municipios")
@@ -56,6 +66,11 @@ public class DatosGobArController {
       HttpServletResponse response, @RequestParam("id") Long id) throws Exception {
     return datosGobArExpert.findAllLocalidades(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
         response, id);
+  }
+
+  @GetMapping("/localidades/list")
+  public ResponseEntity<List<LocalidadResponse>> getAllLocalidades(@RequestParam("id") Long id) throws Exception {
+    return datosGobArExpert.findAllLocalidades(id);
   }
 
 
