@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocalidadService {
 
@@ -18,7 +20,13 @@ public class LocalidadService {
   @Transactional
   public Page<Localidad> findAll(int page, int size, Long id) throws Exception {
     Pageable pageable = PageRequest.of(page, size);
-    return localidadRepository.findByProvincia(pageable, id);
+    return localidadRepository.findByDepartamento(pageable, id);
+
+  }
+
+  @Transactional
+  public List<Localidad> findAll(Long id) throws Exception {
+    return localidadRepository.getByDepartamento(id);
 
   }
 

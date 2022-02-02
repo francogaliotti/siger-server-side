@@ -2,10 +2,9 @@ package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
-import com.SIGER.SIGER.model.entities.EstadoLicencia;
-import com.SIGER.SIGER.model.entities.FechaCambioEstadoLicencia;
-import com.SIGER.SIGER.model.entities.Licencia;
+import com.SIGER.SIGER.model.entities.*;
 import com.SIGER.SIGER.model.requests.LicenciaRequest;
+import com.SIGER.SIGER.model.responses.BoletaResponse;
 import com.SIGER.SIGER.model.responses.LicenciaResponse;
 import com.SIGER.SIGER.services.EstadoLicenciaService;
 import com.SIGER.SIGER.services.LicenciaService;
@@ -109,7 +108,43 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
 
     @Override
     public ResponseEntity<?> delete(Long id) throws Exception {
+        Licencia licencia = licenciaService.findById(id);
+        licencia.setFechaBaja(new Date());
+        licenciaService.update(id, licencia);
         licenciaService.delete(id);
         return new ResponseEntity(new Message("Licencia eliminada"), HttpStatus.OK);
+    }
+    public ResponseEntity<LicenciaResponse> authorize(Long id) throws Exception{
+        Licencia licencia = licenciaService.findById(id);
+        licencia.setFechaControl(new Date());
+        for (int i = 0; i<licencia.getFechasCambioEstadoLicencia().size(); i++){
+            if (licencia.getFechasCambioEstadoLicencia().get(i).getFechaFinEstadoLicencia()==null){
+                licencia.getFechasCambioEstadoLicencia().get(i).setFechaFinEstadoLicencia(new Date());
+            }
+        }
+        EstadoLicencia estadoLicencia = estadoLicenciaService.findById(2L);
+        FechaCambioEstadoLicencia fechaAprobacion = new FechaCambioEstadoLicencia();
+        fechaAprobacion.setEstadoLicencia(estadoLicencia);
+        fechaAprobacion.setFechaCambioEstadoLicencia(new Date());
+        licencia.getFechasCambioEstadoLicencia().add(fechaAprobacion);
+        licenciaService.update(id, licencia);
+        return new ResponseEntity(new Message("Licencia autorizada"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<LicenciaResponse> reject(Long id) throws Exception{
+        Licencia licencia = licenciaService.findById(id);
+        licencia.setFechaControl(new Date());
+        for (int i = 0; i<licencia.getFechasCambioEstadoLicencia().size(); i++){
+            if (licencia.getFechasCambioEstadoLicencia().get(i).getFechaFinEstadoLicencia()==null){
+                licencia.getFechasCambioEstadoLicencia().get(i).setFechaFinEstadoLicencia(new Date());
+            }
+        }
+        EstadoLicencia estadoLicencia = estadoLicenciaService.findById(3L);
+        FechaCambioEstadoLicencia fechaRechazo = new FechaCambioEstadoLicencia();
+        fechaRechazo.setEstadoLicencia(estadoLicencia);
+        fechaRechazo.setFechaCambioEstadoLicencia(new Date());
+        licencia.getFechasCambioEstadoLicencia().add(fechaRechazo);
+        licenciaService.update(id, licencia);
+        return new ResponseEntity(new Message("Licencia rechazada"), HttpStatus.OK);
     }
 }

@@ -12,11 +12,8 @@ import lombok.Setter;
 public class DomicilioRequest extends BaseRequest {
     private String calle;
     private int nroCalle;
-    private String dpto;
+    private int nroDepartamento;
     private int nroPiso;
-    private String barrio;
-    private String manzana;
-    private String casa;
     private ProvinciaRequest provincia;
     private DepartamentoRequest departamento;
     private MunicipioRequest municipio;

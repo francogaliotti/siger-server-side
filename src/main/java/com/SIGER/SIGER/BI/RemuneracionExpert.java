@@ -38,6 +38,11 @@ public class RemuneracionExpert extends
     return new ResponseEntity(remuneracionResponses, HttpStatus.OK);
   }
 
+  public ResponseEntity<List<RemuneracionResponse>> findAll() throws Exception {
+    List<Remuneracion> remuneracionList = remuneracionService.findAll();
+    return new ResponseEntity(remuneracionList, HttpStatus.OK);
+  }
+
   private List<RemuneracionResponse> converterPageToList(List<Remuneracion> remuneraciones) {
 
     List<RemuneracionResponse> remuneracionResponses = new ArrayList<>();

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface LocalidadRepository extends JpaRepository<Localidad,String> {
 
@@ -18,6 +20,10 @@ public interface LocalidadRepository extends JpaRepository<Localidad,String> {
   @Query(value = "SELECT * FROM localidades l WHERE l.departamento_id = :departamento_id",
       nativeQuery = true)
   Page<Localidad> findByDepartamento(Pageable pageable, @Param("departamento_id") Long id);
+
+  @Query(value = "SELECT * FROM localidades l WHERE l.departamento_id = :departamento_id",
+          nativeQuery = true)
+  List<Localidad> getByDepartamento(@Param("departamento_id") Long id);
 
   @Query(value = "SELECT * FROM localidades l WHERE l.municipio_id = :municipio_id",
       nativeQuery = true)

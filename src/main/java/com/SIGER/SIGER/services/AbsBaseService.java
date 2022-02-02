@@ -26,16 +26,11 @@ public abstract class AbsBaseService<E extends BaseEntity, ID extends Serializab
     this.baseRepository = baseRepository;
   }
 
-	    /*@Override
-	    @Transactional
-	    public List<E> findAll() throws Exception {
-	        try {
-	            List<E> entities = baseRepository.findAll();
-	            return entities;
-	        } catch (Exception excep) {
-	            throw new Exception(excep.getMessage());
-	        }
-	    }*/
+  @Override
+  @Transactional
+  public List<E> findAll() throws Exception{
+    return baseRepository.findAll();
+  }
 
   @Override
   @Transactional
@@ -43,12 +38,6 @@ public abstract class AbsBaseService<E extends BaseEntity, ID extends Serializab
     Pageable pageable = PageRequest.of(page, size);
     return baseRepository.findBySoftDeleteFalse(pageable);
 
-  }
-
-  @Override
-  @Transactional
-  public List<E> findAll() throws Exception{
-    return baseRepository.findAll();
   }
 
   @Override
