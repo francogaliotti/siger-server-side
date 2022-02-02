@@ -106,9 +106,9 @@ public class TipoLicenciaExpert extends
         TipoLicencia tipoLicencia = modelMapper.map(tipoLicenciaDTO,TipoLicencia.class);*/
 
     TipoLicencia tipoLicencia = tipoLicenciaServiceImpl.findById(id);
-    tipoLicencia.setCantidadMaximaAnual(tipoLicenciaRequest.getCantidadMaximaAnual());
-    tipoLicencia.setCantidadMaximaMensual(tipoLicenciaRequest.getCantidadMaximaMensual());
-    tipoLicencia.setCantidadMaximaDiaria(tipoLicenciaRequest.getCantidadMaximaDiaria());
+    //tipoLicencia.setCantidadMaximaAnual(tipoLicenciaRequest.getCantidadMaximaAnual());
+    //tipoLicencia.setCantidadMaximaMensual(tipoLicenciaRequest.getCantidadMaximaMensual());
+    //tipoLicencia.setCantidadMaximaDiaria(tipoLicenciaRequest.getCantidadMaximaDiaria());
     tipoLicencia.setCodigo(tipoLicenciaRequest.getCodigo());
     tipoLicencia.setDenominacion(tipoLicenciaRequest.getDenominacion());
     tipoLicencia.setJustificaPresentismo(tipoLicenciaRequest.isJustificaPresentismo());

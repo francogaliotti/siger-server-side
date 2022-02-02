@@ -2,6 +2,7 @@ package com.SIGER.SIGER.model.responses;
 
 import com.SIGER.SIGER.model.entities.Empleado;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
@@ -23,7 +24,7 @@ public class AsistenciaResponse extends BaseResponse{
 
   private Date fechaBaja;
 
-  private String fechaHora;
+  private LocalDateTime fechaHora;
 
   private Date fechaCierre;
 

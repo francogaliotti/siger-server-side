@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class _2_DepartamentoSeeder implements CommandLineRunner {
 
-  /*@Autowired
-  ProvinciaRepository provinciaRepository;*/
-
   @Autowired
   DepartamentoRepository departamentoRepository;
 
@@ -35,7 +32,7 @@ public class _2_DepartamentoSeeder implements CommandLineRunner {
 
   private void departamentosSeeder() throws IOException, CsvValidationException {
 
-    File path = new File("Datos_gob_ar/departamentos.csv");
+    File path = new File("datos_gob_ar/departamentos.csv");
 
     CSVReader csvReader = new CSVReader(new FileReader(path.getAbsolutePath()));
 
@@ -44,10 +41,6 @@ public class _2_DepartamentoSeeder implements CommandLineRunner {
     String[] columna;
 
     while ((columna = csvReader.readNext()) != null) {
-
-      //Optional<Provincia>optionalProvincia = provinciaRepository.findById(columna[7]);
-
-      //if(optionalProvincia.isPresent())
       departamentos.add(Departamento.builder()
           .categoria(columna[0])
           .latitud(columna[1])

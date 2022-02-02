@@ -1,6 +1,7 @@
 package com.SIGER.SIGER.model.requests;
 
 import com.SIGER.SIGER.model.entities.Empleado;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +9,9 @@ import lombok.Setter;
 @Setter
 public class AsistenciaRequest extends BaseRequest{
 
-  private String fechaHora;
+  private LocalDateTime fechaHora;
 
-  private char tipoMovimiento;
+  private String tipoMovimiento;
 
   private Empleado empleado;
 

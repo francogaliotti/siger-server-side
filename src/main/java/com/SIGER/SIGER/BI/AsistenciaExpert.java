@@ -14,9 +14,15 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +64,37 @@ public class AsistenciaExpert extends
 
     List<AsistenciaResponse> asistenciaResponses = new ArrayList<>();
     for (int i = 0; i < asistencias.size(); i++) {
-      asistenciaResponses.add(
-          modelMapper.map(asistencias.get(i), AsistenciaResponse.class));
+      asistenciaResponses.add(covertAsistenciToAsistenciaResponse(asistencias.get(i)));
+      /*asistenciaResponses.add(
+          modelMapper.map(asistencias.get(i), AsistenciaResponse.class));*/
     }
     return asistenciaResponses;
+  }
+
+  public AsistenciaResponse covertAsistenciToAsistenciaResponse(Asistencia asistencia){
+
+    LocalDateTime date = LocalDateTime.now();
+    //DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss z uuuu", Locale.US);
+    DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm", Locale.US);
+    LocalDateTime fechaHora = LocalDateTime.parse(asistencia.getFechaHora(),formatter);
+
+    AsistenciaResponse asistenciaResponse = new AsistenciaResponse();
+    asistenciaResponse.setId(asistencia.getId());
+    asistenciaResponse.setFechaAlta(asistencia.getFechaAlta());
+    asistenciaResponse.setFechaBaja(asistencia.getFechaBaja());
+    asistenciaResponse.setFechaHora(fechaHora);
+    asistenciaResponse.setFechaCierre(asistencia.getFechaCierre());
+    asistenciaResponse.setFechaModificacion(asistencia.getFechaModificacion());
+    asistenciaResponse.setFechaSincronizacion(asistencia.getFechaSincronizacion());
+    asistenciaResponse.setReloj(asistencia.getReloj());
+    asistenciaResponse.setSupervisor(asistencia.isSupervisor());
+    asistenciaResponse.setTipoMovimiento(asistencia.getTipoMovimiento());
+    asistenciaResponse.setExcesoHorario(asistencia.getExcesoHorario());
+    asistenciaResponse.setHoraAsignado(asistencia.getHoraAsignado());
+    asistenciaResponse.setMinutoAsignado(asistencia.getMinutoAsignado());
+    asistenciaResponse.setViaticoGabinete(asistencia.isViaticoGabinete());
+    asistenciaResponse.setEmpleado(asistencia.getEmpleado());
+    return asistenciaResponse;
   }
 
   public ResponseEntity<List<AsistenciaResponse>> findAllMyAttendances(long id, int page, int size,
@@ -79,8 +112,9 @@ public class AsistenciaExpert extends
 
     List<AsistenciaResponse> asistenciaResponses = new ArrayList<>();
     for (int i = 0; i < asistencias.size(); i++) {
-      asistenciaResponses.add(
-          modelMapper.map(asistencias.get(i), AsistenciaResponse.class));
+      asistenciaResponses.add(covertAsistenciToAsistenciaResponse(asistencias.get(i)));
+      /*asistenciaResponses.add(
+          modelMapper.map(asistencias.get(i), AsistenciaResponse.class));*/
     }
     return asistenciaResponses;
   }
@@ -88,25 +122,27 @@ public class AsistenciaExpert extends
   @Override
   public ResponseEntity<AsistenciaResponse> findById(Long id) throws Exception {
     Asistencia asistencia = asistenciaService.findById(id);
-    AsistenciaResponse asistenciaResponse = modelMapper.map(asistencia,
-        AsistenciaResponse.class);
+    AsistenciaResponse asistenciaResponse = covertAsistenciToAsistenciaResponse(asistencia);
+    /*AsistenciaResponse asistenciaResponse = modelMapper.map(asistencia,
+        AsistenciaResponse.class);*/
     return new ResponseEntity(asistenciaResponse, HttpStatus.OK);
   }
 
   @Override
   public ResponseEntity<AsistenciaResponse> save(AsistenciaRequest asistenciaRequest)
       throws Exception {
+    /*
     if (asistenciaRequest.getFechaHora().equals(null)) {
       return new ResponseEntity(new Message("La fecha es obligatoria"),
           HttpStatus.BAD_REQUEST);
     }
-
+*/
     Asistencia asistencia = Asistencia.builder()
         .fechaAlta(new Date())
-        .fechaHora(asistenciaRequest.getFechaHora())
+        .fechaHora(asistenciaRequest.getFechaHora().toString())
         .reloj("0")
         .supervisor(true)
-        .tipoMovimiento(asistenciaRequest.getTipoMovimiento())
+        .tipoMovimiento(asistenciaRequest.getTipoMovimiento().charAt(0))
         .empleado(asistenciaRequest.getEmpleado())
         .build();
 
@@ -153,17 +189,17 @@ public class AsistenciaExpert extends
       return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     }
 
-    if (asistenciaRequest.getFechaHora().equals(null)) {
+    /*if (asistenciaRequest.getFechaHora().equals(null)) {
       return new ResponseEntity(new Message("La fecha es obligatoria"),
           HttpStatus.BAD_REQUEST);
-    }
+    }*/
 
     Asistencia asistencia = Asistencia.builder()
         .fechaAlta(new Date())
-        .fechaHora(asistenciaRequest.getFechaHora())
+        .fechaHora(asistenciaRequest.getFechaHora().toString())
         .reloj("0")
         .supervisor(true)
-        .tipoMovimiento(asistenciaRequest.getTipoMovimiento())
+        .tipoMovimiento(asistenciaRequest.getTipoMovimiento().charAt(0))
         .empleado(asistenciaRequest.getEmpleado())
         .fechaModificacion(new Date())
         .build();

@@ -58,7 +58,8 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private List<DocumentoIdentidad> documentoIdentidad;
 
 	@OneToOne(cascade = CascadeType.MERGE)
@@ -80,9 +81,6 @@ public class Empleado extends BaseEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Planilla> planillas = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<>();

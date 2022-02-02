@@ -11,7 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmpleadoSeeder implements CommandLineRunner {
+public class _1_EmpleadoSeeder implements CommandLineRunner {
 
   @Autowired
   EmpleadoRepository empleadoRepository;
