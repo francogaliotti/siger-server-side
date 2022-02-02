@@ -2,14 +2,12 @@ package com.SIGER.SIGER.seeders;
 
 import com.SIGER.SIGER.model.entities.TipoDocumento;
 import com.SIGER.SIGER.repositories.TipoDocumentoRepository;
-import com.SIGER.SIGER.security.entity.Rol;
-import com.SIGER.SIGER.security.enums.RolNombre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TipoDocumentoSeeder implements CommandLineRunner {
+public class _0_TipoDocumentoSeeder implements CommandLineRunner {
 
   @Autowired
   TipoDocumentoRepository tipoDocumentoRepository;

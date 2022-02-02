@@ -18,8 +18,8 @@ public interface EmpleadoRepository extends BaseRepository<Empleado, Long>{
   Optional<Empleado> findByApellido(String apellido);
   boolean existsByApellido(String apellido);
 
-  Optional<Empleado> findByLegajo(int legajo);
-  boolean existsByLegajo(int legajo);
+  Optional<Empleado> findByLegajo(String legajo);
+  boolean existsByLegajo(String legajo);
 
   @Query(value = "FROM Empleado e WHERE e.usuario.id = :id")
   Empleado findByUsuario(@Param("id") Long id);

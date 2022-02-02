@@ -30,7 +30,7 @@ public class EmpleadoRequest extends BaseRequest {
 
   private int estadoCivil;
 
-  private int legajo;
+  private String legajo;
 
   private DocumentoIdentidadRequest documentoIdentidad;
 

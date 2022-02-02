@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EstadoBoletaSeeder implements CommandLineRunner {
+public class _0_EstadoBoletaSeeder implements CommandLineRunner {
 
 
     @Autowired

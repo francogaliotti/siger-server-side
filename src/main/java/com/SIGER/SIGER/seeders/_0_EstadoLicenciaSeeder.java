@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EstadoLicenciaSeeder implements CommandLineRunner {
+public class _0_EstadoLicenciaSeeder implements CommandLineRunner {
 
 
     @Autowired

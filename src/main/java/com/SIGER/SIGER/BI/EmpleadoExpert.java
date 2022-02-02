@@ -102,6 +102,12 @@ public class EmpleadoExpert extends
     return new ResponseEntity(empleadoResponse, HttpStatus.OK);
   }
 
+  public ResponseEntity<Long> findEmployeeIdByUsuarioId(Long id) throws Exception {
+    Empleado empleado = empleadoService.getByfk_usuario(id);
+    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+    return new ResponseEntity(empleadoResponse.getId(), HttpStatus.OK);
+  }
+
   @Override
   public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
     Empleado empleado = empleadoService.findById(id);
@@ -282,7 +288,6 @@ public class EmpleadoExpert extends
         .usuario(usuario)
         .domicilio(domicilio)
         .historialSectorEmpleado(historialSectorEmpleadoList)
-        .planillas(empleadoRequest.getPlanillas())
         .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
         .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
             .documentoIdentidad(identityCard)

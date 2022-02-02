@@ -92,4 +92,9 @@ public class AuthExpert {
     return user.isFirstSignin();
   }
 
+  public ResponseEntity<Usuario> getByUserId(Long userId){
+    Optional<Usuario> optionalUser = usuarioService.getByUserId(userId);
+    return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
+  }
+
 }

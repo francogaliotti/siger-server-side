@@ -32,7 +32,7 @@ public class _1_ProvinciasSeeder implements CommandLineRunner {
 
   private void provinciasSeeder() throws IOException, CsvValidationException {
 
-    File path = new File("Datos_gob_ar/provincias.csv");
+    File path = new File("datos_gob_ar/provincias.csv");
 
     CSVReader csvReader = new CSVReader(new FileReader(path.getAbsolutePath()));
 

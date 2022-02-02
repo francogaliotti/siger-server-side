@@ -35,7 +35,7 @@ public class Empleado extends BaseEntity{
 
 	private int estadoCivil;
 
-	private int legajo;
+	private String legajo;
 
 	private Date fechaLimiteReemplazo;
 
@@ -58,7 +58,7 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private DocumentoIdentidad documentoIdentidad;
 
 	@OneToOne(cascade = CascadeType.MERGE)
@@ -70,7 +70,7 @@ public class Empleado extends BaseEntity{
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private RegimenHorario regimenHorario;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_usuario")
 	private Usuario usuario;
 	
@@ -80,10 +80,7 @@ public class Empleado extends BaseEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Planilla> planillas = new ArrayList<>();
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<>();
 	

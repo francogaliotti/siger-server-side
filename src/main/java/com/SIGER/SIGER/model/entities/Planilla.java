@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,6 +40,9 @@ public class Planilla extends BaseEntity{
 	private float totalGabineteSereno;
 	
 	//Relations
+
+	@ManyToOne(cascade = CascadeType.MERGE)
+	private Empleado empleado;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Boleta> boletas = new ArrayList<>();
