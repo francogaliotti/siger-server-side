@@ -35,7 +35,7 @@ public class Empleado extends BaseEntity{
 
 	private int estadoCivil;
 
-	private int legajo;
+	private String legajo;
 
 	private Date fechaLimiteReemplazo;
 
@@ -58,7 +58,7 @@ public class Empleado extends BaseEntity{
 	private String nroTelefonoCelular;
 	
 	//Relations
-	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
+	@OneToOne(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private DocumentoIdentidad documentoIdentidad;
 
 	@OneToOne(cascade = CascadeType.MERGE)

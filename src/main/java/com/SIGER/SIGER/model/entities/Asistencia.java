@@ -24,7 +24,7 @@ public class Asistencia extends BaseEntity {
 	
 	private Date fechaBaja;
 
-	private Date fechaHora;
+	private String fechaHora;
 	
 	private Date fechaCierre;
 	
@@ -32,11 +32,11 @@ public class Asistencia extends BaseEntity {
 	
 	private Date fechaSincronizacion;
 
-	private int reloj;
+	private String reloj;
 
 	private boolean supervisor;
 
-	private String tipoMovimiento;
+	private char tipoMovimiento;
 	
 	private String excesoHorario;
 	
@@ -49,7 +49,7 @@ public class Asistencia extends BaseEntity {
 	//Relation
 	
 	@NonNull
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_empleado")
 	private Empleado empleado;
 

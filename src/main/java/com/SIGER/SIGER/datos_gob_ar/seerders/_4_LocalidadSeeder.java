@@ -16,15 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class _4_LocalidadSeeder implements CommandLineRunner {
 
-  /*@Autowired
-  ProvinciaRepository provinciaRepository;
-
-  @Autowired
-  MunicipioRepository municipioRepository;
-
-  @Autowired
-  DepartamentoRepository departamentoRepository;*/
-
   @Autowired
   LocalidadRepository localidadRepository;
 
@@ -41,7 +32,7 @@ public class _4_LocalidadSeeder implements CommandLineRunner {
 
   private void localidadesSeeder() throws IOException, CsvValidationException {
 
-    File path = new File("Datos_gob_ar/localidades.csv");
+    File path = new File("datos_gob_ar/localidades.csv");
 
     CSVReader csvReader = new CSVReader(new FileReader(path.getAbsolutePath()));
 
@@ -50,13 +41,6 @@ public class _4_LocalidadSeeder implements CommandLineRunner {
     String[] columna;
 
     while ((columna = csvReader.readNext()) != null) {
-
-      //Optional<Departamento> optionalDepartamento = departamentoRepository.findById(columna[3]);
-      //Optional<Municipio> optionalMunicipio = municipioRepository.findById(columna[9]);
-      //Optional<Provincia> optionalProvincia = provinciaRepository.findById(columna[12]);
-
-      /*if (optionalDepartamento.isPresent() && optionalMunicipio.isPresent()
-          && optionalProvincia.isPresent()) {*/
       localidades.add(Localidad.builder()
           .categoria(columna[0])
           .latitud(columna[1])
@@ -72,8 +56,6 @@ public class _4_LocalidadSeeder implements CommandLineRunner {
           .nombre(columna[11])
           .provincia(columna[12])
           .provinciaNombre(columna[13]).build());
-      //}
-
     }
 
     localidades.remove(0);
