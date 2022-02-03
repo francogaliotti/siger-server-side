@@ -70,7 +70,7 @@ public class Empleado extends BaseEntity{
 	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
 	private RegimenHorario regimenHorario;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_usuario")
 	private Usuario usuario;
 	
@@ -78,8 +78,8 @@ public class Empleado extends BaseEntity{
 	@JoinColumn(name = "fk_domicilio")
 	private Domicilio domicilio;
 	
-	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
-	private List<HistorialSectorEmpleado> historialSectorEmpleado = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
+	private Sector sector;
 	
 	@OneToMany(cascade = CascadeType.ALL/*, orphanRemoval = true*/)
 	private List<ComputoDiasLicencia>computoDiasLicencias = new ArrayList<>();

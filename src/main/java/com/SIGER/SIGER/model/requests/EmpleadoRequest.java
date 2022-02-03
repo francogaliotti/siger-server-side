@@ -1,16 +1,15 @@
 package com.SIGER.SIGER.model.requests;
 
 import com.SIGER.SIGER.common.ValidationMessages;
-import com.SIGER.SIGER.model.entities.ComputoDiasLicencia;
-import com.SIGER.SIGER.model.entities.Planilla;
-import com.SIGER.SIGER.model.entities.RegimenHorario;
-import com.SIGER.SIGER.model.entities.RemanenteDiasLicencia;
-import com.SIGER.SIGER.model.entities.Remuneracion;
+import com.SIGER.SIGER.model.entities.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.SIGER.SIGER.security.entity.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,9 +31,9 @@ public class EmpleadoRequest extends BaseRequest {
 
   private String legajo;
 
-  private DocumentoIdentidadRequest documentoIdentidad;
+  private DocumentoIdentidad documentoIdentidad;
 
-  private String nroIdentificacionPersonal;
+  //private String nroIdentificacionPersonal;
 
   private Date fechaLimiteReemplazo;
 
@@ -56,22 +55,22 @@ public class EmpleadoRequest extends BaseRequest {
 
   private String nroTelefonoCelular;
 
-  private NacionalidadRequest nacionalidad;
+  private Nacionalidad nacionalidad;
 
-  private RemuneracionRequest remuneracion;
+  private Remuneracion remuneracion;
 
-  private RegimenHorarioRequest regimenHorario;
+  private RegimenHorario regimenHorario;
 
-  private UsuarioRequest usuario;
+  private Usuario usuario;
 
-  private DomicilioRequest domicilio;
+  private Domicilio domicilio;
 
-  private List<HistorialSectorEmpleadoRequest> historialSectorEmpleado;
+  private Sector sector;
 
   //private List<Planilla> planillas = new ArrayList<>();
 
-  /*private List<ComputoDiasLicencia> computoDiasLicencias = new ArrayList<>();
+  private List<ComputoDiasLicencia> computoDiasLicencias = new ArrayList<>();
 
-  private List<RemanenteDiasLicencia> remanenteDiasLicencias = new ArrayList<>();*/
+  private List<RemanenteDiasLicencia> remanenteDiasLicencias = new ArrayList<>();
 
 }
