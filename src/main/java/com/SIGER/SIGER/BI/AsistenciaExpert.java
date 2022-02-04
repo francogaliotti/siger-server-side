@@ -73,7 +73,7 @@ public class AsistenciaExpert extends
 
   public AsistenciaResponse covertAsistenciToAsistenciaResponse(Asistencia asistencia){
 
-    LocalDateTime date = LocalDateTime.now();
+    //LocalDateTime date = LocalDateTime.now();
     //DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss z uuuu", Locale.US);
     DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm", Locale.US);
     LocalDateTime fechaHora = LocalDateTime.parse(asistencia.getFechaHora(),formatter);
