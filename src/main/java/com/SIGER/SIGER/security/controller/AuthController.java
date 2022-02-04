@@ -40,6 +40,11 @@ public class AuthController {
         return authExpert.getSigninStatus(username);
     }
 
+    @GetMapping("/exist/{username}")
+    public Boolean existByUsername(@PathVariable("username") String username) throws Exception {
+        return authExpert.existByUsername(username);
+    }
+
     @GetMapping("/getUser/{id}")
     public ResponseEntity<Usuario> getByUserId(@PathVariable("id") Long userId) throws Exception {
         return authExpert.getByUserId(userId);
