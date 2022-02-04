@@ -36,10 +36,13 @@ public class EmailController {
   PasswordEncoder passwordEncoder;
 
   @Value("${spring.mail.username}")
-  private String mailFrom;
+  String mailFrom;
 
   @Value("${mail.subject-Change-Password}")
-  private String subject_Change_Password;
+  String subject_Change_Password;
+
+  @Value("${mail.subject-welcome}")
+  String subject_Welcome;
 
   @PostMapping("/send-email")
   public ResponseEntity<?> sendEmail(@RequestBody EmailValuesDTO valuesDTO){
@@ -63,6 +66,32 @@ public class EmailController {
 
     usuarioService.save(usuario);
     emailService.sendEmail(valuesDTO);
+
+    return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);
+  }
+
+  @PostMapping("/send-welcome-email")
+  public ResponseEntity<?> sendWelcomeEmail(@RequestBody EmailValuesDTO valuesDTO){
+    Optional<Usuario> usuarioOptional = usuarioService.getByUsernameOrCorreoInstitucional(valuesDTO.getMailTo());
+    if(!usuarioOptional.isPresent()){
+      return new ResponseEntity<>(new Message("No existe ningún usuario con esas credenciales"),
+              HttpStatus.NOT_FOUND);
+    }
+
+    Usuario usuario = usuarioOptional.get();
+    valuesDTO.setMailFrom(mailFrom);
+    valuesDTO.setMailTo(usuario.getCorreoInstitucional());
+    valuesDTO.setSubject(subject_Welcome);
+    valuesDTO.setUsername(usuario.getUsername());
+
+    UUID uuid = UUID.randomUUID();
+    String tokenPassword = uuid.toString();
+
+    valuesDTO.setTokenPassword(tokenPassword);
+    usuario.setTokenPassword(tokenPassword);
+
+    usuarioService.save(usuario);
+    emailService.sendWelcomeEmail(valuesDTO);
 
     return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);
   }

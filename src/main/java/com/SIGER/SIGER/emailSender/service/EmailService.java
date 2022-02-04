@@ -25,6 +25,9 @@ public class EmailService {
   @Value("${mail.url-Change-Password}")
   String url_Change_Password;
 
+  @Value("${mail.url-home}")
+  String url_Login;
+
   public void sendEmail(EmailValuesDTO emailValuesDTO){
     MimeMessage message = javaMailSender.createMimeMessage();
     try {
@@ -36,6 +39,29 @@ public class EmailService {
       context.setVariables(model);
 
       String htmlText = templateEngine.process("email-template", context);
+
+      helper.setFrom(emailValuesDTO.getMailFrom());
+      helper.setTo(emailValuesDTO.getMailTo());
+      helper.setSubject(emailValuesDTO.getSubject());
+      helper.setText(htmlText,true);
+      javaMailSender.send(message);
+    }catch (MessagingException e){
+      e.printStackTrace();
+    }
+  }
+
+  public void sendWelcomeEmail(EmailValuesDTO emailValuesDTO){
+    MimeMessage message = javaMailSender.createMimeMessage();
+    try {
+      MimeMessageHelper helper = new MimeMessageHelper(message,true);
+      Context context = new Context();
+      Map<String, Object> model = new HashMap<>();
+      model.put("username", emailValuesDTO.getUsername());
+      model.put("password", emailValuesDTO.getPassword());
+      model.put("home", url_Login + emailValuesDTO.getTokenPassword());
+      context.setVariables(model);
+
+      String htmlText = templateEngine.process("successfull-register-template", context);
 
       helper.setFrom(emailValuesDTO.getMailFrom());
       helper.setTo(emailValuesDTO.getMailTo());
