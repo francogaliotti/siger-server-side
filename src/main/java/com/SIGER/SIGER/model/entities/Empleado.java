@@ -70,7 +70,7 @@ public class Empleado extends BaseEntity{
 	@OneToOne(cascade = CascadeType.MERGE/*, orphanRemoval = true*/)
 	private RegimenHorario regimenHorario;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_usuario")
 	private Usuario usuario;
 	
