@@ -75,12 +75,11 @@ public class EmpleadoController extends
   private ResponseEntity<EmpleadoResponse> createUsuario(EmpleadoRequest empleadoRequest) throws Exception {
     HttpStatus status;
     String message = "";
-    try {
+    /*try {
       empleadoExpert.save(empleadoRequest);
     }catch (Exception e){
       System.out.println("Lo que te tira es "+e);
-    }
-    System.out.println("hasta aca funciona");
+    }*/
     try{
       empleadoExpert.createUser(empleadoRequest);
       status = HttpStatus.OK;
