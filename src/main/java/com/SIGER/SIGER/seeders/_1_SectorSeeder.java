@@ -27,48 +27,48 @@ public class _1_SectorSeeder implements CommandLineRunner {
     private void loadSectores() {
         if (sectorRepository.count() == 0) {
             sectorRepository.save(
-                    buildSector("DGRL", "Direccion General", false, 's', true, true, 0,0, Long.valueOf(1), Long.valueOf(0)));
+                    buildSector("DGRL", "Direccion General", false, false, true, true, 0,0, Long.valueOf(1), Long.valueOf(0)));
             sectorRepository.save(
-                    buildSector("GSIS", "Gerencia de Sistemas", false, 's', true, true, 0,0, Long.valueOf(2), Long.valueOf(1)));
+                    buildSector("GSIS", "Gerencia de Sistemas", false, false, true, true, 0,0, Long.valueOf(2), Long.valueOf(1)));
             sectorRepository.save(
-                    buildSector("GFNC", "Gerencia de Finanzas", false, 's', true, true, 0,0, Long.valueOf(3), Long.valueOf(1)));
+                    buildSector("GFNC", "Gerencia de Finanzas", false, false, true, true, 0,0, Long.valueOf(3), Long.valueOf(1)));
             sectorRepository.save(
-                    buildSector("GRCH", "Gerencia de Recursos Humanos", false, 's', true, true, 0,0, Long.valueOf(4), Long.valueOf(1)));
+                    buildSector("GRCH", "Gerencia de Recursos Humanos", false, false, true, true, 0,0, Long.valueOf(4), Long.valueOf(1)));
             sectorRepository.save(
-                    buildSector("GOPV", "Gerencia de Operativa", false, 's', true, true, 0,0, Long.valueOf(5), Long.valueOf(1)));
+                    buildSector("GOPV", "Gerencia de Operativa", false, false, true, true, 0,0, Long.valueOf(5), Long.valueOf(1)));
             sectorRepository.save(
-                    buildSector("ARC", "Area de Redes y Comunicaciones", false, 's', true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
+                    buildSector("ARC", "Area de Redes y Comunicaciones", false, false, true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
             sectorRepository.save(
-                    buildSector("ARM", "Area de Reparaciones y Mantenimiento", false, 's', true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
+                    buildSector("ARM", "Area de Reparaciones y Mantenimiento", false, false, true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
             sectorRepository.save(
-                    buildSector("ABD", "Area de Base de Datos", false, 's', true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
+                    buildSector("ABD", "Area de Base de Datos", false, false, true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
             sectorRepository.save(
-                    buildSector("AIE", "Area de Infraestructura", false, 's', true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
+                    buildSector("AIE", "Area de Infraestructura", false, false, true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
             sectorRepository.save(
-                    buildSector("AAD", "Area de Administracion de Sistemas", false, 's', true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
+                    buildSector("AAD", "Area de Administracion de Sistemas", false, false, true, true, 0,0, Long.valueOf(2), Long.valueOf(2)));
             sectorRepository.save(
-                    buildSector("ACO", "Area de Contabilidad", false, 's', true, true, 0,0, Long.valueOf(3), Long.valueOf(3)));
+                    buildSector("ACO", "Area de Contabilidad", false, false, true, true, 0,0, Long.valueOf(3), Long.valueOf(3)));
             sectorRepository.save(
-                    buildSector("ABC", "Area de Balance", false, 's', true, true, 0,0, Long.valueOf(3), Long.valueOf(3)));
+                    buildSector("ABC", "Area de Balance", false, false, true, true, 0,0, Long.valueOf(3), Long.valueOf(3)));
             sectorRepository.save(
-                    buildSector("ATR", "Area de Tesoreria", false, 's', true, true, 0,0, Long.valueOf(3), Long.valueOf(3)));
+                    buildSector("ATR", "Area de Tesoreria", false, false, true, true, 0,0, Long.valueOf(3), Long.valueOf(3)));
             sectorRepository.save(
-                    buildSector("APR", "Area de Personal", false, 's', true, true, 0,0, Long.valueOf(4), Long.valueOf(4)));
+                    buildSector("APR", "Area de Personal", false, false, true, true, 0,0, Long.valueOf(4), Long.valueOf(4)));
             sectorRepository.save(
-                    buildSector("ATC", "Area de Terciarizados", false, 's', true, true, 0,0, Long.valueOf(4), Long.valueOf(4)));
+                    buildSector("ATC", "Area de Terciarizados", false, false, true, true, 0,0, Long.valueOf(4), Long.valueOf(4)));
             sectorRepository.save(
-                    buildSector("ASS", "Area de Sueldos", false, 's', true, true, 0,0, Long.valueOf(4), Long.valueOf(4)));
+                    buildSector("ASS", "Area de Sueldos", false, false, true, true, 0,0, Long.valueOf(4), Long.valueOf(4)));
             sectorRepository.save(
-                    buildSector("ALS", "Area de Legales", false, 's', true, true, 0,0, Long.valueOf(5), Long.valueOf(5)));
+                    buildSector("ALS", "Area de Legales", false, false, true, true, 0,0, Long.valueOf(5), Long.valueOf(5)));
             sectorRepository.save(
-                    buildSector("ACS", "Area de Compras", false, 's', true, true, 0,0, Long.valueOf(5), Long.valueOf(5)));
+                    buildSector("ACS", "Area de Compras", false, false, true, true, 0,0, Long.valueOf(5), Long.valueOf(5)));
             sectorRepository.save(
-                    buildSector("ALC", "Area de Licitaciones", false, 's', true, true, 0,0, Long.valueOf(5), Long.valueOf(5)));
+                    buildSector("ALC", "Area de Licitaciones", false, false, true, true, 0,0, Long.valueOf(5), Long.valueOf(5)));
         }
     }
 
     private Sector buildSector(String codigo, String denominacion,
-                               boolean validaFueraDeHorario, char detenerCargaBoletas, boolean permiteTrabajarHorasExtras, boolean permiteTrabajarFinDeSemana, int maximoSerenoDiurno, int maximoSerenoNocturno, Long tipoSectorId, Long sectorSuperiorId) {
+                               boolean validaFueraDeHorario, boolean detenerCargaBoletas, boolean permiteTrabajarHorasExtras, boolean permiteTrabajarFinDeSemana, int maximoSerenoDiurno, int maximoSerenoNocturno, Long tipoSectorId, Long sectorSuperiorId) {
         Optional<Sector> optionalSector = sectorRepository.findById(sectorSuperiorId);
         Optional<TipoSector> optionalTipoSector = tipoSectorRepository.findById(tipoSectorId);
         Sector sector = Sector.builder()

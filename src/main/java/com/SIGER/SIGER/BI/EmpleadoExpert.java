@@ -251,7 +251,7 @@ public class EmpleadoExpert extends
           .denominacion(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getDenominacion())
           .fechaBaja(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getFechaBaja())
           .validaFueraDeHorario(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isValidaFueraDeHorario())
-          .detenerCargaBoletas(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getDetenerCargaBoletas())
+          .detenerCargaBoletas(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isDetenerCargaBoletas())
           .permiteTrabajarHorasExtras(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isPermiteTrabajarHorasExtras())
           .maximoSerenoDiurno(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getMaximoSerenoDiurno())
           .maximoSerenoNocturno(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getMaximoSerenoNocturno())

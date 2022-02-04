@@ -27,7 +27,7 @@ public class SectorRequest extends BaseRequest{
 
   private boolean validaFueraDeHorario;
 
-  private char detenerCargaBoletas;
+  private boolean detenerCargaBoletas;
 
   private boolean permiteTrabajarHorasExtras;
 

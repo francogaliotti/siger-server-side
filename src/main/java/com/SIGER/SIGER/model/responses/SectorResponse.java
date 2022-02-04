@@ -21,7 +21,7 @@ public class SectorResponse extends BaseResponse{
 
   private boolean validaFueraDeHorario;
 
-  private char detenerCargaBoletas;
+  private boolean detenerCargaBoletas;
 
   private boolean permiteTrabajarHorasExtras;
 
