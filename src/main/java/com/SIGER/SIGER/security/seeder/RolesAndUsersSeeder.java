@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RolesAndUsersSeeder implements CommandLineRunner {
 
-  //private static final String PHOTO = "https://foo.jpg";
   private static final long ROLE_USER = 1L;
   private static final long ROLE_ADMIN = 2L;
   private static final String PASSWORD_GENERIC = "siger1234";
