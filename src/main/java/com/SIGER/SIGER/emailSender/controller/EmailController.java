@@ -90,7 +90,7 @@ public class EmailController {
     valuesDTO.setTokenPassword(tokenPassword);
     usuario.setTokenPassword(tokenPassword);
 
-    usuarioService.save(usuario);
+
     emailService.sendWelcomeEmail(valuesDTO);
 
     return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);

@@ -16,6 +16,6 @@ public class DomicilioRequest extends BaseRequest {
     private int nroPiso;
     private ProvinciaRequest provincia;
     private DepartamentoRequest departamento;
-    private MunicipioRequest municipio;
+    //private MunicipioRequest municipio;
     private LocalidadRequest localidad;
 }

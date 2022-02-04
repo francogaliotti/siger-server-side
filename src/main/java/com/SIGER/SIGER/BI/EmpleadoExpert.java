@@ -133,13 +133,13 @@ public class EmpleadoExpert extends
     Nacionalidad nationality = new Nacionalidad();
     nationality.setId(empleadoRequest.getNacionalidad().getId());
 
-    DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
+    /*DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
         .nroIdentidad(empleadoRequest.getDocumentoIdentidad().getNroIdentidad())
             .tipoDocumento(empleadoRequest.getDocumentoIdentidad().getTipoDocumento()).build();
 
     TipoDocumento typeOfDocument = new TipoDocumento();
     typeOfDocument.setId(empleadoRequest.getDocumentoIdentidad().getTipoDocumento().getId());
-    identityCard.setTipoDocumento(typeOfDocument);
+    identityCard.setTipoDocumento(typeOfDocument);*/
 
 
 
@@ -158,13 +158,13 @@ public class EmpleadoExpert extends
           .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoFinJornadaLaboral())
           .tipoRegimenHorario(empleadoRequest.getRegimenHorario().getTipoRegimenHorario())
           .build();
-
+/*
     Provincia provincia = Provincia.builder()
         .categoria(empleadoRequest.getDomicilio().getProvincia().getCategoria())
         .latitud(empleadoRequest.getDomicilio().getProvincia().getLatitud())
         .longitud(empleadoRequest.getDomicilio().getProvincia().getLongitud())
         .fuente(empleadoRequest.getDomicilio().getProvincia().getFuente())
-        .id(empleadoRequest.getDomicilio().getProvincia().getFuente())
+        .id(empleadoRequest.getDomicilio().getProvincia().getId())
         .iso_id(empleadoRequest.getDomicilio().getProvincia().getIso_id())
         .iso_nombre(empleadoRequest.getDomicilio().getProvincia().getIso_nombre())
         .nombre(empleadoRequest.getDomicilio().getProvincia().getNombre())
@@ -197,7 +197,7 @@ public class EmpleadoExpert extends
         .provinciaInterseccion(
             empleadoRequest.getDomicilio().getMunicipio().getProvinciaInterseccion())
         .provinciaNombre(empleadoRequest.getDomicilio().getMunicipio().getProvinciaNombre())
-        .build();*/
+        .build();*/ /*
 
     Localidad localidad = Localidad.builder()
         .categoria(empleadoRequest.getDomicilio().getLocalidad().getCategoria())
@@ -210,14 +210,14 @@ public class EmpleadoExpert extends
         .localidadCensalId(empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalId())
         .localidadCensalNombre(
             empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalNombre())
-        /*.municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())*/
+        /*.municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())*/ /*
         .municipioNombre(empleadoRequest.getDomicilio().getLocalidad().getMunicipioNombre())
         .nombre(empleadoRequest.getDomicilio().getLocalidad().getNombre())
         .provincia(empleadoRequest.getDomicilio().getLocalidad().getProvincia())
         .provinciaNombre(empleadoRequest.getDomicilio().getLocalidad().getProvinciaNombre())
         .build();
 
-    Set<Rol> roles = new HashSet<>();
+    */Set<Rol> roles = new HashSet<>();
     roles.addAll(empleadoRequest.getUsuario().getRoles());
 
     Usuario usuario = Usuario.builder()
@@ -231,7 +231,7 @@ public class EmpleadoExpert extends
         .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
         .recordarme(empleadoRequest.getUsuario().isRecordarme())
         .roles(roles).build();
-
+/*
     Domicilio domicilio = Domicilio.builder()
         .calle(empleadoRequest.getDomicilio().getCalle())
         .nroCalle(empleadoRequest.getDomicilio().getNroCalle())
@@ -239,7 +239,7 @@ public class EmpleadoExpert extends
         .nroPiso(empleadoRequest.getDomicilio().getNroPiso())
         .provincia(provincia)
         .departamento(departamento)
-        /*.municipio(municipio)*/
+        /*.municipio(municipio)*/ /*
         .localidad(localidad).build();
 
     List<HistorialSectorEmpleado> historialSectorEmpleadoList = new ArrayList<>();
@@ -264,9 +264,11 @@ public class EmpleadoExpert extends
           .sector(sector)
           .build();
       historialSectorEmpleadoList.add(historialSectorEmpleado);
-    }
+    }*/
 
     Empleado empleado1 = Empleado.builder()
+            .fechaAlta(new Date())
+            .fechaBaja(null)
         .nombre(empleadoRequest.getNombre())
         .apellido(empleadoRequest.getApellido())
         .correoPersonal(empleadoRequest.getCorreoPersonal())
@@ -282,18 +284,22 @@ public class EmpleadoExpert extends
         .esEncargado(empleadoRequest.isEsEncargado())
         .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
         .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
-        .nacionalidad(nationality)
-        .remuneracion(remuneracion)
-        .regimenHorario(regimenHorario)
+        .nacionalidad(empleadoRequest.getNacionalidad())
+        .remuneracion(empleadoRequest.getRemuneracion())
+        .regimenHorario(empleadoRequest.getRegimenHorario())
         .usuario(usuario)
-        .domicilio(domicilio)
-        .historialSectorEmpleado(historialSectorEmpleadoList)
+        .domicilio(empleadoRequest.getDomicilio())
+        .sector(empleadoRequest.getSector())
+        /*.planillas(empleadoRequest.getPlanillas())*/
         .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
         .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
-            .documentoIdentidad(identityCard)
+            .documentoIdentidad(empleadoRequest.getDocumentoIdentidad())
         .build();
-
-    empleadoService.save(empleado1);
+    try {
+      empleadoService.save(empleado1);
+    }catch (Exception e ){
+      System.out.println("El error es "+ e);
+    }
 
     return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
   }
@@ -354,6 +360,7 @@ public class EmpleadoExpert extends
     String aux_password = "";
     ModelMapper mapper = new ModelMapper();
     Empleado employee = mapper.map(empleadoRequest, Empleado.class);
+    employee.setFechaAlta(new Date());
 
     aux_password = this.generateRandomPassword();
 

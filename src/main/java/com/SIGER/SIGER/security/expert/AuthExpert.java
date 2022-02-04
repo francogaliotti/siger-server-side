@@ -97,4 +97,8 @@ public class AuthExpert {
     return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
   }
 
+  public Boolean existByUsername(String username){
+    return usuarioService.existsByUsername(username);
+  }
+
 }
