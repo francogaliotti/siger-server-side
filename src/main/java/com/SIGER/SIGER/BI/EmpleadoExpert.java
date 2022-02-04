@@ -359,7 +359,7 @@ public class EmpleadoExpert extends
 
     employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
     empleadoService.save(employee);
-    emailController.sendEmail(
+    emailController.sendWelcomeEmail(
         this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
             employee.getCorreoPersonal()));
 
