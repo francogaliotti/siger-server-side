@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class RemuneracionResponse extends BaseResponse{
 
+  private String denominacion;
+
   private double valorHora;
 
   private double valorViaticoDia;
