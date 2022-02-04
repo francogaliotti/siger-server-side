@@ -102,6 +102,12 @@ public class EmpleadoExpert extends
     return new ResponseEntity(empleadoResponse, HttpStatus.OK);
   }
 
+  public ResponseEntity<Long> findEmployeeIdByUsuarioId(Long id) throws Exception {
+    Empleado empleado = empleadoService.getByfk_usuario(id);
+    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+    return new ResponseEntity(empleadoResponse.getId(), HttpStatus.OK);
+  }
+
   @Override
   public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
     Empleado empleado = empleadoService.findById(id);
@@ -351,7 +357,6 @@ public class EmpleadoExpert extends
 
   public void createUser(EmpleadoRequest empleadoRequest) throws Exception {
 
-
     String aux_password = "";
     ModelMapper mapper = new ModelMapper();
     Empleado employee = mapper.map(empleadoRequest, Empleado.class);
@@ -360,10 +365,8 @@ public class EmpleadoExpert extends
     aux_password = this.generateRandomPassword();
 
     employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
-
     empleadoService.save(employee);
-
-    emailController.sendEmail(
+    emailController.sendWelcomeEmail(
         this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
             employee.getCorreoPersonal()));
 
