@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RemuneracionSeeder implements CommandLineRunner {
+public class _0_RemuneracionSeeder implements CommandLineRunner {
 
     @Autowired
     RemuneracionRepository remuneracionRepository;
