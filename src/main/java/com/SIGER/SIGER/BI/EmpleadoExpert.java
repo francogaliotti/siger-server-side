@@ -27,6 +27,7 @@ import com.SIGER.SIGER.services.EmpleadoService;
 
 import java.util.*;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,98 +41,98 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class EmpleadoExpert extends
-    AbsBaseExpert<Empleado, EmpleadoService, EmpleadoRequest, EmpleadoResponse> {
+        AbsBaseExpert<Empleado, EmpleadoService, EmpleadoRequest, EmpleadoResponse> {
 
-  @Autowired
-  EmpleadoService empleadoService;
+    @Autowired
+    EmpleadoService empleadoService;
 
-  @Autowired
-  PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
+    @Autowired
+    PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
 
-  @Autowired
-  UsuarioService userService;
+    @Autowired
+    UsuarioService userService;
 
-  @Autowired
-  AuthExpert authExpert;
+    @Autowired
+    AuthExpert authExpert;
 
-  @Autowired
-  EmailController emailController;
+    @Autowired
+    EmailController emailController;
 
-  @Autowired
-  PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-  @Value("${lowerCasesAmount}")
-  int lowerCasesAmount;
+    @Value("${lowerCasesAmount}")
+    int lowerCasesAmount;
 
-  @Value("${capitalLettersAmount}")
-  int capitalLettersAmount;
+    @Value("${capitalLettersAmount}")
+    int capitalLettersAmount;
 
-  @Value("${digitsAmount}")
-  int digitsAmount;
+    @Value("${digitsAmount}")
+    int digitsAmount;
 
-  @Value("${nonAlphanumericsAmount}")
-  int nonAlphanumericsAmount;
-
-
-  @Override
-  public ResponseEntity<List<EmpleadoResponse>> findAll(int page, int size,
-      UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
-
-    Page<Empleado> empleadoPage = empleadoService.findAll(page, size);
-    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
-        empleadoPage.getTotalPages(), "/empleado");
-
-    List<EmpleadoResponse> empleadoResponses = converterPageToList(empleadoPage.getContent());
-    return new ResponseEntity(empleadoResponses, HttpStatus.OK);
-  }
-
-  private List<EmpleadoResponse> converterPageToList(List<Empleado> empleados) {
-
-    List<EmpleadoResponse> empleadoResponses = new ArrayList<>();
-    for (int i = 0; i < empleados.size(); i++) {
-      empleadoResponses.add(
-          modelMapper.map(empleados.get(i), EmpleadoResponse.class));
-    }
-    return empleadoResponses;
-  }
+    @Value("${nonAlphanumericsAmount}")
+    int nonAlphanumericsAmount;
 
 
-  public ResponseEntity<EmpleadoResponse> findByUsuarioId(Long id) throws Exception {
-    Empleado empleado = empleadoService.getByfk_usuario(id);
-    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
-    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
-  }
+    @Override
+    public ResponseEntity<List<EmpleadoResponse>> findAll(int page, int size,
+                                                          UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
 
-  public ResponseEntity<Long> findEmployeeIdByUsuarioId(Long id) throws Exception {
-    Empleado empleado = empleadoService.getByfk_usuario(id);
-    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
-    return new ResponseEntity(empleadoResponse.getId(), HttpStatus.OK);
-  }
+        Page<Empleado> empleadoPage = empleadoService.findAll(page, size);
+        paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
+                empleadoPage.getTotalPages(), "/empleado");
 
-  @Override
-  public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
-    Empleado empleado = empleadoService.findById(id);
-    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
-    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<EmpleadoResponse> save(EmpleadoRequest empleadoRequest) throws Exception {
-    if (StringUtils.isBlank(empleadoRequest.getNombre())) {
-      return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (StringUtils.isBlank(empleadoRequest.getApellido())) {
-      return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (empleadoService.existsByLegajo(empleadoRequest.getLegajo())) {
-      return new ResponseEntity(new Message("El legajo del Empleado ya existe"),
-          HttpStatus.BAD_REQUEST);
+        List<EmpleadoResponse> empleadoResponses = converterPageToList(empleadoPage.getContent());
+        return new ResponseEntity(empleadoResponses, HttpStatus.OK);
     }
 
-    Nacionalidad nationality = new Nacionalidad();
-    nationality.setId(empleadoRequest.getNacionalidad().getId());
+    private List<EmpleadoResponse> converterPageToList(List<Empleado> empleados) {
+
+        List<EmpleadoResponse> empleadoResponses = new ArrayList<>();
+        for (int i = 0; i < empleados.size(); i++) {
+            empleadoResponses.add(
+                    modelMapper.map(empleados.get(i), EmpleadoResponse.class));
+        }
+        return empleadoResponses;
+    }
+
+
+    public ResponseEntity<EmpleadoResponse> findByUsuarioId(Long id) throws Exception {
+        Empleado empleado = empleadoService.getByfk_usuario(id);
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Long> findEmployeeIdByUsuarioId(Long id) throws Exception {
+        Empleado empleado = empleadoService.getByfk_usuario(id);
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse.getId(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
+        Empleado empleado = empleadoService.findById(id);
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<EmpleadoResponse> save(EmpleadoRequest empleadoRequest) throws Exception {
+        if (StringUtils.isBlank(empleadoRequest.getNombre())) {
+            return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(empleadoRequest.getApellido())) {
+            return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (empleadoService.existsByLegajo(empleadoRequest.getLegajo())) {
+            return new ResponseEntity(new Message("El legajo del Empleado ya existe"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Nacionalidad nationality = new Nacionalidad();
+        nationality.setId(empleadoRequest.getNacionalidad().getId());
 
     /*DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
         .nroIdentidad(empleadoRequest.getDocumentoIdentidad().getNroIdentidad())
@@ -142,22 +143,20 @@ public class EmpleadoExpert extends
     identityCard.setTipoDocumento(typeOfDocument);*/
 
 
-
-      Remuneracion remuneracion = Remuneracion.builder()
-          .valorHora(empleadoRequest.getRemuneracion().getValorHora())
-          .valorViaticoDia(empleadoRequest.getRemuneracion().getValorViaticoDia())
-          .importeHorasAdicionales(empleadoRequest.getRemuneracion().getImporteHorasAdicionales())
-          .importeZonaDesarraigo(empleadoRequest.getRemuneracion().getImporteZonaDesarraigo())
-          .build();
-
+        Remuneracion remuneracion = Remuneracion.builder()
+                .valorHora(empleadoRequest.getRemuneracion().getValorHora())
+                .valorViaticoDia(empleadoRequest.getRemuneracion().getValorViaticoDia())
+                .importeHorasAdicionales(empleadoRequest.getRemuneracion().getImporteHorasAdicionales())
+                .importeZonaDesarraigo(empleadoRequest.getRemuneracion().getImporteZonaDesarraigo())
+                .build();
 
 
-      RegimenHorario regimenHorario = RegimenHorario.builder()
-          .isActive(empleadoRequest.getRegimenHorario().isActive())
-          .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoInicioJornadaLaboral())
-          .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoFinJornadaLaboral())
-          .tipoRegimenHorario(empleadoRequest.getRegimenHorario().getTipoRegimenHorario())
-          .build();
+        RegimenHorario regimenHorario = RegimenHorario.builder()
+                .isActive(empleadoRequest.getRegimenHorario().isActive())
+                .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoInicioJornadaLaboral())
+                .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoFinJornadaLaboral())
+                .tipoRegimenHorario(empleadoRequest.getRegimenHorario().getTipoRegimenHorario())
+                .build();
 /*
     Provincia provincia = Provincia.builder()
         .categoria(empleadoRequest.getDomicilio().getProvincia().getCategoria())
@@ -217,20 +216,21 @@ public class EmpleadoExpert extends
         .provinciaNombre(empleadoRequest.getDomicilio().getLocalidad().getProvinciaNombre())
         .build();
 
-    */Set<Rol> roles = new HashSet<>();
-    roles.addAll(empleadoRequest.getUsuario().getRoles());
+    */
+        Set<Rol> roles = new HashSet<>();
+        roles.addAll(empleadoRequest.getUsuario().getRoles());
 
-    Usuario usuario = Usuario.builder()
-            .nombre(empleadoRequest.getUsuario().getNombre())
-        .username(empleadoRequest.getUsuario().getUsername())
-        .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
-        .password(empleadoRequest.getUsuario().getPassword())
-        .image(empleadoRequest.getUsuario().getImage())
-        .isFirstSignin(empleadoRequest.getUsuario().isFirstSignin())
-        .enabled(empleadoRequest.getUsuario().isEnabled())
-        .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
-        .recordarme(empleadoRequest.getUsuario().isRecordarme())
-        .roles(roles).build();
+        Usuario usuario = Usuario.builder()
+                .nombre(empleadoRequest.getUsuario().getNombre())
+                .username(empleadoRequest.getUsuario().getUsername())
+                .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
+                .password(empleadoRequest.getUsuario().getPassword())
+                .image("assets/images/default_generic_profile_picture.png")
+                .isFirstSignin(true)
+                .enabled(empleadoRequest.getUsuario().isEnabled())
+                .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
+                .recordarme(empleadoRequest.getUsuario().isRecordarme())
+                .roles(roles).build();
 /*
     Domicilio domicilio = Domicilio.builder()
         .calle(empleadoRequest.getDomicilio().getCalle())
@@ -266,205 +266,204 @@ public class EmpleadoExpert extends
       historialSectorEmpleadoList.add(historialSectorEmpleado);
     }*/
 
-    Empleado empleado1 = Empleado.builder()
-            .fechaAlta(new Date())
-            .fechaBaja(null)
-        .nombre(empleadoRequest.getNombre())
-        .apellido(empleadoRequest.getApellido())
-        .correoPersonal(empleadoRequest.getCorreoPersonal())
-        .estadoCivil(empleadoRequest.getEstadoCivil())
-        .legajo(empleadoRequest.getLegajo())
-        .fechaLimiteReemplazo(empleadoRequest.getFechaLimiteReemplazo())
-        .fechaNacimiento(empleadoRequest.getFechaNacimiento())
-        .fechaIngreso(empleadoRequest.getFechaIngreso())
-        .rompeReglaComisionDia(empleadoRequest.isRompeReglaComisionDia())
-        .rompeReglaFichadaReloj(empleadoRequest.isRompeReglaFichadaReloj())
-        .puedeAprobarRequerimiento(empleadoRequest.isPuedeAprobarRequerimiento())
-        .rompeReglaFichadaSupervisor(empleadoRequest.isRompeReglaFichadaSupervisor())
-        .esEncargado(empleadoRequest.isEsEncargado())
-        .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
-        .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
-        .nacionalidad(empleadoRequest.getNacionalidad())
-        .remuneracion(empleadoRequest.getRemuneracion())
-        .regimenHorario(empleadoRequest.getRegimenHorario())
-        .usuario(usuario)
-        .domicilio(empleadoRequest.getDomicilio())
-        .sector(empleadoRequest.getSector())
-        /*.planillas(empleadoRequest.getPlanillas())*/
-        .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
-        .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
-            .documentoIdentidad(empleadoRequest.getDocumentoIdentidad())
-        .build();
-    try {
-      empleadoService.save(empleado1);
-    }catch (Exception e ){
-      System.out.println("El error es "+ e);
-    }
-
-    return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<EmpleadoResponse> update(Long id, EmpleadoRequest empleadoRequest)
-      throws Exception {
-
-    if (empleadoService.findById(id).equals(false)) {
-      return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
-    }
-
-    if (StringUtils.isBlank(empleadoRequest.getNombre())) {
-      return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (StringUtils.isBlank(empleadoRequest.getApellido())) {
-      return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-
-    Empleado empleado = new Empleado();
-
-    empleado.setCorreoPersonal(empleadoRequest.getCorreoPersonal());
-    empleado.setNroTelefonoCelular(empleado.getNroTelefonoCelular());
-    empleado.setNroTelefonoFijo(empleado.getNroTelefonoFijo());
-    empleado.setEstadoCivil(empleado.getEstadoCivil());
-    empleado.setRompeReglaFichadaSupervisor(empleado.isRompeReglaFichadaSupervisor());
-    empleado.setPuedeAprobarRequerimiento(empleado.isPuedeAprobarRequerimiento());
-    empleado.setEsEncargado(empleado.isEsEncargado());
-
-    empleadoService.update(id, empleado);
-
-    return new ResponseEntity(new Message("Empleado actualizado"), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<?> delete(Long id) throws Exception {
-    empleadoService.delete(id);
-    return new ResponseEntity(new Message("Empleado eliminado"), HttpStatus.OK);
-  }
-
-  public ResponseEntity<EmpleadoResponse> getByUserName(String username) throws Exception {
-
-    Optional<Usuario> optionalUser = userService.getByUsername(username);
-    Usuario user = null;
-    if (optionalUser.isPresent()) {
-      user = optionalUser.get();
-    }
-
-    Empleado empleado = empleadoService.getByfk_usuario(user.getId());
-    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
-    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
-  }
-
-  public void createUser(EmpleadoRequest empleadoRequest) throws Exception {
-
-    String aux_password = "";
-    ModelMapper mapper = new ModelMapper();
-    Empleado employee = mapper.map(empleadoRequest, Empleado.class);
-    employee.setFechaAlta(new Date());
-
-    aux_password = this.generateRandomPassword();
-
-    employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
-    empleadoService.save(employee);
-    emailController.sendWelcomeEmail(
-        this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
-            employee.getCorreoPersonal()));
-
-  }
-
-  private EmailValuesDTO preparingEmailData(String username, String password,
-      String personalEmail) {
-    EmailValuesDTO emailValuesDTO = EmailValuesDTO.builder().username(username).password(password)
-        .mailTo(personalEmail).build();
-
-    return emailValuesDTO;
-  }
-
-  private String generateRandomPassword() {
-
-    String lowCases = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
-    String capitalLetters = lowCases.toUpperCase(Locale.ROOT);
-    String digits = "0,1,2,3,4,5,6,7,8,9";
-    String nonAlphanumerics = "!,#,$,%,^,&,/,?,Â¿,-,<,>";
-
-    String[] lowCasesArray = lowCases.split(",");
-    String[] capitalLettersArray = capitalLetters.split(",");
-    String[] digitsArray = digits.split(",");
-    String[] nonAlphanumericsArray = nonAlphanumerics.split(",");
-
-    Random rand = new Random();
-    String password = "";
-    String newPassword = "";
-    String passwordArray[];
-
-    if (this.lowerCasesAmount > 0) {
-      for (int counter = 0; counter < this.lowerCasesAmount; counter++) {
-        if (counter == 0) {
-          password = lowCasesArray[rand.nextInt(lowCasesArray.length)];
-        } else {
-          password = lowCasesArray[rand.nextInt(lowCasesArray.length)] + "," + password;
+        Empleado empleado1 = Empleado.builder()
+                .fechaAlta(new Date())
+                .fechaBaja(null)
+                .nombre(empleadoRequest.getNombre())
+                .apellido(empleadoRequest.getApellido())
+                .correoPersonal(empleadoRequest.getCorreoPersonal())
+                .estadoCivil(empleadoRequest.getEstadoCivil())
+                .legajo(empleadoRequest.getLegajo())
+                .fechaLimiteReemplazo(empleadoRequest.getFechaLimiteReemplazo())
+                .fechaNacimiento(empleadoRequest.getFechaNacimiento())
+                .fechaIngreso(empleadoRequest.getFechaIngreso())
+                .rompeReglaComisionDia(empleadoRequest.isRompeReglaComisionDia())
+                .rompeReglaFichadaReloj(empleadoRequest.isRompeReglaFichadaReloj())
+                .puedeAprobarRequerimiento(empleadoRequest.isPuedeAprobarRequerimiento())
+                .rompeReglaFichadaSupervisor(empleadoRequest.isRompeReglaFichadaSupervisor())
+                .esEncargado(empleadoRequest.isEsEncargado())
+                .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
+                .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
+                .nacionalidad(empleadoRequest.getNacionalidad())
+                .remuneracion(empleadoRequest.getRemuneracion())
+                .regimenHorario(empleadoRequest.getRegimenHorario())
+                .usuario(usuario)
+                .domicilio(empleadoRequest.getDomicilio())
+                .sector(empleadoRequest.getSector())
+                .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
+                .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
+                .documentoIdentidad(empleadoRequest.getDocumentoIdentidad())
+                .build();
+        try {
+            empleadoService.save(empleado1);
+        } catch (Exception e) {
+            System.out.println("El error es " + e);
         }
-      }
+
+        return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
     }
 
-    if (this.capitalLettersAmount > 0) {
-      for (int counter = 0; counter < this.capitalLettersAmount; counter++) {
-        password = capitalLettersArray[rand.nextInt(capitalLettersArray.length)] + "," + password;
-      }
+    @Override
+    public ResponseEntity<EmpleadoResponse> update(Long id, EmpleadoRequest empleadoRequest)
+            throws Exception {
+
+        if (empleadoService.findById(id).equals(false)) {
+            return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
+        }
+
+        if (StringUtils.isBlank(empleadoRequest.getNombre())) {
+            return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(empleadoRequest.getApellido())) {
+            return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Empleado empleado = new Empleado();
+
+        empleado.setCorreoPersonal(empleadoRequest.getCorreoPersonal());
+        empleado.setNroTelefonoCelular(empleado.getNroTelefonoCelular());
+        empleado.setNroTelefonoFijo(empleado.getNroTelefonoFijo());
+        empleado.setEstadoCivil(empleado.getEstadoCivil());
+        empleado.setRompeReglaFichadaSupervisor(empleado.isRompeReglaFichadaSupervisor());
+        empleado.setPuedeAprobarRequerimiento(empleado.isPuedeAprobarRequerimiento());
+        empleado.setEsEncargado(empleado.isEsEncargado());
+
+        empleadoService.update(id, empleado);
+
+        return new ResponseEntity(new Message("Empleado actualizado"), HttpStatus.OK);
     }
 
-    if (this.digitsAmount > 0) {
-      for (int counter = 0; counter < this.digitsAmount; counter++) {
-        password = digitsArray[rand.nextInt(digitsArray.length)] + "," + password;
-      }
+    @Override
+    public ResponseEntity<?> delete(Long id) throws Exception {
+        empleadoService.delete(id);
+        return new ResponseEntity(new Message("Empleado eliminado"), HttpStatus.OK);
     }
 
-    if (this.nonAlphanumericsAmount > 0) {
-      for (int counter = 0; counter < this.nonAlphanumericsAmount; counter++) {
-        password =
-            nonAlphanumericsArray[rand.nextInt(nonAlphanumericsArray.length)] + "," + password;
-      }
+    public ResponseEntity<EmpleadoResponse> getByUserName(String username) throws Exception {
+
+        Optional<Usuario> optionalUser = userService.getByUsername(username);
+        Usuario user = null;
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+        }
+
+        Empleado empleado = empleadoService.getByfk_usuario(user.getId());
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse, HttpStatus.OK);
     }
 
-    passwordArray = password.split(",");
+    public void createUser(EmpleadoRequest empleadoRequest) throws Exception {
 
-    if (passwordArray.length > 0) {
-      int[] exist = new int[passwordArray.length];
+        String aux_password = "";
+        ModelMapper mapper = new ModelMapper();
+        Empleado employee = mapper.map(empleadoRequest, Empleado.class);
+        employee.setFechaAlta(new Date());
 
-      for (int setter = 0; setter < exist.length; setter++) {
-        exist[setter] = exist.length + 10;
-      }
+        aux_password = this.generateRandomPassword();
 
-      int counter = 0;
+        employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
+        empleadoService.save(employee);
+        emailController.sendWelcomeEmail(
+                this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
+                        employee.getCorreoPersonal()));
 
-      for (String letter : passwordArray) {
-        int winner = 0;
-        boolean passed = false;
+    }
 
-        do {
-          winner = rand.nextInt(passwordArray.length);
+    private EmailValuesDTO preparingEmailData(String username, String password,
+                                              String personalEmail) {
+        EmailValuesDTO emailValuesDTO = EmailValuesDTO.builder().username(username).password(password)
+                .mailTo(personalEmail).build();
 
-          for (int num : exist) {
-            if (winner != num) {
-              passed = true;
-            } else {
-              passed = false;
-              break;
+        return emailValuesDTO;
+    }
+
+    private String generateRandomPassword() {
+
+        String lowCases = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+        String capitalLetters = lowCases.toUpperCase(Locale.ROOT);
+        String digits = "0,1,2,3,4,5,6,7,8,9";
+        String nonAlphanumerics = "!,#,$,%,^,&,/,?,Â¿,-,<,>";
+
+        String[] lowCasesArray = lowCases.split(",");
+        String[] capitalLettersArray = capitalLetters.split(",");
+        String[] digitsArray = digits.split(",");
+        String[] nonAlphanumericsArray = nonAlphanumerics.split(",");
+
+        Random rand = new Random();
+        String password = "";
+        String newPassword = "";
+        String passwordArray[];
+
+        if (this.lowerCasesAmount > 0) {
+            for (int counter = 0; counter < this.lowerCasesAmount; counter++) {
+                if (counter == 0) {
+                    password = lowCasesArray[rand.nextInt(lowCasesArray.length)];
+                } else {
+                    password = lowCasesArray[rand.nextInt(lowCasesArray.length)] + "," + password;
+                }
             }
-          }
+        }
 
-          if (passed) {
-            newPassword += passwordArray[winner];
+        if (this.capitalLettersAmount > 0) {
+            for (int counter = 0; counter < this.capitalLettersAmount; counter++) {
+                password = capitalLettersArray[rand.nextInt(capitalLettersArray.length)] + "," + password;
+            }
+        }
 
-            exist[counter] = winner;
-            counter += 1;
-          }
+        if (this.digitsAmount > 0) {
+            for (int counter = 0; counter < this.digitsAmount; counter++) {
+                password = digitsArray[rand.nextInt(digitsArray.length)] + "," + password;
+            }
+        }
 
-        } while (!passed);
-      }
+        if (this.nonAlphanumericsAmount > 0) {
+            for (int counter = 0; counter < this.nonAlphanumericsAmount; counter++) {
+                password =
+                        nonAlphanumericsArray[rand.nextInt(nonAlphanumericsArray.length)] + "," + password;
+            }
+        }
+
+        passwordArray = password.split(",");
+
+        if (passwordArray.length > 0) {
+            int[] exist = new int[passwordArray.length];
+
+            for (int setter = 0; setter < exist.length; setter++) {
+                exist[setter] = exist.length + 10;
+            }
+
+            int counter = 0;
+
+            for (String letter : passwordArray) {
+                int winner = 0;
+                boolean passed = false;
+
+                do {
+                    winner = rand.nextInt(passwordArray.length);
+
+                    for (int num : exist) {
+                        if (winner != num) {
+                            passed = true;
+                        } else {
+                            passed = false;
+                            break;
+                        }
+                    }
+
+                    if (passed) {
+                        newPassword += passwordArray[winner];
+
+                        exist[counter] = winner;
+                        counter += 1;
+                    }
+
+                } while (!passed);
+            }
+        }
+        return newPassword;
     }
-    return newPassword;
-  }
 
 
 }
