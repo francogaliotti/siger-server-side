@@ -20,10 +20,10 @@ public class AuthController {
     @Autowired
     AuthExpert authExpert;
 
-    @PostMapping("/register")
+   /* @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
         return authExpert.register(nuevoUsuario, bindingResult);
-    }
+    }*/
 
     @PostMapping("/login")
     public ResponseEntity<JwtDTO> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
