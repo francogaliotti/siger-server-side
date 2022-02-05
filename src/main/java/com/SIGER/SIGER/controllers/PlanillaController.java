@@ -15,10 +15,11 @@ public class PlanillaController {
     @Autowired
     PlanillaExpert _planilla;
 
+
     public ResponseEntity<?> processingSheets(){
 
         try {
-
+            _planilla.processingSheets();
         }catch (Exception ex){
 
         }

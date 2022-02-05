@@ -29,6 +29,11 @@ public class NacionalidadController implements BaseController {
         return nationalityExpert.GetAll();
     }
 
+    @GetMapping("/GetAll")
+    public ResponseEntity<List<NacionalidadResponse>> getAll() throws Exception {
+        return nationalityExpert.GetAll();
+    }
+
     @Override
     public ResponseEntity getById(Serializable serializable) throws Exception {
         return null;
