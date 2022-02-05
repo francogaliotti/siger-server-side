@@ -104,7 +104,7 @@ public class TipoLicenciaExpert extends
             return new ResponseEntity(new Message("La denominación del tipo de Requerimiento es obligatoria"), HttpStatus.BAD_REQUEST);*/
         /*ModelMapper modelMapper = new ModelMapper();
         TipoLicencia tipoLicencia = modelMapper.map(tipoLicenciaDTO,TipoLicencia.class);*/
-
+    try {
     TipoLicencia tipoLicencia = tipoLicenciaServiceImpl.findById(id);
     tipoLicencia.setCodigo(tipoLicenciaRequest.getCodigo());
     tipoLicencia.setDenominacion(tipoLicenciaRequest.getDenominacion());
@@ -120,7 +120,9 @@ public class TipoLicenciaExpert extends
     tipoLicencia.getTipoRequerimiento()
             .setAprueban(tipoLicenciaRequest.getTipoRequerimientoAprueban());
     tipoLicenciaServiceImpl.update(id, tipoLicencia);
-
+    }catch(Exception e){
+      System.out.println("El problema es "+e);
+    }
     return new ResponseEntity(new Message("Tipo de Licencia actualizado"), HttpStatus.OK);
   }
 

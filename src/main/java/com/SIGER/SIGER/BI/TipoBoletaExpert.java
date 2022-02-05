@@ -107,25 +107,27 @@ public class TipoBoletaExpert extends
       return new ResponseEntity(new Message("El código es obligatorio, o debe ser mayor a 0"),
           HttpStatus.BAD_REQUEST);
     }
-
-    TipoBoleta tipoBoleta = tipoBoletaServiceImpl.findById(id);
-    tipoBoleta.setCodigo(tipoBoletaRequest.getCodigo());
-    tipoBoleta.setTipoBoletaDenominacion(tipoBoletaRequest.getTipoBoletaDenominacion());
-    tipoBoleta.setTieneMovilidad(tipoBoletaRequest.isTieneMovilidad());
-    tipoBoleta.setTieneZonaInhospita(tipoBoletaRequest.isTieneZonaInhospita());
-    tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
-    tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaRequest.isPermiteNoFichadaRetorno());
-    tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaRequest.isPermiteNoFichadaSalida());
-    tipoBoleta.getTipoRequerimiento()
-            .setTipoRequerimientoDenominacion(tipoBoletaRequest.getTipoRequerimientoDenominacion());
-    tipoBoleta.getTipoRequerimiento()
-            .setCantNiveles(tipoBoletaRequest.getTipoRequerimientoCantNiveles());
-    tipoBoleta.getTipoRequerimiento()
-            .setAprobadores(tipoBoletaRequest.getTipoRequerimientoAprobadores());
-    tipoBoleta.getTipoRequerimiento()
-            .setAprueban(tipoBoletaRequest.getTipoRequerimientoAprueban());
-    tipoBoletaServiceImpl.update(id, tipoBoleta);
-
+try {
+  TipoBoleta tipoBoleta = tipoBoletaServiceImpl.findById(id);
+  tipoBoleta.setCodigo(tipoBoletaRequest.getCodigo());
+  tipoBoleta.setTipoBoletaDenominacion(tipoBoletaRequest.getTipoBoletaDenominacion());
+  tipoBoleta.setTieneMovilidad(tipoBoletaRequest.isTieneMovilidad());
+  tipoBoleta.setTieneZonaInhospita(tipoBoletaRequest.isTieneZonaInhospita());
+  tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
+  tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaRequest.isPermiteNoFichadaRetorno());
+  tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaRequest.isPermiteNoFichadaSalida());
+  tipoBoleta.getTipoRequerimiento()
+          .setTipoRequerimientoDenominacion(tipoBoletaRequest.getTipoRequerimientoDenominacion());
+  tipoBoleta.getTipoRequerimiento()
+          .setCantNiveles(tipoBoletaRequest.getTipoRequerimientoCantNiveles());
+  tipoBoleta.getTipoRequerimiento()
+          .setAprobadores(tipoBoletaRequest.getTipoRequerimientoAprobadores());
+  tipoBoleta.getTipoRequerimiento()
+          .setAprueban(tipoBoletaRequest.getTipoRequerimientoAprueban());
+  tipoBoletaServiceImpl.update(id, tipoBoleta);
+}catch(Exception e){
+  System.out.println("El problema es "+e);
+}
     return new ResponseEntity(new Message("Tipo de Boleta actualizado"), HttpStatus.OK);
   }
 
