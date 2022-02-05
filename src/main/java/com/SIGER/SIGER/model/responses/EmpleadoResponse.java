@@ -1,5 +1,7 @@
 package com.SIGER.SIGER.model.responses;
 
+import com.SIGER.SIGER.model.entities.*;
+import com.SIGER.SIGER.security.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.Date;
@@ -23,7 +25,7 @@ public class EmpleadoResponse extends BaseResponse{
 
   private int legajo;
 
-  private DocumentoIdentidadResponse documentoIdentidad;
+  private DocumentoIdentidad documentoIdentidad;
 
   private String nroIdentificacionPersonal;
 
@@ -47,16 +49,16 @@ public class EmpleadoResponse extends BaseResponse{
 
   private String nroTelefonoCelular;
 
-  private NacionalidadResponse nacionalidad;
+  private Nacionalidad nacionalidad;
 
-  private UsuarioResponse usuario;
+  private Usuario usuario;
 
-  private DomicilioResponse domicilio;
+  private Domicilio domicilio;
 
-  private RemuneracionResponse remuneracion;
+  private Remuneracion remuneracion;
 
-  private RegimenHorarioResponse regimenHorario;
+  private RegimenHorario regimenHorario;
 
-  private List<HistorialSectorEmpleadoResponse> historialSectorEmpleado;
+  private Sector sector;
 
 }

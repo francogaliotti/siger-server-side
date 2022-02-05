@@ -19,8 +19,8 @@ public class AuthControllerTest {
     @Autowired
     AuthController authController;
 
-    @Test
-    public void  registrarUsuario() {
+    /*@Test
+   public void  registrarUsuario() {
 
         Set<String> roles = new HashSet<>();
         roles.add("admin");
@@ -32,7 +32,7 @@ public class AuthControllerTest {
 
         Assert.isTrue(response.getStatusCode().is2xxSuccessful(),response.getBody().toString());
 
-    }
+    }*/
 
     @Test
     public void loginUsuario() {
