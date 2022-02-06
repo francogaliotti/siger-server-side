@@ -46,11 +46,10 @@ public class _0_TipoMovilidadSeeder implements CommandLineRunner {
     }
 
     private TipoMovilidad buildTipoMovilidad(String codigo, String denominacion) {
-        TipoMovilidad tipoMovilidad = TipoMovilidad.builder()
+        return TipoMovilidad.builder()
                 .fechaAlta(new Date())
                 .codigo(codigo)
                 .denominacion(denominacion)
                 .build();
-        return tipoMovilidad;
     }
 }

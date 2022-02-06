@@ -1,14 +1,9 @@
 package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.model.entities.Nacionalidad;
-import com.SIGER.SIGER.model.entities.TipoBoleta;
 import com.SIGER.SIGER.model.requests.NacionalidadRequest;
-import com.SIGER.SIGER.model.requests.TipoBoletaRequest;
 import com.SIGER.SIGER.model.responses.NacionalidadResponse;
-import com.SIGER.SIGER.model.responses.TipoBoletaResponse;
 import com.SIGER.SIGER.services.NacionalidadService;
-import com.SIGER.SIGER.services.TipoBoletaService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

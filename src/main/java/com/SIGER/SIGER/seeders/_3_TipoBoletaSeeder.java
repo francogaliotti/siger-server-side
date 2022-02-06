@@ -4,7 +4,6 @@ import com.SIGER.SIGER.model.entities.Empleado;
 import com.SIGER.SIGER.model.entities.Sector;
 import com.SIGER.SIGER.model.entities.TipoBoleta;
 import com.SIGER.SIGER.model.entities.TipoRequerimiento;
-import com.SIGER.SIGER.repositories.EmpleadoRepository;
 import com.SIGER.SIGER.repositories.TipoBoletaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,16 +11,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class _3_TipoBoletaSeeder implements CommandLineRunner {
 
     @Autowired
     TipoBoletaRepository tipoBoletaRepository;
-
-    @Autowired
-    EmpleadoRepository empleadoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -51,7 +46,7 @@ public class _3_TipoBoletaSeeder implements CommandLineRunner {
         List<Empleado> aprobadores = new ArrayList<>();
         List<Sector> aprueban = new ArrayList<>();
 
-        TipoBoleta tipoBoleta = TipoBoleta.builder()
+        return TipoBoleta.builder()
                 .codigo(codigo)
                 .tipoBoletaDenominacion(tipoBoletaDenominacion)
                 .tieneMovilidad(tieneMovilidad)
@@ -61,8 +56,6 @@ public class _3_TipoBoletaSeeder implements CommandLineRunner {
                 .permiteNoFichadaSalida(permiteNoFichadaSalida)
                 .tipoRequerimiento(new TipoRequerimiento("",1,aprueban,aprobadores))
                 .build();
-
-        return tipoBoleta;
     }
 
 }

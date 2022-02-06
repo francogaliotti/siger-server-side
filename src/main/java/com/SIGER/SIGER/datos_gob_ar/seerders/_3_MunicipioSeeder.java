@@ -57,8 +57,7 @@ public class _3_MunicipioSeeder implements CommandLineRunner {
     }
 
     municipios.remove(0);
-    Iterable<Municipio> municipioIterable = municipios;
-    municipioRepository.saveAll(municipioIterable);
+    municipioRepository.saveAll(municipios);
     csvReader.close();
   }
 

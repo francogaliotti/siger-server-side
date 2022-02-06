@@ -4,15 +4,8 @@ import com.SIGER.SIGER.model.entities.Empleado;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.time.LocalDateTime;
 import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 @JsonRootName("Asistencia")

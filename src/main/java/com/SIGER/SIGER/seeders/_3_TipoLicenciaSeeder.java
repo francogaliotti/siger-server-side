@@ -4,7 +4,6 @@ import com.SIGER.SIGER.model.entities.Empleado;
 import com.SIGER.SIGER.model.entities.Sector;
 import com.SIGER.SIGER.model.entities.TipoLicencia;
 import com.SIGER.SIGER.model.entities.TipoRequerimiento;
-import com.SIGER.SIGER.repositories.EmpleadoRepository;
 import com.SIGER.SIGER.repositories.TipoLicenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,16 +11,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class _3_TipoLicenciaSeeder implements CommandLineRunner {
 
     @Autowired
     TipoLicenciaRepository tipoLicenciaRepository;
-
-    @Autowired
-    EmpleadoRepository empleadoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -52,6 +47,8 @@ public class _3_TipoLicenciaSeeder implements CommandLineRunner {
                     buildTipoLicencia("LFH", "Licencia por fallecimiento de hermanos", true, true, 1, 0, 0, 14, "ninguna"));
             tipoLicenciaRepository.save(
                     buildTipoLicencia("LMTR", "Licencia por matrimonio", true, true, 10, 0, 0, 14, "ninguna"));
+            tipoLicenciaRepository.save(
+                    buildTipoLicencia("LSGH", "Licencia sin goce de haberes", true, false, 30, 0, 0, 14, "ninguna"));
 
         }
     }
@@ -61,7 +58,7 @@ public class _3_TipoLicenciaSeeder implements CommandLineRunner {
         List<Empleado> aprobadores = new ArrayList<>();
         List<Sector> aprueban = new ArrayList<>();
 
-        TipoLicencia tipoLicencia = TipoLicencia.builder()
+        return TipoLicencia.builder()
                 .codigo(codigo)
                 .denominacion(denominacion)
                 .justificaPresentismo(justificaPresentismo)
@@ -73,7 +70,5 @@ public class _3_TipoLicenciaSeeder implements CommandLineRunner {
                 .observaciones(observaciones)
                 .tipoRequerimiento(new TipoRequerimiento("",1,aprueban,aprobadores))
                 .build();
-
-        return tipoLicencia;
     }
 }

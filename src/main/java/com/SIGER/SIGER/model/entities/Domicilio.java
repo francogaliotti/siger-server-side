@@ -2,7 +2,6 @@ package com.SIGER.SIGER.model.entities;
 
 import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
 import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
-import com.SIGER.SIGER.datos_gob_ar.entities.Municipio;
 import com.SIGER.SIGER.datos_gob_ar.entities.Provincia;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
