@@ -52,6 +52,8 @@ public class _3_TipoLicenciaSeeder implements CommandLineRunner {
                     buildTipoLicencia("LFH", "Licencia por fallecimiento de hermanos", true, true, 1, 0, 0, 14, "ninguna"));
             tipoLicenciaRepository.save(
                     buildTipoLicencia("LMTR", "Licencia por matrimonio", true, true, 10, 0, 0, 14, "ninguna"));
+            tipoLicenciaRepository.save(
+                    buildTipoLicencia("LSGH", "Licencia sin goce de haberes", true, false, 30, 0, 0, 14, "ninguna"));
 
         }
     }
