@@ -20,8 +20,8 @@ public class _0_ViaticoSeeder implements CommandLineRunner {
 
     private void loadViaticos(){
         if (viaticoRepository.count() == 0) {
-            viaticoRepository.save(buildViatico("EB01", "Viatico de Gabinete",3000));
-            viaticoRepository.save(buildViatico("EB02", "Viatico de Sereno",4000));
+            viaticoRepository.save(buildViatico("V01", "Viatico de Gabinete",3000));
+            viaticoRepository.save(buildViatico("V02", "Viatico de Sereno",4000));
         }
     }
 
