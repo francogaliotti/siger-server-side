@@ -11,6 +11,7 @@ import com.SIGER.SIGER.security.jwt.JwtProvider;
 import com.SIGER.SIGER.security.service.RolService;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -71,6 +72,10 @@ public class AuthExpert {
             (loginUsuario.getUsername(),loginUsuario.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
     Optional<Usuario> usuario = usuarioService.getByUsername(loginUsuario.getUsername());
+    if (usuario.get().isEnabled())
+      return new ResponseEntity(new Message("Su cuenta ha sido deshabilitada"), HttpStatus.BAD_REQUEST);
+    if (usuario.get().getPasswordExpireDate().isBefore(LocalDateTime.now()))
+      return new ResponseEntity(new Message("Su contraseña ha expirado, por favor cámbiela"), HttpStatus.BAD_REQUEST);
     String jwt = jwtProvider.generateToken(authentication,usuario.get().getId());
     JwtDTO jwtDTO = new JwtDTO(jwt);
     return new ResponseEntity(jwtDTO, HttpStatus.OK);
@@ -89,7 +94,7 @@ public class AuthExpert {
       user = optionalUser.get();
     }
 
-    return user.isFirstSignin();
+    return user.isFirstSignIn();
   }
 
   public ResponseEntity<Usuario> getByUserId(Long userId){

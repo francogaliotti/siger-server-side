@@ -217,7 +217,7 @@ public class EmpleadoExpert extends
                 .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
                 .password(empleadoRequest.getUsuario().getPassword())
                 .image("assets/images/default_generic_profile_picture.png")
-                .isFirstSignin(true)
+                .isFirstSignIn(true)
                 .enabled(empleadoRequest.getUsuario().isEnabled())
                 .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
                 .recordarme(empleadoRequest.getUsuario().isRecordarme())
