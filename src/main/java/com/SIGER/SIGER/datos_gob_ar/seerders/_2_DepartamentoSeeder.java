@@ -56,8 +56,7 @@ public class _2_DepartamentoSeeder implements CommandLineRunner {
     }
 
     departamentos.remove(0);
-    Iterable<Departamento> departamentoIterable = departamentos;
-    departamentoRepository.saveAll(departamentoIterable);
+    departamentoRepository.saveAll(departamentos);
     csvReader.close();
   }
 

@@ -33,10 +33,9 @@ public class _0_TipoSectorSeeder implements CommandLineRunner {
     }
 
     private TipoSector buildTipoSector(String codigo, String denominacion) {
-        TipoSector tipoSector = TipoSector.builder()
+        return TipoSector.builder()
                 .codTipoSector(codigo)
                 .nombreTipoSector(denominacion)
                 .build();
-        return tipoSector;
     }
 }

@@ -59,8 +59,7 @@ public class _4_LocalidadSeeder implements CommandLineRunner {
     }
 
     localidades.remove(0);
-    Iterable<Localidad> localidadIterable = localidades;
-    localidadRepository.saveAll(localidadIterable);
+    localidadRepository.saveAll(localidades);
     csvReader.close();
   }
 
