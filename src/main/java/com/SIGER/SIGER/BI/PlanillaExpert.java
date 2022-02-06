@@ -29,7 +29,7 @@ public class PlanillaExpert {
 
     public void processingSheets() throws Exception{
 
-        List<Planilla> sheets = new ArrayList<Planilla>();
+        List<Planilla> sheets = new ArrayList<>();
         List<Empleado> employees = _Employees.findAll();
 
         for (Empleado employee: employees) {
@@ -56,19 +56,19 @@ public class PlanillaExpert {
         for (Boleta boleta : boletas) {
 
             switch (boleta.getTipoBoleta().getCodigo()) {
-                case "razones particulares":
+                case "RP" : //"Razones particulares"
                     totalGabineteDesarraigo += 1;
                     break;
-                case "comisión por día":
+                case "CxD": //"Comision por día"
                     totalGabineteParcial += 1;
                     break;
-                case "Sereno":
+                case "S": //"Sereno"
                     totalGabineteSereno += 1;
                     break;
-                case "viático gabinete":
+                case "VG": //"Viático gabinete"
                     totalGabinete += 1;
                     break;
-                case "franquicia":
+                case "F": //"Franquicia"
                     totalGabineteCompleto += 1;
                     break;
                 default:
@@ -110,19 +110,40 @@ public class PlanillaExpert {
         for (Licencia licencia : licencias) {
 
             switch (licencia.getTipoLicencia().getCodigo()) {
-                case "razones particulares":
+                case "VH5A": //"Vacaciones hasta 5 años de antiguedad"
                     totalGabineteDesarraigo += 1;
                     break;
-                case "comisión por día":
+                case "VE5-10A": //"Vacaciones entre 5 y 10 años de antiguedad"
                     totalGabineteParcial += 1;
                     break;
-                case "Sereno":
+                case "VE10-20A": //"Vacaciones entre 10 y 20 años de antiguedad"
                     totalGabineteSereno += 1;
                     break;
-                case "viático gabinete":
+                case "VM20A": //"Vacaciones más de 20 años de antiguedad"
                     totalGabinete += 1;
                     break;
-                case "franquicia":
+                case "LSGH": //"Licencia sin goce de haberes"
+                    totalGabinete += 1;
+                    break;
+                case "LE": //"Licencia por enfermedad"
+                    totalGabineteCompleto += 1;
+                    break;
+                case "LM": //"Licencia por maternidad"
+                    totalGabineteCompleto += 1;
+                    break;
+                case "LP": //"Licencia por paternidad"
+                    totalGabineteCompleto += 1;
+                    break;
+                case "LEX": //"Licencia por examen"
+                    totalGabineteCompleto += 1;
+                    break;
+                case "LFHC": //"Licencia por fallecimiento de hijos, cónyuge"
+                    totalGabineteCompleto += 1;
+                    break;
+                case "LFH": //"Licencia por fallecimiento de hermanos"
+                    totalGabineteCompleto += 1;
+                    break;
+                case "LMTR": //"Licencia por matrimonio"
                     totalGabineteCompleto += 1;
                     break;
                 default:
