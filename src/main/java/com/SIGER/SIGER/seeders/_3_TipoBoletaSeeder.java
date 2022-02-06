@@ -36,7 +36,6 @@ public class _3_TipoBoletaSeeder implements CommandLineRunner {
             tipoBoletaRepository.save(
                     buildTipoBoleta("F","Franquicia",false, false, false, false,false));
 
-
         }
     }
 

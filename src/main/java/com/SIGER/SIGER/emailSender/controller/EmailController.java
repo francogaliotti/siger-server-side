@@ -1,25 +1,24 @@
 package com.SIGER.SIGER.emailSender.controller;
 
 import com.SIGER.SIGER.common.Message;
+import com.SIGER.SIGER.common.PasswordValidation;
 import com.SIGER.SIGER.emailSender.dto.ChangeAndResetPasswordDTO;
 import com.SIGER.SIGER.emailSender.dto.EmailValuesDTO;
 import com.SIGER.SIGER.emailSender.service.EmailService;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.service.UsuarioService;
-import java.util.Optional;
-import java.util.UUID;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/email-password")
@@ -61,13 +60,13 @@ public class EmailController {
     valuesDTO.setSubject(subject_Welcome);
     valuesDTO.setUsername(usuario.getUsername());
 
-    UUID uuid = UUID.randomUUID();
+    /*UUID uuid = UUID.randomUUID();
     String tokenPassword = uuid.toString();
 
     valuesDTO.setTokenPassword(tokenPassword);
     usuario.setTokenPassword(tokenPassword);
 
-
+    usuarioService.save(usuario);*/
     emailService.sendWelcomeEmail(valuesDTO);
 
     return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);
@@ -134,15 +133,22 @@ public class EmailController {
     if(!changeAndResetPasswordDTO.getPassword().equals(changeAndResetPasswordDTO.getConfirmPassword())){
       return new ResponseEntity<>(new Message("Las contraseñas no coinciden"), HttpStatus.BAD_REQUEST);
     }
+    if(!PasswordValidation.isValid(changeAndResetPasswordDTO.getPassword()))
+      return new ResponseEntity<>(new Message("La contraseña debe tener como mínimo 8 caracteres"), HttpStatus.BAD_REQUEST);
+
     Optional<Usuario>usuarioOptional = usuarioService.findByTokenPassword(changeAndResetPasswordDTO.getTokenPassword());
     if(!usuarioOptional.isPresent()){
       return new ResponseEntity<>(new Message("No existe ningún usuario con esas credenciales"),
           HttpStatus.NOT_FOUND);
     }
+
+    LocalDateTime today = LocalDateTime.now();
+    LocalDateTime passwordExpireDate = today.plusMonths(6);
     Usuario usuario = usuarioOptional.get();
     String newPassword = passwordEncoder.encode(changeAndResetPasswordDTO.getPassword());
     usuario.setPassword(newPassword);
     usuario.setTokenPassword(null);
+    usuario.setPasswordExpireDate(passwordExpireDate);
     usuarioService.save(usuario);
     return new ResponseEntity<>(new Message("Contraseña actualizada"), HttpStatus.OK);
   }
