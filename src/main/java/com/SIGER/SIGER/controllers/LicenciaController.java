@@ -49,14 +49,12 @@ public class LicenciaController extends
     @PutMapping("/{id}")
     public ResponseEntity<LicenciaResponse> put(@PathVariable("id") Long id,
                                                 @RequestBody LicenciaRequest licenciaRequest) throws Exception {
-        // TODO Auto-generated method stub
         return licenciaExpert.update(id, licenciaRequest);
     }
 
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(Long id) throws Exception {
-        // TODO Auto-generated method stub
         return licenciaExpert.delete(id);
     }
 
