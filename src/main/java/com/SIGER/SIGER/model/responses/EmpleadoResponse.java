@@ -5,7 +5,6 @@ import com.SIGER.SIGER.security.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;

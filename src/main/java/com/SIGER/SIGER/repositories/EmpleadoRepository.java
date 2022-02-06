@@ -2,7 +2,6 @@ package com.SIGER.SIGER.repositories;
 
 import com.SIGER.SIGER.model.entities.Empleado;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;

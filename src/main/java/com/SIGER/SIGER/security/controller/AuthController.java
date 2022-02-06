@@ -2,7 +2,6 @@ package com.SIGER.SIGER.security.controller;
 
 import com.SIGER.SIGER.security.dto.JwtDTO;
 import com.SIGER.SIGER.security.dto.LoginUsuario;
-import com.SIGER.SIGER.security.dto.NuevoUsuario;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import java.text.ParseException;

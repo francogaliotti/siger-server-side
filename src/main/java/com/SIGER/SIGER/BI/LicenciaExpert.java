@@ -4,7 +4,6 @@ import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.*;
 import com.SIGER.SIGER.model.requests.LicenciaRequest;
-import com.SIGER.SIGER.model.responses.BoletaResponse;
 import com.SIGER.SIGER.model.responses.LicenciaResponse;
 import com.SIGER.SIGER.services.EstadoLicenciaService;
 import com.SIGER.SIGER.services.LicenciaService;
