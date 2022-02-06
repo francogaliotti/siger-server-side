@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface LicenciaRepository extends BaseRepository<Licencia, Long>{
 
-    @Query(value = "SELECT * FROM licencia l WHERE l.fk_empleado = :empleado_id",
+    @Query(value = "SELECT * FROM licencia l WHERE l.fk_empleado = :fk_empleado",
             nativeQuery = true)
     Page<Licencia> findByEmpleado(Pageable pageable, @Param("fk_empleado") Long id);
 
