@@ -8,6 +8,9 @@ import com.SIGER.SIGER.model.entities.Boleta;
 import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.repositories.BoletaRepository;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class BoletaService extends AbsBaseService<Boleta, Long> implements
     IBoletaService {
@@ -19,6 +22,10 @@ public class BoletaService extends AbsBaseService<Boleta, Long> implements
         super(baseRepository);
     }
 
+
+    public List<Boleta> getByDateFrom_DateTo_Employees(Date dateFrom, Date dateTo, long id){
+        return boletaRepository.getByDateFrom_DateTo_Employees(dateFrom, dateTo, id);
+    }
     public boolean existsById(Long id) {
         return boletaRepository.existsById(id);
     }
