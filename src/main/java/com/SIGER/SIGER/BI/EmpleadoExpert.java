@@ -390,6 +390,7 @@ public class EmpleadoExpert extends
         employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
         employee.getUsuario().setEnabled(true);
         employee.getUsuario().setPasswordExpireDate(LocalDateTime.now().plusMonths(6));
+        employee.getUsuario().setImage("assets/images/default_generic_profile_picture.png");
         empleadoService.save(employee);
         emailController.sendWelcomeEmail(
                 this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
