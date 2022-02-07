@@ -386,7 +386,7 @@ public class EmpleadoExpert extends
         employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia());
 
         aux_password = this.generateRandomPassword();
-
+        System.out.println("LA CONTRASEÑA ES: "+ aux_password);
         employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
         employee.getUsuario().setEnabled(true);
         employee.getUsuario().setPasswordExpireDate(LocalDateTime.now().plusMonths(6));
