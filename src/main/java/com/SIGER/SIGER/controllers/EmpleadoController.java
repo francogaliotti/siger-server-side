@@ -98,7 +98,7 @@ public class EmpleadoController extends
   }
 
   @Override
-  @PreAuthorize("hasRole('ADMIN')")
+  //@PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/{id}")
   public ResponseEntity<EmpleadoResponse> put(@PathVariable Long id, @RequestBody EmpleadoRequest empleadoRequest)
       throws Exception {
