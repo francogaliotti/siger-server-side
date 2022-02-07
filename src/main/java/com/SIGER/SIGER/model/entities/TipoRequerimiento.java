@@ -27,14 +27,14 @@ public class TipoRequerimiento extends BaseEntity{
 	
 	//Relations
 	
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(/*cascade = CascadeType.MERGE*/)
 	@JoinTable(name = "tipo_requerimiento_sector",
 			joinColumns = @JoinColumn(name = "tipo_requerimiento_id"),
 			inverseJoinColumns = @JoinColumn(name = "sector_id"))
 	private List<Sector> aprueban = new ArrayList<>();
 
 
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany(/*cascade = CascadeType.MERGE*/)
 	@JoinTable(name = "tipo_requerimiento_empleado",
 			joinColumns = @JoinColumn(name = "tipo_requerimiento_id"),
 			inverseJoinColumns = @JoinColumn(name = "empleado_id"))
