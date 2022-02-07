@@ -113,7 +113,7 @@ try {
   tipoBoleta.setTipoBoletaDenominacion(tipoBoletaRequest.getTipoBoletaDenominacion());
   tipoBoleta.setTieneMovilidad(tipoBoletaRequest.isTieneMovilidad());
   tipoBoleta.setTieneZonaInhospita(tipoBoletaRequest.isTieneZonaInhospita());
-  tipoBoleta.setTieneViatico(tipoBoleta.isTieneViatico());
+  tipoBoleta.setTieneViatico(tipoBoletaRequest.isTieneViatico());
   tipoBoleta.setPermiteNoFichadaRetorno(tipoBoletaRequest.isPermiteNoFichadaRetorno());
   tipoBoleta.setPermiteNoFichadaSalida(tipoBoletaRequest.isPermiteNoFichadaSalida());
   tipoBoleta.getTipoRequerimiento()
