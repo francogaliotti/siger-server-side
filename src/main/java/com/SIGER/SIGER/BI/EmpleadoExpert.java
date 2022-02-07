@@ -369,6 +369,7 @@ public class EmpleadoExpert extends
         ModelMapper mapper = new ModelMapper();
         Empleado employee = mapper.map(empleadoRequest, Empleado.class);
         employee.setFechaAlta(new Date());
+        employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia());
 
         aux_password = this.generateRandomPassword();
 
