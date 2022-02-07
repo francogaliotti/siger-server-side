@@ -43,7 +43,7 @@ public class Planilla extends BaseEntity{
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Empleado empleado;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Boleta> boletas = new ArrayList<>();
 	
