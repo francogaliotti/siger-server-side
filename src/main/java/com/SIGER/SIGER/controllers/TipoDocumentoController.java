@@ -1,17 +1,13 @@
 package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.TipoDocumento;
 import com.SIGER.SIGER.model.responses.TipoDocumentoResponse;
-import com.SIGER.SIGER.model.responses.TipoLicenciaResponse;
 import com.SIGER.SIGER.repositories.TipoDocumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 

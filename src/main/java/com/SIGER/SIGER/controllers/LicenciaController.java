@@ -4,12 +4,10 @@ import com.SIGER.SIGER.BI.LicenciaExpert;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Licencia;
 import com.SIGER.SIGER.model.requests.LicenciaRequest;
-import com.SIGER.SIGER.model.responses.BoletaResponse;
 import com.SIGER.SIGER.model.responses.LicenciaResponse;
 import com.SIGER.SIGER.services.LicenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -51,14 +49,12 @@ public class LicenciaController extends
     @PutMapping("/{id}")
     public ResponseEntity<LicenciaResponse> put(@PathVariable("id") Long id,
                                                 @RequestBody LicenciaRequest licenciaRequest) throws Exception {
-        // TODO Auto-generated method stub
         return licenciaExpert.update(id, licenciaRequest);
     }
 
     @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(Long id) throws Exception {
-        // TODO Auto-generated method stub
         return licenciaExpert.delete(id);
     }
 

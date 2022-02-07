@@ -2,9 +2,6 @@ package com.SIGER.SIGER.security.controller;
 
 import com.SIGER.SIGER.security.dto.JwtDTO;
 import com.SIGER.SIGER.security.dto.LoginUsuario;
-import com.SIGER.SIGER.security.dto.NuevoUsuario;
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

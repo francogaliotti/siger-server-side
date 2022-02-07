@@ -53,8 +53,7 @@ public class _1_RegimenHorarioSeeder implements CommandLineRunner {
 
     private LocalTime convertStringToLocalDate(String horaMinuto) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US);
-        LocalTime horaMinutoJornadaLaboral = LocalTime.parse(horaMinuto, formatter);
-        return horaMinutoJornadaLaboral;
+        return LocalTime.parse(horaMinuto, formatter);
     }
 
 }

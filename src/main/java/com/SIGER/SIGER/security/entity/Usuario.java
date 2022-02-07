@@ -1,20 +1,13 @@
 package com.SIGER.SIGER.security.entity;
 
 import com.SIGER.SIGER.model.entities.BaseEntity;
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
@@ -36,6 +29,8 @@ public class Usuario extends BaseEntity {
 
     @NotNull
     private String password;
+
+    private LocalDateTime passwordExpireDate;
 
     private String image;
 

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class ChangePasswordDTO {
+public class ChangeAndResetPasswordDTO {
 
   @NotBlank
   private String password;

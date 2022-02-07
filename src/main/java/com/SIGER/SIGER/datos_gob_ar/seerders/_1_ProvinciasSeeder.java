@@ -55,8 +55,7 @@ public class _1_ProvinciasSeeder implements CommandLineRunner {
 
     }
     provincias.remove(0);
-    Iterable<Provincia> provinciaIterable = provincias;
-    provinciaRepository.saveAll(provinciaIterable);
+    provinciaRepository.saveAll(provincias);
     csvReader.close();
   }
 

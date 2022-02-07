@@ -2,29 +2,21 @@ package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
-import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
-import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
-import com.SIGER.SIGER.datos_gob_ar.entities.Municipio;
-import com.SIGER.SIGER.datos_gob_ar.entities.Provincia;
 import com.SIGER.SIGER.emailSender.controller.EmailController;
 import com.SIGER.SIGER.emailSender.dto.EmailValuesDTO;
-import com.SIGER.SIGER.model.entities.DocumentoIdentidad;
-import com.SIGER.SIGER.model.entities.Domicilio;
-import com.SIGER.SIGER.model.entities.Empleado;
-import com.SIGER.SIGER.model.entities.HistorialSectorEmpleado;
-import com.SIGER.SIGER.model.entities.Nacionalidad;
-import com.SIGER.SIGER.model.entities.RegimenHorario;
-import com.SIGER.SIGER.model.entities.Remuneracion;
-import com.SIGER.SIGER.model.entities.Sector;
-import com.SIGER.SIGER.model.entities.TipoDocumento;
+import com.SIGER.SIGER.model.entities.*;
 import com.SIGER.SIGER.model.requests.EmpleadoRequest;
 import com.SIGER.SIGER.model.responses.EmpleadoResponse;
+import com.SIGER.SIGER.repositories.RemanenteDiasLicenciasRepository;
+import com.SIGER.SIGER.repositories.TipoLicenciaRepository;
 import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import com.SIGER.SIGER.services.EmpleadoService;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,6 +52,12 @@ public class EmpleadoExpert extends
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    RemanenteDiasLicenciasRepository remanenteDiasLicenciasRepository;
+
+    @Autowired
+    TipoLicenciaRepository tipoLicenciaRepository;
 
     @Value("${lowerCasesAmount}")
     int lowerCasesAmount;
@@ -291,7 +289,7 @@ public class EmpleadoExpert extends
                 .domicilio(empleadoRequest.getDomicilio())
                 .sector(empleadoRequest.getSector())
                 .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
-                .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
+                .remanenteDiasLicencias(buildAndSetRemanenteDiasLicencia())
                 .documentoIdentidad(empleadoRequest.getDocumentoIdentidad())
                 .build();
         try {
@@ -301,6 +299,17 @@ public class EmpleadoExpert extends
         }
 
         return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
+    }
+
+    public List<RemanenteDiasLicencia> buildAndSetRemanenteDiasLicencia(){
+        List<TipoLicencia>tipoLicencias = tipoLicenciaRepository.findAll();
+        List<RemanenteDiasLicencia>remanenteDiasLicencias = new ArrayList<>();
+        for (int i = 0; i < tipoLicencias.size(); i++) {
+            RemanenteDiasLicencia remanenteDiasLicencia = new RemanenteDiasLicencia(LocalDate.now().getYear(),tipoLicencias.get(i).getCantidadMaximaAnual(),tipoLicencias.get(i));
+            remanenteDiasLicencias.add(remanenteDiasLicencia);
+        }
+        remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
+        return remanenteDiasLicencias;
     }
 
     @Override
@@ -374,10 +383,13 @@ public class EmpleadoExpert extends
         ModelMapper mapper = new ModelMapper();
         Empleado employee = mapper.map(empleadoRequest, Empleado.class);
         employee.setFechaAlta(new Date());
+        employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia());
 
         aux_password = this.generateRandomPassword();
 
         employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
+        employee.getUsuario().setEnabled(true);
+        employee.getUsuario().setPasswordExpireDate(LocalDateTime.now().plusMonths(6));
         empleadoService.save(employee);
         emailController.sendWelcomeEmail(
                 this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,

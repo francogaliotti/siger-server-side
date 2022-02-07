@@ -20,12 +20,12 @@ public class _0_ZonaInhospitaSeeder implements CommandLineRunner {
 
     private void loadZonaInhospita(){
         if (zonaInhospitaRepository.count() == 0) {
-            zonaInhospitaRepository.save(buildZonaInhospita("EB01", "Potrerillos",1000));
-            zonaInhospitaRepository.save(buildZonaInhospita("EB02", "Uspallata",2000));
-            zonaInhospitaRepository.save(buildZonaInhospita("EB03", "Costa de Araujo",1500));
-            zonaInhospitaRepository.save(buildZonaInhospita("EB01", "Malargüe",3000));
-            zonaInhospitaRepository.save(buildZonaInhospita("EB02", "Desaguadero",2500));
-            zonaInhospitaRepository.save(buildZonaInhospita("EB03", "Las Catitas",1700));
+            zonaInhospitaRepository.save(buildZonaInhospita("ZI01", "Potrerillos",1000));
+            zonaInhospitaRepository.save(buildZonaInhospita("ZI02", "Uspallata",2000));
+            zonaInhospitaRepository.save(buildZonaInhospita("ZI03", "Costa de Araujo",1500));
+            zonaInhospitaRepository.save(buildZonaInhospita("ZI01", "Malargüe",3000));
+            zonaInhospitaRepository.save(buildZonaInhospita("ZI02", "Desaguadero",2500));
+            zonaInhospitaRepository.save(buildZonaInhospita("ZI03", "Las Catitas",1700));
         }
     }
 
