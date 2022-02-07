@@ -37,7 +37,7 @@ public class Usuario extends BaseEntity {
     private String tokenPassword;
 
     @NotNull
-    private boolean isFirstSignIn;
+    private boolean isFirstSignin;
 
     boolean	enabled;
 

@@ -55,13 +55,13 @@ public class Boleta extends BaseEntity{
 	private boolean sinFichadaSalida;
 
 	//Relations
-	
+
 	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "fk_zonaInhospita")
+	@JoinColumn(name = "fk_zonaInhospita", nullable = true)
 	private ZonaInhospita zonaInhospita;
-	
+
 	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "fk_viatico")
+	@JoinColumn(name = "fk_viatico", nullable = true)
 	private Viatico viatico;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
@@ -73,11 +73,11 @@ public class Boleta extends BaseEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DocumentoAdjuntoBoleta> documentosAdjuntosBoleta = new ArrayList<>();
-	
+
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.MERGE})
 	@JoinTable(name = "boleta_movilidad",
-	joinColumns = @JoinColumn(name = "boleta_id"), 
-	inverseJoinColumns = @JoinColumn(name = "movilidad_id"))
+			joinColumns = @JoinColumn(name = "boleta_id", nullable = true),
+			inverseJoinColumns = @JoinColumn(name = "movilidad_id", nullable = true))
 	private List<Movilidad> movilidades = new ArrayList<>();
 	
 	@NonNull
