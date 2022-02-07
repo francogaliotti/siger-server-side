@@ -348,43 +348,6 @@ public class EmpleadoExpert extends
         return new ResponseEntity(new Message("Empleado actualizado"), HttpStatus.OK);
     }
 
-    public ResponseEntity<EmpleadoResponse> updateUser(Long id, EmpleadoRequest empleadoRequest)
-            throws Exception {
-
-        if (empleadoService.findById(id).equals(false)) {
-            return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
-        }
-
-        /*if (StringUtils.isBlank(empleadoRequest.getNombre())) {
-            return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
-                    HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(empleadoRequest.getApellido())) {
-            return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
-                    HttpStatus.BAD_REQUEST);
-        }*/
-
-        Empleado empleado = empleadoService.findById(id);
-        Domicilio domicilio = new Domicilio();
-
-        domicilio.setCalle(empleadoRequest.getDomicilio().getCalle());
-        domicilio.setNroCalle(empleadoRequest.getDomicilio().getNroCalle());
-        domicilio.setNroDepartamento(empleadoRequest.getDomicilio().getNroDepartamento());
-        domicilio.setNroPiso(empleadoRequest.getDomicilio().getNroPiso());
-        domicilio.setProvincia(empleadoRequest.getDomicilio().getProvincia());
-        domicilio.setDepartamento(empleadoRequest.getDomicilio().getDepartamento());
-        domicilio.setLocalidad(empleadoRequest.getDomicilio().getLocalidad());
-
-
-        empleado.setCorreoPersonal(empleadoRequest.getCorreoPersonal());
-        empleado.setNroTelefonoCelular(empleadoRequest.getNroTelefonoCelular());
-        empleado.setNroTelefonoFijo(empleadoRequest.getNroTelefonoFijo());
-        empleado.setDomicilio(domicilio);
-
-        empleadoService.update(id, empleado);
-
-        return new ResponseEntity(new Message("Empleado actualizado"), HttpStatus.OK);
-    }
 
     @Override
     public ResponseEntity<?> delete(Long id) throws Exception {
