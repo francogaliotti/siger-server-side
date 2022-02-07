@@ -1,5 +1,12 @@
 package com.SIGER.SIGER.seeders;
 
+import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
+import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
+import com.SIGER.SIGER.datos_gob_ar.entities.Provincia;
+import com.SIGER.SIGER.datos_gob_ar.repositories.DepartamentoRepository;
+import com.SIGER.SIGER.datos_gob_ar.repositories.LocalidadRepository;
+import com.SIGER.SIGER.datos_gob_ar.repositories.ProvinciaRepository;
+import com.SIGER.SIGER.model.entities.Domicilio;
 import com.SIGER.SIGER.model.entities.Empleado;
 import com.SIGER.SIGER.model.entities.Sector;
 import com.SIGER.SIGER.repositories.EmpleadoRepository;
@@ -26,13 +33,43 @@ public class _2_EmpleadoSeeder implements CommandLineRunner {
     @Autowired
     SectorRepository sectorRepository;
 
+    @Autowired
+    ProvinciaRepository provinciaRepository;
+
+    @Autowired
+    DepartamentoRepository departamentoRepository;
+
+    @Autowired
+    LocalidadRepository localidadRepository;
+
+    private Domicilio domicilio;
+
+
     @Override
     public void run(String... args) throws Exception {
         loadEmpleados();
     }
 
+    private void loadDomicilio() {
+
+        Optional<Provincia> optionalProvincia = provinciaRepository.findById("50");
+
+        Optional<Departamento> optionalDepartamento = departamentoRepository.findById("50007");
+
+        Optional<Localidad> optionalLocalidad = localidadRepository.findById("50007010001");
+
+        this.domicilio = Domicilio.builder()
+                .calle("Calle Falsa")
+                .nroCalle(123)
+                .provincia(optionalProvincia.get())
+                .departamento(optionalDepartamento.get())
+                .localidad(optionalLocalidad.get())
+                .build();
+    }
+
     private void loadEmpleados() {
         if (empleadoRepository.count() == 0) {
+            this.loadDomicilio();
             empleadoRepository.save(
                     buildEmpleado("Jeremias", "Fernandez", "jfernandez@siger.com", 1, "1", false, Long.valueOf(1),Long.valueOf(2)));
             empleadoRepository.save(buildEmpleado("Alexis", "Bahi", "abahi@siger.com", 1, "2", false, Long.valueOf(2),Long.valueOf(3)));
@@ -66,6 +103,7 @@ public class _2_EmpleadoSeeder implements CommandLineRunner {
                 .esEncargado(esEncargado)
                 //.nroTelefonoFijo()
                 //.nroTelefonoCelular()
+                .domicilio(domicilio)
                 .build();
 
         if (optionalUsuario.isPresent()){
