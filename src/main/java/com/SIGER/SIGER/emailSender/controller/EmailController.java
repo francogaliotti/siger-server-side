@@ -142,13 +142,11 @@ public class EmailController {
           HttpStatus.NOT_FOUND);
     }
 
-    LocalDateTime today = LocalDateTime.now();
-    LocalDateTime passwordExpireDate = today.plusMonths(6);
     Usuario usuario = usuarioOptional.get();
     String newPassword = passwordEncoder.encode(changeAndResetPasswordDTO.getPassword());
     usuario.setPassword(newPassword);
     usuario.setTokenPassword(null);
-    usuario.setPasswordExpireDate(passwordExpireDate);
+    usuario.setPasswordExpireDate(LocalDateTime.now().plusMonths(6));
     usuarioService.save(usuario);
     return new ResponseEntity<>(new Message("Contraseña actualizada"), HttpStatus.OK);
   }
