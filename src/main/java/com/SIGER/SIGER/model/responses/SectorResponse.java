@@ -1,6 +1,5 @@
 package com.SIGER.SIGER.model.responses;
 
-import com.SIGER.SIGER.model.entities.Domicilio;
 import com.SIGER.SIGER.model.entities.Sector;
 import com.SIGER.SIGER.model.entities.TipoSector;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -21,7 +20,7 @@ public class SectorResponse extends BaseResponse{
 
   private boolean validaFueraDeHorario;
 
-  private char detenerCargaBoletas;
+  private boolean detenerCargaBoletas;
 
   private boolean permiteTrabajarHorasExtras;
 

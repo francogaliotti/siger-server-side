@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class _3_MunicipioSeeder implements CommandLineRunner {
 
-  /*@Autowired
-  ProvinciaRepository provinciaRepository;*/
-
   @Autowired
   MunicipioRepository municipioRepository;
 
@@ -35,7 +32,7 @@ public class _3_MunicipioSeeder implements CommandLineRunner {
 
   private void municipiosSeeder() throws IOException, CsvValidationException {
 
-    File path = new File("Datos_gob_ar/municipios.csv");
+    File path = new File("datos_gob_ar/municipios.csv");
 
     CSVReader csvReader = new CSVReader(new FileReader(path.getAbsolutePath()));
 
@@ -44,10 +41,6 @@ public class _3_MunicipioSeeder implements CommandLineRunner {
     String[] columna;
 
     while ((columna = csvReader.readNext()) != null) {
-
-      //Optional<Provincia> optionalProvincia = provinciaRepository.findById(columna[7]);
-
-      //if (optionalProvincia.isPresent()) {
       municipios.add(Municipio.builder()
           .categoria(columna[0])
           .latitud(columna[1])
@@ -64,8 +57,7 @@ public class _3_MunicipioSeeder implements CommandLineRunner {
     }
 
     municipios.remove(0);
-    Iterable<Municipio> municipioIterable = municipios;
-    municipioRepository.saveAll(municipioIterable);
+    municipioRepository.saveAll(municipios);
     csvReader.close();
   }
 

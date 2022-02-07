@@ -2,7 +2,7 @@ package com.SIGER.SIGER.model.requests;
 
 import com.SIGER.SIGER.model.entities.TipoRegimenHorario;
 import java.time.LocalTime;
-import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 

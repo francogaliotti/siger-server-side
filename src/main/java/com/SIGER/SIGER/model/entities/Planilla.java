@@ -38,6 +38,8 @@ public class Planilla extends BaseEntity{
 	private float totalGabineteDesarraigo;
 	
 	private float totalGabineteSereno;
+	
+	//Relations
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Empleado empleado;

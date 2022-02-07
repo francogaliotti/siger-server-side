@@ -57,6 +57,11 @@ public class DatosGobArExpert {
     return new ResponseEntity(provinciaResponses, HttpStatus.OK);
   }
 
+  public ResponseEntity<List<ProvinciaResponse>> findAllProvincias() throws Exception {
+    List<Provincia> provinciaList = provinciaService.findAll();
+    return new ResponseEntity(provinciaList, HttpStatus.OK);
+  }
+
   private List<ProvinciaResponse> converterProvinciaPageToList(List<Provincia> provincias) {
 
     List<ProvinciaResponse> provinciaResponses = new ArrayList<>();
@@ -77,6 +82,14 @@ public class DatosGobArExpert {
     List<DepartamentoResponse> departamentoResponses = converterDepartamentoPageToList(departamentoPage.getContent());
 
     return new ResponseEntity(departamentoResponses, HttpStatus.OK);
+  }
+
+  public ResponseEntity<List<DepartamentoResponse>> findAllDepartamentos(Long id) throws Exception {
+
+    List<Departamento> departamentoList = departamentoService.findAll(id);
+
+
+    return new ResponseEntity(departamentoList, HttpStatus.OK);
   }
 
   private List<DepartamentoResponse> converterDepartamentoPageToList(List<Departamento> departamentos) {
@@ -121,6 +134,14 @@ public class DatosGobArExpert {
     List<LocalidadResponse> localidadResponses = converterLocalidadPageToList(localidadPage.getContent());
 
     return new ResponseEntity(localidadResponses, HttpStatus.OK);
+  }
+
+  public ResponseEntity<List<LocalidadResponse>> findAllLocalidades(Long id) throws Exception {
+
+    List<Localidad> localidadList = localidadService.findAll(id);
+
+
+    return new ResponseEntity(localidadList, HttpStatus.OK);
   }
 
   private List<LocalidadResponse> converterLocalidadPageToList(List<Localidad> localidades) {

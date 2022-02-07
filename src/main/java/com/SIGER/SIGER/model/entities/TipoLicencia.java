@@ -18,21 +18,21 @@ import lombok.Setter;
 @Builder
 public class TipoLicencia extends BaseEntity {
 
-	private int cantidadMaximaAnual;
-
-	private int cantidadMaximaDiaria;
-
-	private int cantidadMaximaMensual;
-
 	private String codigo;
 
 	private String denominacion;
 
 	private boolean justificaPresentismo;
 
-	private int limiteRangoDias;
-
 	private boolean goceSueldo;
+
+	private int cantidadMaximaAnual;
+
+	private int cantidadMaximaDiaria;
+
+	private int cantidadMaximaMensual;
+
+	private int limiteRangoDias;
 
 	private String observaciones;
 

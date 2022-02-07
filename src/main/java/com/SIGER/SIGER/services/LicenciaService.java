@@ -26,4 +26,8 @@ public class LicenciaService extends AbsBaseService<Licencia, Long> implements
     public List<Licencia> getByDateFrom_DateTo_Employee(Date dateFrom, Date dateTo, long id){
         return licenciaRepository.getByDateFrom_DateTo_Employee(dateFrom, dateTo, id);
     }
+    public boolean existsById(Long id) {
+        return licenciaRepository.existsById(id);
+    }
+
 }

@@ -49,6 +49,16 @@ public class EmpleadoController extends
     return empleadoExpert.findById(id);
   }
 
+  @GetMapping("/buscar-empleado-por-usuario/{id}")
+  public ResponseEntity<EmpleadoResponse> getByUsuarioId(@PathVariable Long id) throws Exception {
+    return empleadoExpert.findByUsuarioId(id);
+  }
+
+  /*@GetMapping("/buscar-empleado-id-por-usuario/{id}")
+  public ResponseEntity<Long> getIdByUsuarioId(@PathVariable Long id) throws Exception {
+    return empleadoExpert.findEmployeeIdByUsuarioId(id);
+  }
+*/
   @GetMapping("/employee/{username}")
   public ResponseEntity<EmpleadoResponse> getByUserName(@PathVariable String username) throws Exception {
     return empleadoExpert.getByUserName(username);
@@ -65,17 +75,23 @@ public class EmpleadoController extends
   private ResponseEntity<EmpleadoResponse> createUsuario(EmpleadoRequest empleadoRequest) throws Exception {
     HttpStatus status;
     String message = "";
-    empleadoExpert.save(empleadoRequest);
-
+    /*try {
+      empleadoExpert.save(empleadoRequest);
+    }catch (Exception e){
+      System.out.println("Lo que te tira es "+e);
+    }*/
     try{
       empleadoExpert.createUser(empleadoRequest);
       status = HttpStatus.OK;
     }catch (NullPointerException ex){
       status = HttpStatus.BAD_REQUEST;
+      System.out.println(status);
     }catch (SQLTimeoutException ex){
       status = HttpStatus.REQUEST_TIMEOUT;
+      System.out.println(status);
     }catch (Exception ex){
       status = HttpStatus.INTERNAL_SERVER_ERROR;
+      System.out.println(status);
     }
 
     return new ResponseEntity(message, status);

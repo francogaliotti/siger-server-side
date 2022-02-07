@@ -39,6 +39,12 @@ public class RegimenHorarioExpert extends
     return new ResponseEntity(regimenHorarioResponses, HttpStatus.OK);
   }
 
+  public ResponseEntity<List<RegimenHorarioResponse>> findAll() throws Exception {
+
+    List<RegimenHorario> regimenHorarioList = regimenHorarioService.findAll();
+    return new ResponseEntity(regimenHorarioList, HttpStatus.OK);
+  }
+
   private List<RegimenHorarioResponse> converterPageToList(List<RegimenHorario> regimenHorarios) {
 
     List<RegimenHorarioResponse> regimenHorarioResponses = new ArrayList<>();

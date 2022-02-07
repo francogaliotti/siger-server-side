@@ -41,6 +41,11 @@ public class RemuneracionController extends
         response);
   }
 
+  @GetMapping("/list")
+  public ResponseEntity<List<RemuneracionResponse>> getListAll() throws Exception {
+    return remuneracionExpert.findAll();
+  }
+
   @Override
   @GetMapping("/{id}")
   public ResponseEntity<RemuneracionResponse> getById(@PathVariable("id") Long id)

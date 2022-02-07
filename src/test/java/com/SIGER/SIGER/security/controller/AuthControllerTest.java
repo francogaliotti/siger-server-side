@@ -2,9 +2,6 @@ package com.SIGER.SIGER.security.controller;
 
 import com.SIGER.SIGER.security.dto.JwtDTO;
 import com.SIGER.SIGER.security.dto.LoginUsuario;
-import com.SIGER.SIGER.security.dto.NuevoUsuario;
-import java.util.HashSet;
-import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +16,8 @@ public class AuthControllerTest {
     @Autowired
     AuthController authController;
 
-    @Test
-    public void  registrarUsuario() {
+    /*@Test
+   public void  registrarUsuario() {
 
         Set<String> roles = new HashSet<>();
         roles.add("admin");
@@ -32,7 +29,7 @@ public class AuthControllerTest {
 
         Assert.isTrue(response.getStatusCode().is2xxSuccessful(),response.getBody().toString());
 
-    }
+    }*/
 
     @Test
     public void loginUsuario() {

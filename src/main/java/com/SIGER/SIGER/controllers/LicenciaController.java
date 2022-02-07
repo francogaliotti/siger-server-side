@@ -1,53 +1,72 @@
-/*package com.SIGER.SIGER.controllers;
+package com.SIGER.SIGER.controllers;
 
-import com.SIGER.SIGER.services.LicenciaService;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.SIGER.SIGER.BI.LicenciaExpert;
+import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Licencia;
+import com.SIGER.SIGER.model.requests.LicenciaRequest;
+import com.SIGER.SIGER.model.responses.LicenciaResponse;
+import com.SIGER.SIGER.services.LicenciaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
-@CrossOrigin
-@RequestMapping
-public class LicenciaController extends AbsBaseController<Licencia, LicenciaService> {
+@RequestMapping("/licencia")
+@CrossOrigin(origins = "http://localhost:4200")
+public class LicenciaController extends
+        AbsBaseController<Licencia, LicenciaService, LicenciaRequest, LicenciaResponse, LicenciaExpert> {
 
-	@Override
-	public ResponseEntity<?> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Autowired
+    LicenciaExpert licenciaExpert;
 
-	@Override
-	public ResponseEntity<?> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    @GetMapping("/")
+    public ResponseEntity<List<LicenciaResponse>> getAll(@RequestParam("page") int page,
+                                                         UriComponentsBuilder uriBuilder,
+                                                         HttpServletResponse response) throws Exception {
+        return licenciaExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
+                response);
 
-	@Override
-	public ResponseEntity<?> findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public ResponseEntity<?> save(Licencia entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<LicenciaResponse> getById(@PathVariable("id") Long id) throws Exception {
+        return licenciaExpert.findById(id);
+    }
 
-	@Override
-	public ResponseEntity<?> update(Long id, Licencia entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    @PostMapping("/")
+    public ResponseEntity<LicenciaResponse> post(@RequestBody LicenciaRequest licenciaRequest) throws Exception {
+        return licenciaExpert.save(licenciaRequest);
+    }
 
-	@Override
-	public ResponseEntity<?> delete(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    @PutMapping("/{id}")
+    public ResponseEntity<LicenciaResponse> put(@PathVariable("id") Long id,
+                                                @RequestBody LicenciaRequest licenciaRequest) throws Exception {
+        return licenciaExpert.update(id, licenciaRequest);
+    }
 
-}*/
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(Long id) throws Exception {
+        return licenciaExpert.delete(id);
+    }
+
+    @PutMapping("/authorize/{id}")
+    public ResponseEntity<LicenciaResponse> authorize(@PathVariable Long id) throws Exception {
+        return licenciaExpert.authorize(id);
+    }
+
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<LicenciaResponse> reject(@PathVariable Long id) throws Exception {
+        return licenciaExpert.reject(id);
+    }
+
+
+}

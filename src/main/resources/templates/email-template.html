@@ -8,7 +8,11 @@
 <body>
 <h2>Recuperar Contraseña</h2>
 <h3><span>Hola </span><span th:text="${username}"></span></h3>
-<h4>Haz click en el siguiente enlace para acceder a tu cuenta</h4>
-<a th:href="@{${url-Change-Password}}"><button>Ir a mi cuenta</button></a>
+<h4>Se ha realizado una solicitud para recuperar su contraseña</h4>
+<h4>Si ha sido usted, haga clic en el siguiete botón</h4>
+<a th:href="@{${url}}"><button>Ir a mi cuenta</button></a>
+<h4>Si no ha sido usted, por favor pongase en contacto con su administrador inmediatamente</h4>
+<h4>Gracias,</h4>
+<h4>El equipo SIGER</h4>
 </body>
 </html>

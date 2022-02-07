@@ -20,6 +20,8 @@ import lombok.Setter;
 public class FechaCambioEstadoLicencia extends BaseEntity{
 
 	private Date fechaCambioEstadoLicencia;
+
+	private Date fechaFinEstadoLicencia;
 	
 	//Relations
 
@@ -27,7 +29,7 @@ public class FechaCambioEstadoLicencia extends BaseEntity{
 	@JoinColumn(name = "fk_empleadoEvaluadorLicencia")
 	private Empleado empleadoEvaluadorLicencia;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_estadoLicencia")
 	private EstadoLicencia estadoLicencia;
 

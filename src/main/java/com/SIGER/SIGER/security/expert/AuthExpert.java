@@ -11,6 +11,7 @@ import com.SIGER.SIGER.security.jwt.JwtProvider;
 import com.SIGER.SIGER.security.service.RolService;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -50,8 +51,8 @@ public class AuthExpert {
       return new ResponseEntity(new Message("Campos o email inválidos"), HttpStatus.BAD_REQUEST);
     if(usuarioService.existsByUsername(nuevoUsuario.getUsername()))
       return new ResponseEntity(new Message("Nombre de Usuario ya está registrado"), HttpStatus.BAD_REQUEST);
-    if(usuarioService.existsByEmail(nuevoUsuario.getCorreoInstitucional()))
-      return new ResponseEntity(new Message("Correo ya está registrado"), HttpStatus.BAD_REQUEST);
+    /*if(usuarioService.existsByEmail(nuevoUsuario.getCorreoInstitucional()))
+      return new ResponseEntity(new Message("Correo ya está registrado"), HttpStatus.BAD_REQUEST);*/
     Usuario usuario = Usuario.builder().nombre(nuevoUsuario.getNombre()).username(nuevoUsuario.getUsername())
         .correoInstitucional(nuevoUsuario.getCorreoInstitucional()).password(passwordEncoder.encode(nuevoUsuario.getPassword())).build();
     Set<Rol> roles = new HashSet<>();
@@ -70,7 +71,12 @@ public class AuthExpert {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
             (loginUsuario.getUsername(),loginUsuario.getPassword()));
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    String jwt = jwtProvider.generateToken(authentication);
+    Optional<Usuario> usuario = usuarioService.getByUsername(loginUsuario.getUsername());
+    if (!usuario.get().isEnabled())
+      return new ResponseEntity(new Message("Su cuenta ha sido deshabilitada"), HttpStatus.BAD_REQUEST);
+    /*if (usuario.get().getPasswordExpireDate().isBefore(LocalDateTime.now()))
+      return new ResponseEntity(new Message("Su contraseña ha expirado, por favor cámbiela"), HttpStatus.BAD_REQUEST);*/
+    String jwt = jwtProvider.generateToken(authentication,usuario.get().getId());
     JwtDTO jwtDTO = new JwtDTO(jwt);
     return new ResponseEntity(jwtDTO, HttpStatus.OK);
   }
@@ -89,6 +95,15 @@ public class AuthExpert {
     }
 
     return user.isFirstSignin();
+  }
+
+  public ResponseEntity<Usuario> getByUserId(Long userId){
+    Optional<Usuario> optionalUser = usuarioService.getByUserId(userId);
+    return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
+  }
+
+  public Boolean existByUsername(String username){
+    return usuarioService.existsByUsername(username);
   }
 
 }

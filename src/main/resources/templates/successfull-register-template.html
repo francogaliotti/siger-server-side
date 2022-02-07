@@ -8,7 +8,12 @@
 <body>
 <h2>Ingreso a SIGER</h2>
 <h3><span>Bienvenido </span><span th:text="${username}"></span></h3>
-<h4>Se ha creado su cuenta en SIGER exitosamente</h4>
-<a th:href="@{${url-home}}"><button>Ir a mi cuenta</button></a>
+<h4>Su cuenta en SIGER ha sido creada exitosamente</h4>
+<h4>Sus credenciales de acceso son las siguientes: </h4>
+<h4>Nombre de Usuario: <span th:text="${username}"></span></h4>
+<h4>Contraseña: <span th:text="${password}"></span></h4>
+<a th:href="@{${home}}"><button>Ir a mi cuenta</button></a>
+<h4>Gracias,</h4>
+<h4>El equipo SIGER</h4>
 </body>
 </html>

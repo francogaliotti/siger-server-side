@@ -2,7 +2,6 @@ package com.SIGER.SIGER.model.entities;
 
 import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
 import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
-import com.SIGER.SIGER.datos_gob_ar.entities.Municipio;
 import com.SIGER.SIGER.datos_gob_ar.entities.Provincia;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,12 +25,9 @@ public class Domicilio extends BaseEntity{
 	
 	private int nroCalle;
 	
-	private String dpto;
+	private int nroDepartamento;
 	
 	private int nroPiso;
-	private String barrio;
-	private String manzana;
-	private String casa;
 
 	
 	//Relation
@@ -44,9 +40,9 @@ public class Domicilio extends BaseEntity{
 	@JoinColumn(name = "fk_departamento")
 	private Departamento departamento;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	/*@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_municipio")
-	private Municipio municipio;
+	private Municipio municipio;*/
 
 
 	@ManyToOne(cascade = CascadeType.MERGE)

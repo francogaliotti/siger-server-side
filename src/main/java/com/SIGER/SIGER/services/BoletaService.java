@@ -26,4 +26,8 @@ public class BoletaService extends AbsBaseService<Boleta, Long> implements
     public List<Boleta> getByDateFrom_DateTo_Employees(Date dateFrom, Date dateTo, long id){
         return boletaRepository.getByDateFrom_DateTo_Employees(dateFrom, dateTo, id);
     }
+    public boolean existsById(Long id) {
+        return boletaRepository.existsById(id);
+    }
+
 }

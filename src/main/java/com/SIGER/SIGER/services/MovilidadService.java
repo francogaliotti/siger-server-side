@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.SIGER.SIGER.model.entities.Movilidad;
-import com.SIGER.SIGER.repositories.BaseRepository;
 import com.SIGER.SIGER.repositories.MovilidadRepository;
 
 import lombok.NoArgsConstructor;

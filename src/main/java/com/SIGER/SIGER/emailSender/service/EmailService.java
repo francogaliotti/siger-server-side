@@ -22,17 +22,46 @@ public class EmailService {
   @Autowired
   TemplateEngine templateEngine;
 
+  @Value("${mail.url-first-login}")
+  String url_First_Login;
+
+  @Value("${mail.url-Reset-Password}")
+  String url_Reset_Password;
+
   @Value("${mail.url-Change-Password}")
   String url_Change_Password;
 
-  public void sendEmail(EmailValuesDTO emailValuesDTO){
+  public void sendWelcomeEmail(EmailValuesDTO emailValuesDTO){
     MimeMessage message = javaMailSender.createMimeMessage();
     try {
       MimeMessageHelper helper = new MimeMessageHelper(message,true);
       Context context = new Context();
       Map<String, Object> model = new HashMap<>();
       model.put("username", emailValuesDTO.getUsername());
-      model.put("url-Change-Password", url_Change_Password + emailValuesDTO.getTokenPassword());
+      model.put("password", emailValuesDTO.getPassword());
+      model.put("home", url_First_Login + emailValuesDTO.getTokenPassword());
+      context.setVariables(model);
+
+      String htmlText = templateEngine.process("successfull-register-template", context);
+
+      helper.setFrom(emailValuesDTO.getMailFrom());
+      helper.setTo(emailValuesDTO.getMailTo());
+      helper.setSubject(emailValuesDTO.getSubject());
+      helper.setText(htmlText,true);
+      javaMailSender.send(message);
+    }catch (MessagingException e){
+      e.printStackTrace();
+    }
+  }
+
+  public void sendResetPasswordEmail(EmailValuesDTO emailValuesDTO){
+    MimeMessage message = javaMailSender.createMimeMessage();
+    try {
+      MimeMessageHelper helper = new MimeMessageHelper(message,true);
+      Context context = new Context();
+      Map<String, Object> model = new HashMap<>();
+      model.put("username", emailValuesDTO.getUsername());
+      model.put("url", url_Reset_Password + emailValuesDTO.getTokenPassword());
       context.setVariables(model);
 
       String htmlText = templateEngine.process("email-template", context);
@@ -47,5 +76,26 @@ public class EmailService {
     }
   }
 
+  public void sendChangePasswordEmail(EmailValuesDTO emailValuesDTO){
+    MimeMessage message = javaMailSender.createMimeMessage();
+    try {
+      MimeMessageHelper helper = new MimeMessageHelper(message,true);
+      Context context = new Context();
+      Map<String, Object> model = new HashMap<>();
+      model.put("username", emailValuesDTO.getUsername());
+      model.put("change", url_Change_Password + emailValuesDTO.getTokenPassword());
+      context.setVariables(model);
+
+      String htmlText = templateEngine.process("change-password-email-template", context);
+
+      helper.setFrom(emailValuesDTO.getMailFrom());
+      helper.setTo(emailValuesDTO.getMailTo());
+      helper.setSubject(emailValuesDTO.getSubject());
+      helper.setText(htmlText,true);
+      javaMailSender.send(message);
+    }catch (MessagingException e){
+      e.printStackTrace();
+    }
+  }
 
 }

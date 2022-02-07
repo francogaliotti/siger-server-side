@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.SIGER.SIGER.model.entities.Domicilio;
 import com.SIGER.SIGER.model.entities.Sector;
 import com.SIGER.SIGER.model.entities.TipoSector;
 import lombok.Getter;
@@ -27,7 +26,7 @@ public class SectorRequest extends BaseRequest{
 
   private boolean validaFueraDeHorario;
 
-  private char detenerCargaBoletas;
+  private boolean detenerCargaBoletas;
 
   private boolean permiteTrabajarHorasExtras;
 

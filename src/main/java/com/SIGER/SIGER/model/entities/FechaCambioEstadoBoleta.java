@@ -20,6 +20,8 @@ import lombok.Setter;
 public class FechaCambioEstadoBoleta extends BaseEntity{
 
 	private Date fechaCambioEstadoBoleta;
+
+	private Date fechaFinEstadoBoleta;
 	
 	//Relations
 

@@ -50,6 +50,14 @@ public class SectorExpert extends
     return sectorResponses;
   }
 
+  public ResponseEntity<List<SectorResponse>> findAll() throws Exception {
+
+    List<Sector> sectorList = sectorServiceImpl.findAll();
+
+
+    return new ResponseEntity(sectorList, HttpStatus.OK);
+  }
+
   @Override
   public ResponseEntity<SectorResponse> findById(Long id) throws Exception {
     Sector sector = sectorServiceImpl.findById(id);

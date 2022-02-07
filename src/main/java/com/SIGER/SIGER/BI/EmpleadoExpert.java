@@ -2,36 +2,24 @@ package com.SIGER.SIGER.BI;
 
 import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
-import com.SIGER.SIGER.datos_gob_ar.entities.Departamento;
-import com.SIGER.SIGER.datos_gob_ar.entities.Localidad;
-import com.SIGER.SIGER.datos_gob_ar.entities.Municipio;
-import com.SIGER.SIGER.datos_gob_ar.entities.Provincia;
 import com.SIGER.SIGER.emailSender.controller.EmailController;
 import com.SIGER.SIGER.emailSender.dto.EmailValuesDTO;
-import com.SIGER.SIGER.model.entities.DocumentoIdentidad;
-import com.SIGER.SIGER.model.entities.Domicilio;
-import com.SIGER.SIGER.model.entities.Empleado;
-import com.SIGER.SIGER.model.entities.HistorialSectorEmpleado;
-import com.SIGER.SIGER.model.entities.Nacionalidad;
-import com.SIGER.SIGER.model.entities.RegimenHorario;
-import com.SIGER.SIGER.model.entities.Remuneracion;
-import com.SIGER.SIGER.model.entities.Sector;
-import com.SIGER.SIGER.model.entities.TipoDocumento;
+import com.SIGER.SIGER.model.entities.*;
 import com.SIGER.SIGER.model.requests.EmpleadoRequest;
 import com.SIGER.SIGER.model.responses.EmpleadoResponse;
+import com.SIGER.SIGER.repositories.RemanenteDiasLicenciasRepository;
+import com.SIGER.SIGER.repositories.TipoLicenciaRepository;
 import com.SIGER.SIGER.security.entity.Rol;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import com.SIGER.SIGER.services.EmpleadoService;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,125 +33,135 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class EmpleadoExpert extends
-    AbsBaseExpert<Empleado, EmpleadoService, EmpleadoRequest, EmpleadoResponse> {
+        AbsBaseExpert<Empleado, EmpleadoService, EmpleadoRequest, EmpleadoResponse> {
 
-  @Autowired
-  EmpleadoService empleadoService;
+    @Autowired
+    EmpleadoService empleadoService;
 
-  @Autowired
-  PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
+    @Autowired
+    PaginatedResultsHeaderUtils paginatedResultsHeaderUtils;
 
-  @Autowired
-  UsuarioService userService;
+    @Autowired
+    UsuarioService userService;
 
-  @Autowired
-  AuthExpert authExpert;
+    @Autowired
+    AuthExpert authExpert;
 
-  @Autowired
-  EmailController emailController;
+    @Autowired
+    EmailController emailController;
 
-  @Autowired
-  PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-  @Value("${lowerCasesAmount}")
-  int lowerCasesAmount;
+    @Autowired
+    RemanenteDiasLicenciasRepository remanenteDiasLicenciasRepository;
 
-  @Value("${capitalLettersAmount}")
-  int capitalLettersAmount;
+    @Autowired
+    TipoLicenciaRepository tipoLicenciaRepository;
 
-  @Value("${digitsAmount}")
-  int digitsAmount;
+    @Value("${lowerCasesAmount}")
+    int lowerCasesAmount;
 
-  @Value("${nonAlphanumericsAmount}")
-  int nonAlphanumericsAmount;
+    @Value("${capitalLettersAmount}")
+    int capitalLettersAmount;
+
+    @Value("${digitsAmount}")
+    int digitsAmount;
+
+    @Value("${nonAlphanumericsAmount}")
+    int nonAlphanumericsAmount;
 
 
-  @Override
-  public ResponseEntity<List<EmpleadoResponse>> findAll(int page, int size,
-      UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
+    @Override
+    public ResponseEntity<List<EmpleadoResponse>> findAll(int page, int size,
+                                                          UriComponentsBuilder uriBuilder, HttpServletResponse response) throws Exception {
 
-    Page<Empleado> empleadoPage = empleadoService.findAll(page, size);
-    paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
-        empleadoPage.getTotalPages(), "/empleado");
+        Page<Empleado> empleadoPage = empleadoService.findAll(page, size);
+        paginatedResultsHeaderUtils.addLinkHeaderOnPagedResult(uriBuilder, response, page,
+                empleadoPage.getTotalPages(), "/empleado");
 
-    List<EmpleadoResponse> empleadoResponses = converterPageToList(empleadoPage.getContent());
-    return new ResponseEntity(empleadoResponses, HttpStatus.OK);
-  }
-
-  private List<EmpleadoResponse> converterPageToList(List<Empleado> empleados) {
-
-    List<EmpleadoResponse> empleadoResponses = new ArrayList<>();
-    for (int i = 0; i < empleados.size(); i++) {
-      empleadoResponses.add(
-          modelMapper.map(empleados.get(i), EmpleadoResponse.class));
-    }
-    return empleadoResponses;
-  }
-
-  @Override
-  public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
-    Empleado empleado = empleadoService.findById(id);
-    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
-    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<EmpleadoResponse> save(EmpleadoRequest empleadoRequest) throws Exception {
-    if (StringUtils.isBlank(empleadoRequest.getNombre())) {
-      return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (StringUtils.isBlank(empleadoRequest.getApellido())) {
-      return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (empleadoService.existsByLegajo(empleadoRequest.getLegajo())) {
-      return new ResponseEntity(new Message("El legajo del Empleado ya existe"),
-          HttpStatus.BAD_REQUEST);
+        List<EmpleadoResponse> empleadoResponses = converterPageToList(empleadoPage.getContent());
+        return new ResponseEntity(empleadoResponses, HttpStatus.OK);
     }
 
-    Nacionalidad nationality = new Nacionalidad();
-    nationality.setId(empleadoRequest.getNacionalidad().getId());
+    private List<EmpleadoResponse> converterPageToList(List<Empleado> empleados) {
 
-    DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
-        .nroIdentidad(empleadoRequest.getNroIdentificacionPersonal()).build();
+        List<EmpleadoResponse> empleadoResponses = new ArrayList<>();
+        for (int i = 0; i < empleados.size(); i++) {
+            empleadoResponses.add(
+                    modelMapper.map(empleados.get(i), EmpleadoResponse.class));
+        }
+        return empleadoResponses;
+    }
+
+
+    public ResponseEntity<EmpleadoResponse> findByUsuarioId(Long id) throws Exception {
+        Empleado empleado = empleadoService.getByfk_usuario(id);
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Long> findEmployeeIdByUsuarioId(Long id) throws Exception {
+        Empleado empleado = empleadoService.getByfk_usuario(id);
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse.getId(), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<EmpleadoResponse> findById(Long id) throws Exception {
+        Empleado empleado = empleadoService.findById(id);
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<EmpleadoResponse> save(EmpleadoRequest empleadoRequest) throws Exception {
+        if (StringUtils.isBlank(empleadoRequest.getNombre())) {
+            return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(empleadoRequest.getApellido())) {
+            return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (empleadoService.existsByLegajo(empleadoRequest.getLegajo())) {
+            return new ResponseEntity(new Message("El legajo del Empleado ya existe"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Nacionalidad nationality = new Nacionalidad();
+        nationality.setId(empleadoRequest.getNacionalidad().getId());
+
+    /*DocumentoIdentidad identityCard = DocumentoIdentidad.builder()
+        .nroIdentidad(empleadoRequest.getDocumentoIdentidad().getNroIdentidad())
+            .tipoDocumento(empleadoRequest.getDocumentoIdentidad().getTipoDocumento()).build();
 
     TipoDocumento typeOfDocument = new TipoDocumento();
     typeOfDocument.setId(empleadoRequest.getDocumentoIdentidad().getTipoDocumento().getId());
-    identityCard.setTipoDocumento(typeOfDocument);
+    identityCard.setTipoDocumento(typeOfDocument);*/
 
-    List<Remuneracion> remuneracionList = new ArrayList<>();
 
-    for (int i = 0; i < empleadoRequest.getRemuneraciones().size(); i++) {
+        Remuneracion remuneracion = Remuneracion.builder()
+                .valorHora(empleadoRequest.getRemuneracion().getValorHora())
+                .valorViaticoDia(empleadoRequest.getRemuneracion().getValorViaticoDia())
+                .importeHorasAdicionales(empleadoRequest.getRemuneracion().getImporteHorasAdicionales())
+                .importeZonaDesarraigo(empleadoRequest.getRemuneracion().getImporteZonaDesarraigo())
+                .build();
 
-      Remuneracion remuneracion = Remuneracion.builder()
-          .valorHora(empleadoRequest.getRemuneraciones().get(i).getValorHora())
-          .valorViaticoDia(empleadoRequest.getRemuneraciones().get(i).getValorViaticoDia())
-          .importeHorasAdicionales(empleadoRequest.getRemuneraciones().get(i).getImporteHorasAdicionales())
-          .importeZonaDesarraigo(empleadoRequest.getRemuneraciones().get(i).getImporteZonaDesarraigo())
-          .build();
-      remuneracionList.add(remuneracion);
-    }
 
-    List<RegimenHorario> regimenHorarioList = new ArrayList<>();
-
-    for (int i = 0; i < empleadoRequest.getRegimenesHorario().size(); i++) {
-
-      RegimenHorario regimenHorario = RegimenHorario.builder()
-          .isActive(empleadoRequest.getRegimenesHorario().get(i).isActive())
-          .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenesHorario().get(i).getHoraMinutoInicioJornadaLaboral())
-          .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenesHorario().get(i).getHoraMinutoFinJornadaLaboral())
-          .tipoRegimenHorario(empleadoRequest.getRegimenesHorario().get(i).getTipoRegimenHorario())
-          .build();
-
-      regimenHorarioList.add(regimenHorario);
-    }
+        RegimenHorario regimenHorario = RegimenHorario.builder()
+                .isActive(empleadoRequest.getRegimenHorario().isActive())
+                .horaMinutoInicioJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoInicioJornadaLaboral())
+                .horaMinutoFinJornadaLaboral(empleadoRequest.getRegimenHorario().getHoraMinutoFinJornadaLaboral())
+                .tipoRegimenHorario(empleadoRequest.getRegimenHorario().getTipoRegimenHorario())
+                .build();
+/*
     Provincia provincia = Provincia.builder()
         .categoria(empleadoRequest.getDomicilio().getProvincia().getCategoria())
         .latitud(empleadoRequest.getDomicilio().getProvincia().getLatitud())
         .longitud(empleadoRequest.getDomicilio().getProvincia().getLongitud())
         .fuente(empleadoRequest.getDomicilio().getProvincia().getFuente())
-        .id(empleadoRequest.getDomicilio().getProvincia().getFuente())
+        .id(empleadoRequest.getDomicilio().getProvincia().getId())
         .iso_id(empleadoRequest.getDomicilio().getProvincia().getIso_id())
         .iso_nombre(empleadoRequest.getDomicilio().getProvincia().getIso_nombre())
         .nombre(empleadoRequest.getDomicilio().getProvincia().getNombre())
@@ -184,7 +182,7 @@ public class EmpleadoExpert extends
         .provinciaNombre(empleadoRequest.getDomicilio().getDepartamento().getProvinciaNombre())
         .build();
 
-    Municipio municipio = Municipio.builder()
+    /*Municipio municipio = Municipio.builder()
         .categoria(empleadoRequest.getDomicilio().getMunicipio().getCategoria())
         .latitud(empleadoRequest.getDomicilio().getMunicipio().getLatitud())
         .longitud(empleadoRequest.getDomicilio().getMunicipio().getLongitud())
@@ -196,7 +194,7 @@ public class EmpleadoExpert extends
         .provinciaInterseccion(
             empleadoRequest.getDomicilio().getMunicipio().getProvinciaInterseccion())
         .provinciaNombre(empleadoRequest.getDomicilio().getMunicipio().getProvinciaNombre())
-        .build();
+        .build();*/ /*
 
     Localidad localidad = Localidad.builder()
         .categoria(empleadoRequest.getDomicilio().getLocalidad().getCategoria())
@@ -209,38 +207,37 @@ public class EmpleadoExpert extends
         .localidadCensalId(empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalId())
         .localidadCensalNombre(
             empleadoRequest.getDomicilio().getLocalidad().getLocalidadCensalNombre())
-        .municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())
+        /*.municipio(empleadoRequest.getDomicilio().getLocalidad().getMunicipio())*/ /*
         .municipioNombre(empleadoRequest.getDomicilio().getLocalidad().getMunicipioNombre())
         .nombre(empleadoRequest.getDomicilio().getLocalidad().getNombre())
         .provincia(empleadoRequest.getDomicilio().getLocalidad().getProvincia())
         .provinciaNombre(empleadoRequest.getDomicilio().getLocalidad().getProvinciaNombre())
         .build();
 
-    Set<Rol> roles = new HashSet<>();
-    roles.addAll(empleadoRequest.getUsuario().getRoles());
+    */
+        Set<Rol> roles = new HashSet<>();
+        roles.addAll(empleadoRequest.getUsuario().getRoles());
 
-    Usuario usuario = Usuario.builder()
-        .username(empleadoRequest.getUsuario().getUsername())
-        .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
-        .password(empleadoRequest.getUsuario().getPassword())
-        .image(empleadoRequest.getUsuario().getImage())
-        .isFirstSignin(empleadoRequest.getUsuario().isFirstSignin())
-        .enabled(empleadoRequest.getUsuario().isEnabled())
-        .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
-        .recordarme(empleadoRequest.getUsuario().isRecordarme())
-        .roles(roles).build();
-
+        Usuario usuario = Usuario.builder()
+                .nombre(empleadoRequest.getUsuario().getNombre())
+                .username(empleadoRequest.getUsuario().getUsername())
+                .correoInstitucional(empleadoRequest.getUsuario().getCorreoInstitucional())
+                .password(empleadoRequest.getUsuario().getPassword())
+                .image("assets/images/default_generic_profile_picture.png")
+                .isFirstSignin(true)
+                .enabled(empleadoRequest.getUsuario().isEnabled())
+                .requiereAutorizacion(empleadoRequest.getUsuario().isRequiereAutorizacion())
+                .recordarme(empleadoRequest.getUsuario().isRecordarme())
+                .roles(roles).build();
+/*
     Domicilio domicilio = Domicilio.builder()
         .calle(empleadoRequest.getDomicilio().getCalle())
         .nroCalle(empleadoRequest.getDomicilio().getNroCalle())
-        .dpto(empleadoRequest.getDomicilio().getDpto())
+        .nroDepartamento(empleadoRequest.getDomicilio().getNroDepartamento())
         .nroPiso(empleadoRequest.getDomicilio().getNroPiso())
-        .barrio(empleadoRequest.getDomicilio().getBarrio())
-        .manzana(empleadoRequest.getDomicilio().getManzana())
-        .casa(empleadoRequest.getDomicilio().getCasa())
         .provincia(provincia)
         .departamento(departamento)
-        .municipio(municipio)
+        /*.municipio(municipio)*/ /*
         .localidad(localidad).build();
 
     List<HistorialSectorEmpleado> historialSectorEmpleadoList = new ArrayList<>();
@@ -252,7 +249,7 @@ public class EmpleadoExpert extends
           .denominacion(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getDenominacion())
           .fechaBaja(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getFechaBaja())
           .validaFueraDeHorario(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isValidaFueraDeHorario())
-          .detenerCargaBoletas(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getDetenerCargaBoletas())
+          .detenerCargaBoletas(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isDetenerCargaBoletas())
           .permiteTrabajarHorasExtras(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().isPermiteTrabajarHorasExtras())
           .maximoSerenoDiurno(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getMaximoSerenoDiurno())
           .maximoSerenoNocturno(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getMaximoSerenoNocturno())
@@ -260,206 +257,225 @@ public class EmpleadoExpert extends
           .tipoSector(empleadoRequest.getHistorialSectorEmpleado().get(i).getSector().getTipoSector())
           .build();
       HistorialSectorEmpleado historialSectorEmpleado = HistorialSectorEmpleado.builder()
-          .fechaIngreso(empleadoRequest.getHistorialSectorEmpleado().get(i).getFechaIngreso())
-          .fechaSalida(empleadoRequest.getHistorialSectorEmpleado().get(i).getFechaSalida())
-          .vigente(empleadoRequest.getHistorialSectorEmpleado().get(i).isVigente())
+          .fechaIngreso(new Date())
+          .vigente(true)
           .sector(sector)
           .build();
       historialSectorEmpleadoList.add(historialSectorEmpleado);
-    }
+    }*/
 
-    Empleado empleado1 = Empleado.builder()
-        .nombre(empleadoRequest.getNombre())
-        .apellido(empleadoRequest.getApellido())
-        .correoPersonal(empleadoRequest.getCorreoPersonal())
-        .estadoCivil(empleadoRequest.getEstadoCivil())
-        .legajo(empleadoRequest.getLegajo())
-        .fechaLimiteReemplazo(empleadoRequest.getFechaLimiteReemplazo())
-        .fechaNacimiento(empleadoRequest.getFechaNacimiento())
-        .fechaIngreso(empleadoRequest.getFechaIngreso())
-        .rompeReglaComisionDia(empleadoRequest.isRompeReglaComisionDia())
-        .rompeReglaFichadaReloj(empleadoRequest.isRompeReglaFichadaReloj())
-        .puedeAprobarRequerimiento(empleadoRequest.isPuedeAprobarRequerimiento())
-        .rompeReglaFichadaSupervisor(empleadoRequest.isRompeReglaFichadaSupervisor())
-        .esEncargado(empleadoRequest.isEsEncargado())
-        .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
-        .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
-        .nacionalidad(nationality)
-        .remuneraciones(remuneracionList)
-        .regimenesHorario(regimenHorarioList)
-        .usuario(usuario)
-        .domicilio(domicilio)
-        .historialSectorEmpleado(historialSectorEmpleadoList)
-        .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
-        .remanenteDiasLicencias(empleadoRequest.getRemanenteDiasLicencias())
-        .build();
-
-    empleado1.getDocumentoIdentidad().add(identityCard);
-    empleadoService.save(empleado1);
-
-    return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<EmpleadoResponse> update(Long id, EmpleadoRequest empleadoRequest)
-      throws Exception {
-
-    if (empleadoService.findById(id).equals(false)) {
-      return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
-    }
-
-    if (StringUtils.isBlank(empleadoRequest.getNombre())) {
-      return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-    if (StringUtils.isBlank(empleadoRequest.getApellido())) {
-      return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
-          HttpStatus.BAD_REQUEST);
-    }
-
-    Empleado empleado = new Empleado();
-
-    empleado.setCorreoPersonal(empleadoRequest.getCorreoPersonal());
-    empleado.setNroTelefonoCelular(empleado.getNroTelefonoCelular());
-    empleado.setNroTelefonoFijo(empleado.getNroTelefonoFijo());
-    empleado.setEstadoCivil(empleado.getEstadoCivil());
-    empleado.setRompeReglaFichadaSupervisor(empleado.isRompeReglaFichadaSupervisor());
-    empleado.setPuedeAprobarRequerimiento(empleado.isPuedeAprobarRequerimiento());
-    empleado.setEsEncargado(empleado.isEsEncargado());
-
-    empleadoService.update(id, empleado);
-
-    return new ResponseEntity(new Message("Empleado actualizado"), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<?> delete(Long id) throws Exception {
-    empleadoService.delete(id);
-    return new ResponseEntity(new Message("Empleado eliminado"), HttpStatus.OK);
-  }
-
-  public ResponseEntity<EmpleadoResponse> getByUserName(String username) throws Exception {
-
-    Optional<Usuario> optionalUser = userService.getByUsername(username);
-    Usuario user = null;
-    if (optionalUser.isPresent()) {
-      user = optionalUser.get();
-    }
-
-    Empleado empleado = empleadoService.getByfk_usuario(user.getId());
-    EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
-    return new ResponseEntity(empleadoResponse, HttpStatus.OK);
-  }
-
-  public void createUser(EmpleadoRequest empleadoRequest) throws Exception {
-
-    String aux_password = "";
-    ModelMapper mapper = new ModelMapper();
-    Empleado employee = mapper.map(empleadoRequest, Empleado.class);
-
-    aux_password = this.generateRandomPassword();
-
-    employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
-    empleadoService.save(employee);
-    emailController.sendEmail(
-        this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
-            employee.getCorreoPersonal()));
-
-  }
-
-  private EmailValuesDTO preparingEmailData(String username, String password,
-      String personalEmail) {
-    EmailValuesDTO emailValuesDTO = EmailValuesDTO.builder().username(username).password(password)
-        .mailTo(personalEmail).build();
-
-    return emailValuesDTO;
-  }
-
-  private String generateRandomPassword() {
-
-    String lowCases = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
-    String capitalLetters = lowCases.toUpperCase(Locale.ROOT);
-    String digits = "0,1,2,3,4,5,6,7,8,9";
-    String nonAlphanumerics = "!,#,$,%,^,&,/,?,Â¿,-,<,>";
-
-    String[] lowCasesArray = lowCases.split(",");
-    String[] capitalLettersArray = capitalLetters.split(",");
-    String[] digitsArray = digits.split(",");
-    String[] nonAlphanumericsArray = nonAlphanumerics.split(",");
-
-    Random rand = new Random();
-    String password = "";
-    String newPassword = "";
-    String passwordArray[];
-
-    if (this.lowerCasesAmount > 0) {
-      for (int counter = 0; counter < this.lowerCasesAmount; counter++) {
-        if (counter == 0) {
-          password = lowCasesArray[rand.nextInt(lowCasesArray.length)];
-        } else {
-          password = lowCasesArray[rand.nextInt(lowCasesArray.length)] + "," + password;
+        Empleado empleado1 = Empleado.builder()
+                .fechaAlta(new Date())
+                .fechaBaja(null)
+                .nombre(empleadoRequest.getNombre())
+                .apellido(empleadoRequest.getApellido())
+                .correoPersonal(empleadoRequest.getCorreoPersonal())
+                .estadoCivil(empleadoRequest.getEstadoCivil())
+                .legajo(empleadoRequest.getLegajo())
+                .fechaLimiteReemplazo(empleadoRequest.getFechaLimiteReemplazo())
+                .fechaNacimiento(empleadoRequest.getFechaNacimiento())
+                .fechaIngreso(empleadoRequest.getFechaIngreso())
+                .rompeReglaComisionDia(empleadoRequest.isRompeReglaComisionDia())
+                .rompeReglaFichadaReloj(empleadoRequest.isRompeReglaFichadaReloj())
+                .puedeAprobarRequerimiento(empleadoRequest.isPuedeAprobarRequerimiento())
+                .rompeReglaFichadaSupervisor(empleadoRequest.isRompeReglaFichadaSupervisor())
+                .esEncargado(empleadoRequest.isEsEncargado())
+                .nroTelefonoFijo(empleadoRequest.getNroTelefonoFijo())
+                .nroTelefonoCelular(empleadoRequest.getNroTelefonoCelular())
+                .nacionalidad(empleadoRequest.getNacionalidad())
+                .remuneracion(empleadoRequest.getRemuneracion())
+                .regimenHorario(empleadoRequest.getRegimenHorario())
+                .usuario(usuario)
+                .domicilio(empleadoRequest.getDomicilio())
+                .sector(empleadoRequest.getSector())
+                .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
+                .remanenteDiasLicencias(buildAndSetRemanenteDiasLicencia())
+                .documentoIdentidad(empleadoRequest.getDocumentoIdentidad())
+                .build();
+        try {
+            empleadoService.save(empleado1);
+        } catch (Exception e) {
+            System.out.println("El error es " + e);
         }
-      }
+
+        return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
     }
 
-    if (this.capitalLettersAmount > 0) {
-      for (int counter = 0; counter < this.capitalLettersAmount; counter++) {
-        password = capitalLettersArray[rand.nextInt(capitalLettersArray.length)] + "," + password;
-      }
+    public List<RemanenteDiasLicencia> buildAndSetRemanenteDiasLicencia(){
+        List<TipoLicencia>tipoLicencias = tipoLicenciaRepository.findAll();
+        List<RemanenteDiasLicencia>remanenteDiasLicencias = new ArrayList<>();
+        for (int i = 0; i < tipoLicencias.size(); i++) {
+            RemanenteDiasLicencia remanenteDiasLicencia = new RemanenteDiasLicencia(LocalDate.now().getYear(),tipoLicencias.get(i).getCantidadMaximaAnual(),tipoLicencias.get(i));
+            remanenteDiasLicencias.add(remanenteDiasLicencia);
+        }
+        remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
+        return remanenteDiasLicencias;
     }
 
-    if (this.digitsAmount > 0) {
-      for (int counter = 0; counter < this.digitsAmount; counter++) {
-        password = digitsArray[rand.nextInt(digitsArray.length)] + "," + password;
-      }
+    @Override
+    public ResponseEntity<EmpleadoResponse> update(Long id, EmpleadoRequest empleadoRequest)
+            throws Exception {
+
+        if (empleadoService.findById(id).equals(false)) {
+            return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
+        }
+
+        if (StringUtils.isBlank(empleadoRequest.getNombre())) {
+            return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(empleadoRequest.getApellido())) {
+            return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Empleado empleado = new Empleado();
+
+        empleado.setCorreoPersonal(empleadoRequest.getCorreoPersonal());
+        empleado.setNroTelefonoCelular(empleado.getNroTelefonoCelular());
+        empleado.setNroTelefonoFijo(empleado.getNroTelefonoFijo());
+        empleado.setEstadoCivil(empleado.getEstadoCivil());
+        empleado.setRompeReglaFichadaSupervisor(empleado.isRompeReglaFichadaSupervisor());
+        empleado.setPuedeAprobarRequerimiento(empleado.isPuedeAprobarRequerimiento());
+        empleado.setEsEncargado(empleado.isEsEncargado());
+
+        empleadoService.update(id, empleado);
+
+        return new ResponseEntity(new Message("Empleado actualizado"), HttpStatus.OK);
     }
 
-    if (this.nonAlphanumericsAmount > 0) {
-      for (int counter = 0; counter < this.nonAlphanumericsAmount; counter++) {
-        password =
-            nonAlphanumericsArray[rand.nextInt(nonAlphanumericsArray.length)] + "," + password;
-      }
+    @Override
+    public ResponseEntity<?> delete(Long id) throws Exception {
+        empleadoService.delete(id);
+        return new ResponseEntity(new Message("Empleado eliminado"), HttpStatus.OK);
     }
 
-    passwordArray = password.split(",");
+    public ResponseEntity<EmpleadoResponse> getByUserName(String username) throws Exception {
 
-    if (passwordArray.length > 0) {
-      int[] exist = new int[passwordArray.length];
+        Optional<Usuario> optionalUser = userService.getByUsername(username);
+        Usuario user = null;
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+        }
 
-      for (int setter = 0; setter < exist.length; setter++) {
-        exist[setter] = exist.length + 10;
-      }
+        Empleado empleado = empleadoService.getByfk_usuario(user.getId());
+        EmpleadoResponse empleadoResponse = modelMapper.map(empleado, EmpleadoResponse.class);
+        return new ResponseEntity(empleadoResponse, HttpStatus.OK);
+    }
 
-      int counter = 0;
+    public void createUser(EmpleadoRequest empleadoRequest) throws Exception {
 
-      for (String letter : passwordArray) {
-        int winner = 0;
-        boolean passed = false;
+        String aux_password = "";
+        ModelMapper mapper = new ModelMapper();
+        Empleado employee = mapper.map(empleadoRequest, Empleado.class);
+        employee.setFechaAlta(new Date());
+        employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia());
 
-        do {
-          winner = rand.nextInt(passwordArray.length);
+        aux_password = this.generateRandomPassword();
 
-          for (int num : exist) {
-            if (winner != num) {
-              passed = true;
-            } else {
-              passed = false;
-              break;
+        employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
+        employee.getUsuario().setEnabled(true);
+        employee.getUsuario().setPasswordExpireDate(LocalDateTime.now().plusMonths(6));
+        empleadoService.save(employee);
+        emailController.sendWelcomeEmail(
+                this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
+                        employee.getCorreoPersonal()));
+
+    }
+
+    private EmailValuesDTO preparingEmailData(String username, String password,
+                                              String personalEmail) {
+        EmailValuesDTO emailValuesDTO = EmailValuesDTO.builder().username(username).password(password)
+                .mailTo(personalEmail).build();
+
+        return emailValuesDTO;
+    }
+
+    private String generateRandomPassword() {
+
+        String lowCases = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+        String capitalLetters = lowCases.toUpperCase(Locale.ROOT);
+        String digits = "0,1,2,3,4,5,6,7,8,9";
+        String nonAlphanumerics = "!,#,$,%,^,&,/,?,Â¿,-,<,>";
+
+        String[] lowCasesArray = lowCases.split(",");
+        String[] capitalLettersArray = capitalLetters.split(",");
+        String[] digitsArray = digits.split(",");
+        String[] nonAlphanumericsArray = nonAlphanumerics.split(",");
+
+        Random rand = new Random();
+        String password = "";
+        String newPassword = "";
+        String passwordArray[];
+
+        if (this.lowerCasesAmount > 0) {
+            for (int counter = 0; counter < this.lowerCasesAmount; counter++) {
+                if (counter == 0) {
+                    password = lowCasesArray[rand.nextInt(lowCasesArray.length)];
+                } else {
+                    password = lowCasesArray[rand.nextInt(lowCasesArray.length)] + "," + password;
+                }
             }
-          }
+        }
 
-          if (passed) {
-            newPassword += passwordArray[winner];
+        if (this.capitalLettersAmount > 0) {
+            for (int counter = 0; counter < this.capitalLettersAmount; counter++) {
+                password = capitalLettersArray[rand.nextInt(capitalLettersArray.length)] + "," + password;
+            }
+        }
 
-            exist[counter] = winner;
-            counter += 1;
-          }
+        if (this.digitsAmount > 0) {
+            for (int counter = 0; counter < this.digitsAmount; counter++) {
+                password = digitsArray[rand.nextInt(digitsArray.length)] + "," + password;
+            }
+        }
 
-        } while (!passed);
-      }
+        if (this.nonAlphanumericsAmount > 0) {
+            for (int counter = 0; counter < this.nonAlphanumericsAmount; counter++) {
+                password =
+                        nonAlphanumericsArray[rand.nextInt(nonAlphanumericsArray.length)] + "," + password;
+            }
+        }
+
+        passwordArray = password.split(",");
+
+        if (passwordArray.length > 0) {
+            int[] exist = new int[passwordArray.length];
+
+            for (int setter = 0; setter < exist.length; setter++) {
+                exist[setter] = exist.length + 10;
+            }
+
+            int counter = 0;
+
+            for (String letter : passwordArray) {
+                int winner = 0;
+                boolean passed = false;
+
+                do {
+                    winner = rand.nextInt(passwordArray.length);
+
+                    for (int num : exist) {
+                        if (winner != num) {
+                            passed = true;
+                        } else {
+                            passed = false;
+                            break;
+                        }
+                    }
+
+                    if (passed) {
+                        newPassword += passwordArray[winner];
+
+                        exist[counter] = winner;
+                        counter += 1;
+                    }
+
+                } while (!passed);
+            }
+        }
+        return newPassword;
     }
-    return newPassword;
-  }
 
 
 }

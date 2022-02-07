@@ -15,6 +15,8 @@ import lombok.Setter;
 @Builder
 public class Remuneracion extends BaseEntity{
 
+	private String denominacion;
+
 	private double valorHora;
 
 	private double valorViaticoDia;
