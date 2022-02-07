@@ -96,14 +96,14 @@ public class TipoSectorExpert extends
       return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
     }
 
-    if (StringUtils.isBlank(tipoSectorRequest.getNombreTipoSector())) {
+    /*if (StringUtils.isBlank(tipoSectorRequest.getNombreTipoSector())) {
       return new ResponseEntity(new Message("El nombre del Tipo del Sector es obligatorio"),
           HttpStatus.BAD_REQUEST);
     }
     if (tipoSectorServiceImpl.existsByCodTipoSector(tipoSectorRequest.getCodTipoSector())) {
       return new ResponseEntity(new Message("El código del Tipo del Sector ya existe"),
           HttpStatus.BAD_REQUEST);
-    }
+    }*/
 
     TipoSector tipoSector1 = tipoSectorServiceImpl.findById(id);
 
