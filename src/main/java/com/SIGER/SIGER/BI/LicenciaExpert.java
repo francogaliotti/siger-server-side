@@ -78,8 +78,8 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
     public ResponseEntity<LicenciaResponse> save(LicenciaRequest licenciaRequest)
             throws Exception {
 
-        if (validateSurplusDays(licenciaRequest))
-            return new ResponseEntity(new Message("No tiene dias suficientes para solicitar esta licencia"), HttpStatus.BAD_REQUEST);
+        //if (validateSurplusDays(licenciaRequest))
+        //    return new ResponseEntity(new Message("No tiene dias suficientes para solicitar esta licencia"), HttpStatus.BAD_REQUEST);
 
         Licencia licencia = modelMapper.map(licenciaRequest, Licencia.class);
         EstadoLicencia estadoLicencia = estadoLicenciaService.findById(1L);
@@ -158,7 +158,7 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         fechaAprobacion.setEstadoLicencia(estadoLicencia);
         fechaAprobacion.setFechaCambioEstadoLicencia(new Date());
         licencia.getFechasCambioEstadoLicencia().add(fechaAprobacion);
-        surplusDaysSubtraction(licencia);
+        //surplusDaysSubtraction(licencia);
         licenciaService.update(id, licencia);
         return new ResponseEntity(new Message("Licencia autorizada"), HttpStatus.OK);
     }
