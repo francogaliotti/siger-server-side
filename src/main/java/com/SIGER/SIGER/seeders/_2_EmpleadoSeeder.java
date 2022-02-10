@@ -145,6 +145,10 @@ public class _2_EmpleadoSeeder implements CommandLineRunner {
             RemanenteDiasLicencia remanenteDiasLicencia = new RemanenteDiasLicencia(LocalDate.now().getYear(), tipoLicencias.get(i).getCantidadMaximaAnual(), tipoLicencias.get(i));
             remanenteDiasLicencias.add(remanenteDiasLicencia);
         }
+        /*for (int i = 0; i < remanenteDiasLicencias.size(); i++) {
+            if (remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 2 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 3 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 4)
+                remanenteDiasLicencias.get(i).setDiasSobrantes(0);
+        }*/
         remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
         return remanenteDiasLicencias;
     }
