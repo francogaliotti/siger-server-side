@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,9 +79,9 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
     public ResponseEntity<LicenciaResponse> save(LicenciaRequest licenciaRequest)
             throws Exception {
 
-        //if (validateSurplusDays(licenciaRequest))
-        //    return new ResponseEntity(new Message("No tiene dias suficientes para solicitar esta licencia"), HttpStatus.BAD_REQUEST);
-
+        if (validateSurplusDays(licenciaRequest) == true) {
+            return new ResponseEntity(new Message("No tiene dias suficientes para solicitar esta licencia"), HttpStatus.BAD_REQUEST);
+        }
         Licencia licencia = modelMapper.map(licenciaRequest, Licencia.class);
         EstadoLicencia estadoLicencia = estadoLicenciaService.findById(1L);
         FechaCambioEstadoLicencia fechaCreacion = new FechaCambioEstadoLicencia();
@@ -98,17 +99,25 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         Empleado empleado = empleadoService.findById(licenciaRequest.getEmpleado().getId());
         TipoLicencia tipoLicencia = tipoLicenciaService.findById(licenciaRequest.getTipoLicencia().getId());
         long cantidadDias = 0;
+        boolean flag = false;
         for (int i = 0; i < empleado.getRemanenteDiasLicencias().size(); i++) {
-            if (empleado.getRemanenteDiasLicencias().get(i).getTipoLicencia().getId() == tipoLicencia.getId())
+            if (empleado.getRemanenteDiasLicencias().get(i).getTipoLicencia().getId() == tipoLicencia.getId()){
                 cantidadDias = calculateDifferenceBetweenTwoDate(licenciaRequest.getFechaInicioLicencia(), licenciaRequest.getFechaFinLicencia());
-                if (cantidadDias > empleado.getRemanenteDiasLicencias().get(i).getDiasSobrantes())
-                    return true;
+                System.out.println("cantidad de dias: "+cantidadDias);
+                System.out.println("dias sobrantes: "+empleado.getRemanenteDiasLicencias().get(i).getDiasSobrantes());
+
+                if (cantidadDias > empleado.getRemanenteDiasLicencias().get(i).getDiasSobrantes()) {
+                    System.out.println("cantidad dias: " + cantidadDias);
+                    flag = true;
+                    return flag;
+                }
+            }
         }
-        return false;
+        return flag;
     }
 
-    public long calculateDifferenceBetweenTwoDate(Date initialDate, Date finalDate) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+    public long calculateDifferenceBetweenTwoDate(LocalDateTime initialDate, LocalDateTime finalDate) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("uuuu-MM-dd'T'HH:mm", Locale.US);
         Date firstDate = simpleDateFormat.parse(initialDate.toString());
         Date secondDate = simpleDateFormat.parse(finalDate.toString());
         long diff = secondDate.getTime() - firstDate.getTime();
@@ -158,7 +167,11 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         fechaAprobacion.setEstadoLicencia(estadoLicencia);
         fechaAprobacion.setFechaCambioEstadoLicencia(new Date());
         licencia.getFechasCambioEstadoLicencia().add(fechaAprobacion);
-        //surplusDaysSubtraction(licencia);
+        try {
+            surplusDaysSubtraction(licencia);
+        }catch (Exception e){
+            System.out.println("El error es: "+e);
+        }
         licenciaService.update(id, licencia);
         return new ResponseEntity(new Message("Licencia autorizada"), HttpStatus.OK);
     }
@@ -167,10 +180,11 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         Empleado empleado = licencia.getEmpleado();
         Long cantidadDias = null;
         for (int i = 0; i < empleado.getRemanenteDiasLicencias().size(); i++) {
-            if (empleado.getRemanenteDiasLicencias().get(i).getTipoLicencia().getId() == licencia.getTipoLicencia().getId())
+            if (empleado.getRemanenteDiasLicencias().get(i).getTipoLicencia().getId() == licencia.getTipoLicencia().getId()) {
                 cantidadDias = calculateDifferenceBetweenTwoDate(licencia.getFechaInicioLicencia(), licencia.getFechaFinLicencia());
                 empleado.getRemanenteDiasLicencias().get(i).setDiasSobrantes(empleado.getRemanenteDiasLicencias().get(i).getDiasSobrantes() - cantidadDias.intValue());
                 empleadoService.update(empleado.getId(), empleado);
+            }
         }
 
     }

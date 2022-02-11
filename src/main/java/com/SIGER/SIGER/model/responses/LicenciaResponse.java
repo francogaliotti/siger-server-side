@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +18,9 @@ public class LicenciaResponse extends BaseResponse{
 
     private Date fechaBaja;
 
-    private Date fechaInicioLicencia;
+    private LocalDateTime fechaInicioLicencia;
 
-    private Date fechaFinLicencia;
+    private LocalDateTime fechaFinLicencia;
 
     private Date fechaFrancoCompensatorio;
 

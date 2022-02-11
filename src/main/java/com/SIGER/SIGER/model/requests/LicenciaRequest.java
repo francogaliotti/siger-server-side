@@ -4,6 +4,7 @@ import com.SIGER.SIGER.model.entities.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +17,9 @@ public class LicenciaRequest extends BaseRequest{
 
     private Date fechaBaja;
 
-    private Date fechaInicioLicencia;
+    private LocalDateTime fechaInicioLicencia;
 
-    private Date fechaFinLicencia;
+    private LocalDateTime fechaFinLicencia;
 
     private Date fechaFrancoCompensatorio;
 

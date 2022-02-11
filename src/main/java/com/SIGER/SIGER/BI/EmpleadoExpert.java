@@ -312,7 +312,7 @@ public class EmpleadoExpert extends
             if (remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 2 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 3 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 4)
                 remanenteDiasLicencias.get(i).setDiasSobrantes(0);
         }*/
-        remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
+        //remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
         return remanenteDiasLicencias;
     }
 
