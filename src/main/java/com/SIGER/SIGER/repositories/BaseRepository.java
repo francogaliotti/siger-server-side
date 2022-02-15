@@ -16,5 +16,6 @@ import com.SIGER.SIGER.model.entities.BaseEntity;
 public interface BaseRepository<E extends BaseEntity, ID extends Serializable> extends JpaRepository<E, ID> {
 
   Page<E> findBySoftDeleteFalse(Pageable pageable);
+  //List<E> findBySoftDeleteFalse();
 
 }

@@ -1,5 +1,6 @@
 package com.SIGER.SIGER.model.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,9 +28,9 @@ public class Licencia extends BaseEntity{
 	
 	private Date fechaBaja;
 
-	private Date fechaInicioLicencia;
+	private LocalDateTime fechaInicioLicencia;
 
-	private Date fechaFinLicencia;
+	private LocalDateTime fechaFinLicencia;
 	
 	private Date fechaFrancoCompensatorio;
 	
@@ -40,6 +41,8 @@ public class Licencia extends BaseEntity{
 	private Date fechaSincronizacion;
 	
 	private String observacionesLicencia;
+
+	private String mensajeRechazo;
 	
 	//Relations
 	

@@ -22,6 +22,8 @@ public class TipoLicenciaRequest extends BaseRequest{
 
   private boolean goceSueldo;
 
+  private int cantidadMaximaAnual;
+
   private String observaciones;
 
   public int tipoRequerimientoCantNiveles;
