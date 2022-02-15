@@ -111,6 +111,7 @@ public class TipoLicenciaExpert extends
     tipoLicencia.setJustificaPresentismo(tipoLicenciaRequest.isJustificaPresentismo());
     tipoLicencia.setLimiteRangoDias(tipoLicenciaRequest.getLimiteRangoDias());
     tipoLicencia.setObservaciones(tipoLicenciaRequest.getObservaciones());
+    tipoLicencia.setCantidadMaximaAnual(tipoLicenciaRequest.getCantidadMaximaAnual());
     tipoLicencia.getTipoRequerimiento()
             .setTipoRequerimientoDenominacion(tipoLicenciaRequest.getTipoRequerimientoDenominacion());
     tipoLicencia.getTipoRequerimiento()

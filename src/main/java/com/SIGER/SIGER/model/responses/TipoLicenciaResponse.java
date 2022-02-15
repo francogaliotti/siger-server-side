@@ -31,6 +31,8 @@ public class TipoLicenciaResponse extends BaseResponse{
 
   private String observaciones;
 
+  private int cantidadMaximaAnual;
+
   public int tipoRequerimientoCantNiveles;
 
   public String tipoRequerimientoDenominacion;

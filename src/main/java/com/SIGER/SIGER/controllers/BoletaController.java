@@ -4,6 +4,7 @@ import com.SIGER.SIGER.BI.BoletaExpert;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Boleta;
 import com.SIGER.SIGER.model.requests.BoletaRequest;
+import com.SIGER.SIGER.model.requests.LicenciaRequest;
 import com.SIGER.SIGER.model.responses.BoletaResponse;
 import com.SIGER.SIGER.services.BoletaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -139,8 +140,8 @@ public class BoletaController extends
   }
 
   @PutMapping("/reject/{id}")
-  public ResponseEntity<BoletaResponse> reject(@PathVariable Long id) throws Exception {
-    return boletaExpert.reject(id);
+  public ResponseEntity<BoletaResponse> reject(@PathVariable Long id, @RequestBody BoletaRequest boletaRequest) throws Exception {
+    return boletaExpert.reject(id, boletaRequest);
   }
 
 }

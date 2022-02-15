@@ -18,6 +18,7 @@ import com.SIGER.SIGER.services.EmpleadoService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -289,7 +290,7 @@ public class EmpleadoExpert extends
                 .domicilio(empleadoRequest.getDomicilio())
                 .sector(empleadoRequest.getSector())
                 .computoDiasLicencias(empleadoRequest.getComputoDiasLicencias())
-                .remanenteDiasLicencias(buildAndSetRemanenteDiasLicencia())
+                .remanenteDiasLicencias(buildAndSetRemanenteDiasLicencia(calculateSeniority(empleadoRequest.getFechaIngreso())))
                 .documentoIdentidad(empleadoRequest.getDocumentoIdentidad())
                 .build();
         try {
@@ -301,18 +302,63 @@ public class EmpleadoExpert extends
         return new ResponseEntity(new Message("Empleado creado"), HttpStatus.OK);
     }
 
-    public List<RemanenteDiasLicencia> buildAndSetRemanenteDiasLicencia(){
+    public List<RemanenteDiasLicencia> buildAndSetRemanenteDiasLicencia(Long seniority){
         List<TipoLicencia>tipoLicencias = tipoLicenciaRepository.findAll();
         List<RemanenteDiasLicencia>remanenteDiasLicencias = new ArrayList<>();
         for (int i = 0; i < tipoLicencias.size(); i++) {
             RemanenteDiasLicencia remanenteDiasLicencia = new RemanenteDiasLicencia(LocalDate.now().getYear(),tipoLicencias.get(i).getCantidadMaximaAnual(),tipoLicencias.get(i));
+            if (seniority < 5){
+                if (tipoLicencias.get(i).getId() == 2){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 3){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 4){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+            }
+            if (seniority < 10 && seniority >= 5){
+                if (tipoLicencias.get(i).getId() == 1){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 3){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 4){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+            }
+            if (seniority < 20 && seniority >= 10){
+                if (tipoLicencias.get(i).getId() == 1){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 2){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 4){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+            }
+            if (seniority >= 20){
+                if (tipoLicencias.get(i).getId() == 1){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 2){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+                if (tipoLicencias.get(i).getId() == 3){
+                    remanenteDiasLicencia.setDiasSobrantes(0);
+                }
+            }
             remanenteDiasLicencias.add(remanenteDiasLicencia);
         }
+
         /*for (int i = 0; i < remanenteDiasLicencias.size(); i++) {
             if (remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 2 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 3 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 4)
                 remanenteDiasLicencias.get(i).setDiasSobrantes(0);
         }*/
-        remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
+        //remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
         return remanenteDiasLicencias;
     }
 
@@ -387,7 +433,8 @@ public class EmpleadoExpert extends
         ModelMapper mapper = new ModelMapper();
         Empleado employee = mapper.map(empleadoRequest, Empleado.class);
         employee.setFechaAlta(new Date());
-        employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia());
+        Long antiguedad = calculateSeniority(employee.getFechaIngreso());
+        employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia(antiguedad));
 
         aux_password = this.generateRandomPassword();
         System.out.println("LA CONTRASEÑA ES: "+ aux_password);
@@ -400,6 +447,13 @@ public class EmpleadoExpert extends
                 this.preparingEmailData(employee.getUsuario().getUsername(), aux_password,
                         employee.getCorreoPersonal()));
 
+    }
+
+    public long calculateSeniority(Date fechaIngreso){
+        Date fechaActual = new Date();
+        Long diff = fechaActual.getTime() - fechaIngreso.getTime();
+        TimeUnit time = TimeUnit.DAYS;
+        return (time.convert(diff, TimeUnit.MILLISECONDS)/365);
     }
 
     private EmailValuesDTO preparingEmailData(String username, String password,
