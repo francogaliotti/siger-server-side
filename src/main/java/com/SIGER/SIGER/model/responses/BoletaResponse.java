@@ -36,6 +36,8 @@ public class BoletaResponse extends BaseResponse{
 
     private String observacionesBoleta;
 
+    private String mensajeRechazo;
+
     private Date fechaSincronizacion;
 
     private boolean sinFichadaRetorno;

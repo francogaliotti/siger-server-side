@@ -75,6 +75,13 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         return new ResponseEntity(licenciaResponses, HttpStatus.OK);
     }
 
+    public ResponseEntity<List<LicenciaResponse>> findAll() throws Exception {
+
+        List<Licencia> licenciaList = licenciaService.findAll();
+
+        return new ResponseEntity(licenciaList, HttpStatus.OK);
+    }
+
     @Override
     public ResponseEntity<LicenciaResponse> save(LicenciaRequest licenciaRequest)
             throws Exception {
@@ -156,6 +163,11 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
 
     public ResponseEntity<LicenciaResponse> authorize(Long id) throws Exception {
         Licencia licencia = licenciaService.findById(id);
+        try {
+            surplusDaysSubtraction(licencia);
+        } catch (Exception exception){
+            return new ResponseEntity(new Message("No se puede autorizar la licencia"), HttpStatus.BAD_REQUEST);
+        }
         licencia.setFechaControl(new Date());
         for (int i = 0; i < licencia.getFechasCambioEstadoLicencia().size(); i++) {
             if (licencia.getFechasCambioEstadoLicencia().get(i).getFechaFinEstadoLicencia() == null) {
@@ -167,11 +179,6 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         fechaAprobacion.setEstadoLicencia(estadoLicencia);
         fechaAprobacion.setFechaCambioEstadoLicencia(new Date());
         licencia.getFechasCambioEstadoLicencia().add(fechaAprobacion);
-        try {
-            surplusDaysSubtraction(licencia);
-        }catch (Exception e){
-            System.out.println("El error es: "+e);
-        }
         licenciaService.update(id, licencia);
         return new ResponseEntity(new Message("Licencia autorizada"), HttpStatus.OK);
     }
@@ -183,13 +190,17 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
             if (empleado.getRemanenteDiasLicencias().get(i).getTipoLicencia().getId() == licencia.getTipoLicencia().getId()) {
                 cantidadDias = calculateDifferenceBetweenTwoDate(licencia.getFechaInicioLicencia(), licencia.getFechaFinLicencia());
                 empleado.getRemanenteDiasLicencias().get(i).setDiasSobrantes(empleado.getRemanenteDiasLicencias().get(i).getDiasSobrantes() - cantidadDias.intValue());
-                empleadoService.update(empleado.getId(), empleado);
+                if(empleado.getRemanenteDiasLicencias().get(i).getDiasSobrantes() >= 0) {
+                    empleadoService.update(empleado.getId(), empleado);
+                } else {
+                    throw new Exception("No tiene dias suficientes");
+                }
             }
         }
 
     }
 
-    public ResponseEntity<LicenciaResponse> reject(Long id) throws Exception {
+    public ResponseEntity<LicenciaResponse> reject(Long id, LicenciaRequest licenciaRequest) throws Exception {
         Licencia licencia = licenciaService.findById(id);
         licencia.setFechaControl(new Date());
         for (int i = 0; i < licencia.getFechasCambioEstadoLicencia().size(); i++) {
@@ -202,6 +213,7 @@ public class LicenciaExpert extends AbsBaseExpert<Licencia, LicenciaService, Lic
         fechaRechazo.setEstadoLicencia(estadoLicencia);
         fechaRechazo.setFechaCambioEstadoLicencia(new Date());
         licencia.getFechasCambioEstadoLicencia().add(fechaRechazo);
+        licencia.setMensajeRechazo(licenciaRequest.getMensajeRechazo());
         licenciaService.update(id, licencia);
         return new ResponseEntity(new Message("Licencia rechazada"), HttpStatus.OK);
     }

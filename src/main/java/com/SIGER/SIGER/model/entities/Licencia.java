@@ -41,6 +41,8 @@ public class Licencia extends BaseEntity{
 	private Date fechaSincronizacion;
 	
 	private String observacionesLicencia;
+
+	private String mensajeRechazo;
 	
 	//Relations
 	

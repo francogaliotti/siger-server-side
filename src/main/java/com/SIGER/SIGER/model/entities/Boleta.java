@@ -47,6 +47,8 @@ public class Boleta extends BaseEntity{
 	private Date fechaControl;
 
 	private String observacionesBoleta;
+
+	private String mensajeRechazo;
 	
 	private Date fechaSincronizacion;
 

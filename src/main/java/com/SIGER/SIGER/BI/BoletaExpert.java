@@ -4,6 +4,7 @@ import com.SIGER.SIGER.common.Message;
 import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.*;
 import com.SIGER.SIGER.model.requests.BoletaRequest;
+import com.SIGER.SIGER.model.requests.LicenciaRequest;
 import com.SIGER.SIGER.model.responses.BoletaResponse;
 import com.SIGER.SIGER.services.BoletaService;
 import com.SIGER.SIGER.services.EstadoBoletaService;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -131,7 +133,7 @@ public class BoletaExpert extends
         return new ResponseEntity(new Message("Boleta autorizada"), HttpStatus.OK);
     }
 
-    public ResponseEntity<BoletaResponse> reject(Long id) throws Exception{
+    public ResponseEntity<BoletaResponse> reject(Long id, BoletaRequest boletaRequest) throws Exception{
         Boleta boleta = boletaService.findById(id);
         boleta.setFechaControl(new Date());
         for (int i = 0; i<boleta.getFechasCambioEstadoBoleta().size(); i++){
@@ -144,6 +146,7 @@ public class BoletaExpert extends
         fechaRechazo.setEstadoBoleta(estadoBoleta);
         fechaRechazo.setFechaCambioEstadoBoleta(new Date());
         boleta.getFechasCambioEstadoBoleta().add(fechaRechazo);
+        boleta.setMensajeRechazo(boletaRequest.getMensajeRechazo());
         boletaService.update(id, boleta);
         return new ResponseEntity(new Message("Boleta rechazada"), HttpStatus.OK);
     }

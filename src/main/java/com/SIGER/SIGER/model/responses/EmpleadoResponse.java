@@ -4,7 +4,9 @@ import com.SIGER.SIGER.model.entities.*;
 import com.SIGER.SIGER.security.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,6 +59,8 @@ public class EmpleadoResponse extends BaseResponse{
   private Remuneracion remuneracion;
 
   private RegimenHorario regimenHorario;
+
+  private List<RemanenteDiasLicencia> remanenteDiasLicencias = new ArrayList<>();
 
   private Sector sector;
 

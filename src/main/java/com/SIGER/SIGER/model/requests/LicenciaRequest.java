@@ -31,6 +31,8 @@ public class LicenciaRequest extends BaseRequest{
 
     private String observacionesLicencia;
 
+    private String mensajeRechazo;
+
     private List<Comentario> comentarios = new ArrayList<>();
 
     private List<DocumentoAdjuntoLicencia> documentosAdjuntosLicencia = new ArrayList<>();

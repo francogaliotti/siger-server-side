@@ -32,6 +32,8 @@ public class LicenciaResponse extends BaseResponse{
 
     private String observacionesLicencia;
 
+    private String mensajeRechazo;
+
     private List<Comentario> comentarios = new ArrayList<>();
 
     private List<DocumentoAdjuntoLicencia> documentosAdjuntosLicencia = new ArrayList<>();

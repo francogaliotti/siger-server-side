@@ -5,6 +5,7 @@ import com.SIGER.SIGER.common.PaginatedResultsHeaderUtils;
 import com.SIGER.SIGER.model.entities.Licencia;
 import com.SIGER.SIGER.model.requests.LicenciaRequest;
 import com.SIGER.SIGER.model.responses.LicenciaResponse;
+import com.SIGER.SIGER.model.responses.SectorResponse;
 import com.SIGER.SIGER.services.LicenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,11 @@ public class LicenciaController extends
         return licenciaExpert.findAll(page, PaginatedResultsHeaderUtils.PAGE_SIZE, uriBuilder,
                 response);
 
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<LicenciaResponse>> getAll() throws Exception {
+        return licenciaExpert.findAll();
     }
 
     @Override
@@ -64,8 +70,8 @@ public class LicenciaController extends
     }
 
     @PutMapping("/reject/{id}")
-    public ResponseEntity<LicenciaResponse> reject(@PathVariable Long id) throws Exception {
-        return licenciaExpert.reject(id);
+    public ResponseEntity<LicenciaResponse> reject(@PathVariable Long id, @RequestBody LicenciaRequest licenciaRequest) throws Exception {
+        return licenciaExpert.reject(id, licenciaRequest);
     }
 
 
