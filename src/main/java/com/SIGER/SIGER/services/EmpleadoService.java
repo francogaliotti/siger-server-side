@@ -51,4 +51,11 @@ public class EmpleadoService extends AbsBaseService<Empleado, Long> implements
         return empleadoRepository.findByUsuario(id);
     }
 
+    public boolean alreadyExistPersonalEmail(String personalEmail) {
+        return empleadoRepository.existByPersonalEmail(personalEmail);
+    }
+
+    public boolean alreadyExistDocumentNumber(String documentNumber){
+        return empleadoRepository.existByNroIdentidad(documentNumber);
+    }
 }

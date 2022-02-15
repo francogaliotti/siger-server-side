@@ -10,11 +10,10 @@ import com.SIGER.SIGER.model.responses.EmpleadoResponse;
 import com.SIGER.SIGER.repositories.RemanenteDiasLicenciasRepository;
 import com.SIGER.SIGER.repositories.TipoLicenciaRepository;
 import com.SIGER.SIGER.security.entity.Rol;
-import com.SIGER.SIGER.security.entity.Usuario;
 import com.SIGER.SIGER.security.expert.AuthExpert;
 import com.SIGER.SIGER.security.service.UsuarioService;
 import com.SIGER.SIGER.services.EmpleadoService;
-
+import com.SIGER.SIGER.security.entity.Usuario;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -308,10 +307,7 @@ public class EmpleadoExpert extends
             RemanenteDiasLicencia remanenteDiasLicencia = new RemanenteDiasLicencia(LocalDate.now().getYear(),tipoLicencias.get(i).getCantidadMaximaAnual(),tipoLicencias.get(i));
             remanenteDiasLicencias.add(remanenteDiasLicencia);
         }
-        /*for (int i = 0; i < remanenteDiasLicencias.size(); i++) {
-            if (remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 2 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 3 || remanenteDiasLicencias.get(i).getTipoLicencia().getId() == 4)
-                remanenteDiasLicencias.get(i).setDiasSobrantes(0);
-        }*/
+
         remanenteDiasLicenciasRepository.saveAll(remanenteDiasLicencias);
         return remanenteDiasLicencias;
     }
@@ -323,15 +319,6 @@ public class EmpleadoExpert extends
         if (empleadoService.findById(id).equals(false)) {
             return new ResponseEntity(new Message("No existe"), HttpStatus.NOT_FOUND);
         }
-
-        /*if (StringUtils.isBlank(empleadoRequest.getNombre())) {
-            return new ResponseEntity(new Message("El nombre del Empleado es obligatorio"),
-                    HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(empleadoRequest.getApellido())) {
-            return new ResponseEntity(new Message("El apellido del Empleado es obligatorio"),
-                    HttpStatus.BAD_REQUEST);
-        }*/
 
         Empleado empleado = empleadoService.findById(id);
         Domicilio domicilio = new Domicilio();
@@ -496,5 +483,18 @@ public class EmpleadoExpert extends
         return newPassword;
     }
 
+    public Boolean alreadyExistPersonalEmail(String personalEmail) {
+
+        return empleadoService.alreadyExistPersonalEmail(personalEmail);
+    }
+
+    public Boolean alreadyExistDPVlEmail(String dpvEmail){
+        return userService.existsByEmail(dpvEmail);
+    }
+
+    public Boolean alreadyExistDocumentNumber(String documentNumber){
+
+        return null;
+    }
 
 }

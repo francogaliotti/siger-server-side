@@ -54,11 +54,6 @@ public class EmpleadoController extends
     return empleadoExpert.findByUsuarioId(id);
   }
 
-  /*@GetMapping("/buscar-empleado-id-por-usuario/{id}")
-  public ResponseEntity<Long> getIdByUsuarioId(@PathVariable Long id) throws Exception {
-    return empleadoExpert.findEmployeeIdByUsuarioId(id);
-  }
-*/
   @GetMapping("/employee/{username}")
   public ResponseEntity<EmpleadoResponse> getByUserName(@PathVariable String username) throws Exception {
     return empleadoExpert.getByUserName(username);
@@ -75,11 +70,7 @@ public class EmpleadoController extends
   private ResponseEntity<EmpleadoResponse> createUsuario(EmpleadoRequest empleadoRequest) throws Exception {
     HttpStatus status;
     String message = "";
-    /*try {
-      empleadoExpert.save(empleadoRequest);
-    }catch (Exception e){
-      System.out.println("Lo que te tira es "+e);
-    }*/
+
     try{
       empleadoExpert.createUser(empleadoRequest);
       status = HttpStatus.OK;
@@ -98,7 +89,6 @@ public class EmpleadoController extends
   }
 
   @Override
-  //@PreAuthorize("hasRole('ADMIN')")
   @PutMapping("/{id}")
   public ResponseEntity<EmpleadoResponse> put(@PathVariable Long id, @RequestBody EmpleadoRequest empleadoRequest)
       throws Exception {
@@ -110,6 +100,21 @@ public class EmpleadoController extends
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
     return empleadoExpert.delete(id);
+  }
+
+  @GetMapping("/employee/alreadyExistPersonalEmail/{personalEmail}")
+  public ResponseEntity<Boolean> alreadyExistPersonalEmail(@PathVariable String personalEmail) throws Exception {
+    return new ResponseEntity<Boolean>(empleadoExpert.alreadyExistPersonalEmail(personalEmail), HttpStatus.OK);
+  }
+
+  @GetMapping("/employee/alreadyExistDPVlEmail/{dpvEmail}")
+  public ResponseEntity<Boolean> alreadyExistDPVlEmail(@PathVariable String dpvEmail) throws Exception {
+    return new ResponseEntity<Boolean>(empleadoExpert.alreadyExistDPVlEmail(dpvEmail), HttpStatus.OK);
+  }
+
+  @GetMapping("/employee/alreadyExistDocumentNumber/{documentNumber}")
+  public ResponseEntity<Boolean> alreadyExistDocumentNumber(@PathVariable String documentNumber) throws Exception {
+    return new ResponseEntity<Boolean>(empleadoExpert.alreadyExistDocumentNumber(documentNumber), HttpStatus.OK);
   }
 
 }
