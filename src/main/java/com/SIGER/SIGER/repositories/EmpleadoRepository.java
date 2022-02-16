@@ -23,9 +23,9 @@ public interface EmpleadoRepository extends BaseRepository<Empleado, Long>{
   @Query(value = "FROM Empleado e WHERE e.usuario.id = :id")
   Empleado findByUsuario(@Param("id") Long id);
 
-  boolean existByPersonalEmail(String personalEmail);
+  boolean existsByCorreoPersonal(String personalEmail);
 
-  @Query(value = "FROM documento_identidad di WHERE di.nro_identidad = :nroIdentidad AND di.soft_delete = 0")
-  boolean existByNroIdentidad(@Param("nroIdentidad") String nroIdentidad);
+  @Query(value = "FROM DocumentoIdentidad d WHERE d.nroIdentidad = :nroIdentidad AND d.softDelete = 0 AND d.tipoDocumento.id = :docType ")
+  Optional<Boolean> existByNroIdentidad(@Param("nroIdentidad") String nroIdentidad, @Param("docType") Long docType);
 
 }

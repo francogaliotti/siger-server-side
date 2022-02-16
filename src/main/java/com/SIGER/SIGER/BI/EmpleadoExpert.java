@@ -556,12 +556,18 @@ public class EmpleadoExpert extends
     }
 
     public Boolean alreadyExistDPVlEmail(String dpvEmail){
+
         return userService.existsByEmail(dpvEmail);
     }
 
-    public Boolean alreadyExistDocumentNumber(String documentNumber){
+    public Boolean alreadyExistDocumentNumber(String documentNumber, Long docType){
 
-        return null;
+        return  empleadoService.alreadyExistDocumentNumber(documentNumber, docType );
+    }
+
+    public Boolean alreadyExistUserName(String username){
+
+        return  userService.existsByUsername(username);
     }
 
 }
