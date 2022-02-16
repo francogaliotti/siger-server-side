@@ -550,5 +550,24 @@ public class EmpleadoExpert extends
         return newPassword;
     }
 
+    public Boolean alreadyExistPersonalEmail(String personalEmail) {
+
+        return empleadoService.alreadyExistPersonalEmail(personalEmail);
+    }
+
+    public Boolean alreadyExistDPVlEmail(String dpvEmail){
+
+        return userService.existsByEmail(dpvEmail);
+    }
+
+    public Boolean alreadyExistDocumentNumber(String documentNumber, Long docType){
+
+        return  empleadoService.alreadyExistDocumentNumber(documentNumber, docType );
+    }
+
+    public Boolean alreadyExistUserName(String username){
+
+        return  userService.existsByUsername(username);
+    }
 
 }

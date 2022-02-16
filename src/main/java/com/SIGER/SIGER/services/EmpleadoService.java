@@ -5,6 +5,7 @@ import com.SIGER.SIGER.repositories.EmpleadoRepository;
 import com.SIGER.SIGER.servicesInterfaces.IEmpleadoService;
 
 import java.util.Optional;
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +52,17 @@ public class EmpleadoService extends AbsBaseService<Empleado, Long> implements
         return empleadoRepository.findByUsuario(id);
     }
 
+    @Transactional
+    public boolean alreadyExistPersonalEmail(String personalEmail) {
+        return empleadoRepository.existsByCorreoPersonal(personalEmail);
+    }
+
+    @Transactional
+    public boolean alreadyExistDocumentNumber(String documentNumber, Long docType){
+        Optional<Boolean> aux = empleadoRepository.existByNroIdentidad(documentNumber, docType);
+        boolean exist = false;
+        if(aux.isPresent()) exist = true;
+
+        return  exist;
+    }
 }

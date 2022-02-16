@@ -1,6 +1,6 @@
 package com.SIGER.SIGER.model.entities;
 
-import com.SIGER.SIGER.security.entity.Usuario;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.SIGER.SIGER.security.entity.*;
 
 @Entity
 @AllArgsConstructor
