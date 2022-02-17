@@ -119,4 +119,8 @@ public class MovilidadExpert extends
         HttpStatus.NO_CONTENT);
   }
 
+  public boolean alreadyExistByPatente(String patente) {
+    return movilidadService.existsByPatente(patente);
+  }
+
 }
