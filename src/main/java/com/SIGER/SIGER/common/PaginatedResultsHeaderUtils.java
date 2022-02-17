@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component("paginatedResultsHeaderUtils")
 public class PaginatedResultsHeaderUtils {
 
-  public static final int PAGE_SIZE = 100;
+  public static final int PAGE_SIZE = 500;
 
   private static final String PAGE_PARAM = "page";
   private static final String NEXT_REL = "next";

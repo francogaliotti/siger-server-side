@@ -67,6 +67,12 @@ public class EmpleadoController extends
     return this.createUsuario(empleadoRequest);
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
+  @GetMapping("/update-remanente")
+  public ResponseEntity<EmpleadoResponse> updateRemanentes() throws Exception{
+      return empleadoExpert.updateRemanentes();
+  }
+
   private ResponseEntity<EmpleadoResponse> createUsuario(EmpleadoRequest empleadoRequest) throws Exception {
     HttpStatus status;
     String message = "";
