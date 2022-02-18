@@ -9,6 +9,7 @@ import com.SIGER.SIGER.services.MovilidadService;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -71,6 +72,12 @@ public class MovilidadController extends
   @DeleteMapping("/{id}")
   public ResponseEntity<?> delete(@PathVariable("id") Long id) throws Exception {
     return movilidadExpert.delete(id);
+  }
+
+  @PreAuthorize("hasRole('ADMIN')")
+  @GetMapping("/alreadyExistPatente/{patente}")
+  public ResponseEntity<Boolean> alreadyExistByPatente(@PathVariable("patente") String patente){
+    return new ResponseEntity<Boolean>(movilidadExpert.alreadyExistByPatente(patente), HttpStatus.OK);
   }
 
 }
