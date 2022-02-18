@@ -450,7 +450,7 @@ public class EmpleadoExpert extends
         employee.setRemanenteDiasLicencias(buildAndSetRemanenteDiasLicencia(antiguedad));
 
         aux_password = this.generateRandomPassword();
-        System.out.println("LA CONTRASEÑA ES: " + aux_password);
+        //System.out.println("LA CONTRASEÑA ES: " + aux_password);
         employee.getUsuario().setPassword(passwordEncoder.encode(aux_password));
         employee.getUsuario().setEnabled(true);
         employee.getUsuario().setPasswordExpireDate(LocalDateTime.now().plusMonths(6));
@@ -473,7 +473,6 @@ public class EmpleadoExpert extends
                                               String personalEmail) {
         EmailValuesDTO emailValuesDTO = EmailValuesDTO.builder().username(username).password(password)
                 .mailTo(personalEmail).build();
-        System.out.print("Preparing email: " + emailValuesDTO.getMailTo());
         return emailValuesDTO;
     }
 

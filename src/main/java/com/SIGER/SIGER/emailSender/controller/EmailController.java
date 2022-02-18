@@ -65,7 +65,6 @@ public class EmailController {
     usuario.setTokenPassword(tokenPassword);
 
     usuarioService.save(usuario);
-    System.out.println("Email Controller: " + valuesDTO.getMailTo());
     emailService.sendWelcomeEmail(valuesDTO);
 
     return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);

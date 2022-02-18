@@ -38,7 +38,6 @@ public class EmailService {
       Context context = new Context();
       Map<String, Object> model = new HashMap<>();
       model.put("username", emailValuesDTO.getUsername());
-      //model.put("password", emailValuesDTO.getPassword());
       model.put("home", url_First_Login + emailValuesDTO.getTokenPassword());
       context.setVariables(model);
 
