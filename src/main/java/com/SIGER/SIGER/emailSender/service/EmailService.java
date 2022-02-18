@@ -38,7 +38,7 @@ public class EmailService {
       Context context = new Context();
       Map<String, Object> model = new HashMap<>();
       model.put("username", emailValuesDTO.getUsername());
-      model.put("password", emailValuesDTO.getPassword());
+      //model.put("password", emailValuesDTO.getPassword());
       model.put("home", url_First_Login + emailValuesDTO.getTokenPassword());
       context.setVariables(model);
 
@@ -48,6 +48,7 @@ public class EmailService {
       helper.setTo(emailValuesDTO.getMailTo());
       helper.setSubject(emailValuesDTO.getSubject());
       helper.setText(htmlText,true);
+      System.out.println("Email Service: " + emailValuesDTO.getMailTo());
       javaMailSender.send(message);
     }catch (MessagingException e){
       e.printStackTrace();

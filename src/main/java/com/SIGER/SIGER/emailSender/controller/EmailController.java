@@ -48,7 +48,7 @@ public class EmailController {
 
   @PostMapping("/send-welcome-email")
   public ResponseEntity<?> sendWelcomeEmail(@RequestBody EmailValuesDTO valuesDTO){
-    Optional<Usuario> usuarioOptional = usuarioService.getByUsernameOrCorreoInstitucional(valuesDTO.getMailTo());
+    Optional<Usuario> usuarioOptional = usuarioService.getByUsernameOrCorreoInstitucional(valuesDTO.getUsername());
     if(!usuarioOptional.isPresent()){
       return new ResponseEntity<>(new Message("No existe ningún usuario con esas credenciales"),
               HttpStatus.NOT_FOUND);
@@ -56,17 +56,16 @@ public class EmailController {
 
     Usuario usuario = usuarioOptional.get();
     valuesDTO.setMailFrom(mailFrom);
-    valuesDTO.setMailTo(usuario.getCorreoInstitucional());
     valuesDTO.setSubject(subject_Welcome);
-    valuesDTO.setUsername(usuario.getUsername());
 
-    /*UUID uuid = UUID.randomUUID();
+    UUID uuid = UUID.randomUUID();
     String tokenPassword = uuid.toString();
 
     valuesDTO.setTokenPassword(tokenPassword);
     usuario.setTokenPassword(tokenPassword);
 
-    usuarioService.save(usuario);*/
+    usuarioService.save(usuario);
+    System.out.println("Email Controller: " + valuesDTO.getMailTo());
     emailService.sendWelcomeEmail(valuesDTO);
 
     return new ResponseEntity<>(new Message("Te hemos enviado un correo"), HttpStatus.OK);

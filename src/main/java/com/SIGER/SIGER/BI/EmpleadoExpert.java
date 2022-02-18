@@ -460,7 +460,7 @@ public class EmpleadoExpert extends
                                               String personalEmail) {
         EmailValuesDTO emailValuesDTO = EmailValuesDTO.builder().username(username).password(password)
                 .mailTo(personalEmail).build();
-
+        System.out.print("Preparing email: " + emailValuesDTO.getMailTo());
         return emailValuesDTO;
     }
 
