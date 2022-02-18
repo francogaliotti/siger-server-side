@@ -56,7 +56,6 @@ public class EmailController {
 
     Usuario usuario = usuarioOptional.get();
     valuesDTO.setMailFrom(mailFrom);
-    valuesDTO.setMailTo(usuario.getCorreoInstitucional());
     valuesDTO.setSubject(subject_Welcome);
     valuesDTO.setUsername(usuario.getUsername());
 
